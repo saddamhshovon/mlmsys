@@ -17,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');;
+Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/admin/auth', [AdminController::class, 'auth'])->name('admin.auth');
 Route::group(['middleware' => 'admin_auth'], function(){
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');;
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
