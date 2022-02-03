@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,20 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/admin/auth', [AdminController::class, 'auth'])->name('admin.auth');
+
+Route::get('/register', [MemberController::class, 'create'])->name('register');
+Route::post('/register-member', [MemberController::class, 'store'])->name('register.member');
+Route::get('/login', [MemberController::class, 'login'])->name('login');
+Route::post('/login-member', [MemberController::class, 'auth'])->name('auth');
+Route::get('/reset', function () {
+    return "testing reset";
+})->name('reset');
+
 Route::group(['middleware' => 'admin_auth'], function(){
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+});
+
+Route::group(['middleware' => 'member_auth'], function(){
+    Route::get('/dashboard', [MemberController::class, 'index'])->name('dashboard');
 });

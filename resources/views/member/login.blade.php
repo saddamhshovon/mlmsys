@@ -39,23 +39,26 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form action="{{ route('admin.auth') }}" method="post" class="user">
+                                    <form class="user" id="memberLogin">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email" require>
+                                            <input type="text" class="form-control form-control-user" id="exampleInputUSerName" aria-describedby="userNameHelp" placeholder="Enter User Name" name="user_name" require>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" id="exampleInputPassword" name="password" placeholder="Password" require>
                                         </div>
                                         <button class="btn btn-primary btn-user btn-block" type="submit">Sign in</button>
-                                        @if(session('error'))
-                                        <div class="text-center">
-                                        <h1 class="border-bottom-danger shadow btn-user mt-3" role="alert">
-                                            {{ session('error') }}
-                                        </h1>
-                                        </div>
-                                        @endif
                                     </form>
+                                    <div class="text-center">
+                                        <h1 id="login_message" class="h6 pt-3 text-danger" role="alert"></h1>
+                                    </div>
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="{{ route('reset')}}">Forgot Password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" href="{{ route('register')}}">Create an Account!</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

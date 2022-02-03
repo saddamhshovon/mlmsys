@@ -32,15 +32,15 @@ class AdminController extends Controller
         // $admin = Admin::where(['email' => $email, 'password' => $pass])->get();
         $admin = Admin::where(['email' => $email])->first();
 
-        if(!isset($admin->id)){
+        if (!isset($admin->id)) {
             $request->session()->flash('error', 'Please enter valid credentials.');
             return redirect('admin/login');
-        }else{
-            if($admin->password == $pass){
+        } else {
+            if ($admin->password == $pass) {
                 $request->session()->put('ADMIN_LOGIN', true);
                 $request->session()->put('ADMIN_ID', $admin->id);
                 return redirect('admin');
-            }else{
+            } else {
                 $request->session()->flash('error', 'Please enter correct password.');
                 return redirect('admin/login');
             }
@@ -54,7 +54,11 @@ class AdminController extends Controller
      */
     public function login()
     {
-        return view('admin.login');
+        if (session()->has('ADMIN_LOGIN')) {
+            return redirect('admin');
+        } else {
+            return view('admin.login');
+        }
     }
 
     public function logout()
@@ -62,7 +66,7 @@ class AdminController extends Controller
         session()->put('ADMIN_LOGIN');
         session()->forget('ADMIN_ID');
         session()->flash('error', 'Logout successfull.');
-        
+
         return redirect('admin/login');
     }
     /**
