@@ -74,10 +74,10 @@
                     <i class="fab fa-product-hunt"></i>
                     <span>Products</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="">
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Products:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Physical</a>
+                        <a class="collapse-item" href="{{url('product.all')}}">All Product</a>
                         <a class="collapse-item" href="utilities-border.html">Virtual</a>
                     </div>
                 </div>
