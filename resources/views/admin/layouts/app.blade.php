@@ -77,7 +77,7 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Products:</h6>
-                        <a class="collapse-item" href="{{url('product.all')}}">All Product</a>
+                        <a class="collapse-item" href="{{route('product.all')}}">All Product</a>
                         <a class="collapse-item" href="utilities-border.html">Virtual</a>
                     </div>
                 </div>
@@ -275,6 +275,37 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('dashboard/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('dashboard/js/demo/chart-pie-demo.js') }}"></script>
+
+    <!--       SWEET ALERT      -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('click', '#delete', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        });
+    </script>
 
 </body>
 

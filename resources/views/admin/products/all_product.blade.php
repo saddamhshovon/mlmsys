@@ -11,6 +11,18 @@
 
    <!-- DataTales Example -->
    <div class="card shadow mb-4">
+      <div>
+         @if(session('success'))
+         <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{session('success')}}</strong>
+         </div>
+         @endif
+         @if(session('error'))
+         <div class="alert alert-success alert-danger fade show" role="alert">
+            <strong>{{session('error')}}</strong>
+         </div>
+         @endif
+      </div>
       <div class="card-header py-3">
          <a href="{{route('product.add')}}" class="btn btn-primary">Add Product</a>
       </div>
@@ -35,7 +47,8 @@
                            <tr role="row">
                               <th class="text-center" scope="col" width="5%">SL</th>
                               <th class="text-center" scope="col" width="15%">Name</th>
-                              <th class="text-center" scope="col" width="15%">Code</th>
+                              <th class="text-center" scope="col" width="10%">Code</th>
+                              <th class="text-center" scope="col" width="10%">Price</th>
                               <th class="text-center" scope="col" width="15%">Category</th>
                               <th class="text-center" scope="col" width="15%">Image</th>
                               <th class="text-center" scope="col" width="15%">Action</th>
@@ -45,7 +58,8 @@
                            <tr>
                               <th class="text-center" scope="col" width="5%">SL</th>
                               <th class="text-center" scope="col" width="15%">Name</th>
-                              <th class="text-center" scope="col" width="15%">Code</th>
+                              <th class="text-center" scope="col" width="10%">Code</th>
+                              <th class="text-center" scope="col" width="10%">Price</th>
                               <th class="text-center" scope="col" width="15%">Category</th>
                               <th class="text-center" scope="col" width="15%">Image</th>
                               <th class="text-center" scope="col" width="15%">Action</th>
@@ -58,11 +72,12 @@
                               <td class="text-center sorting_1">{{$i++}}</td>
                               <td class="text-center sorting_1">{{$prod->product_name}}</td>
                               <td class="text-center">{{$prod->product_code}}</td>
+                              <td class="text-center">{{$prod->product_price}}</td>
                               <td class="text-center">{{$prod->product_category}}</td>
                               <td class="text-center"><img src="{{asset($prod->product_image)}}" style="width: 80px;height: 50px;" alt="Product Image"></td>
                               <td class="text-center">
-                                 <a href="#" class="btn btn-info vtn-sm">Edit</a>
-                                 <a href="#" class="btn btn-danger vtn-sm">Delete</a>
+                                 <a href="{{route('product.edit',$prod->id)}}" class="btn btn-info vtn-sm">Edit</a>
+                                 <a href="{{route('product.delete',$prod->id)}}" id="delete" class="btn btn-danger vtn-sm">Delete</a>
                               </td>
                            </tr>
                            @endforeach
@@ -89,6 +104,5 @@
          </div>
       </div>
    </div>
-
 </div>
 @endsection

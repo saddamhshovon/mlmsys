@@ -29,9 +29,9 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/product/all', [ProductController::class, 'allProduct'])->name('product.all');
     Route::get('/admin/product/add', [ProductController::class, 'addProduct'])->name('product.add');
     Route::post('/admin/product/store', [ProductController::class, 'storeProduct'])->name('product.store');
-    Route::get('/admin/product/edit', [ProductController::class, 'editProduct'])->name('product.edit');
+    Route::get('/admin/product/edit/{id}', [ProductController::class, 'editProduct'])->name('product.edit');
     Route::post('/admin/product/update', [ProductController::class, 'updateProduct'])->name('product.update');
-    Route::get('/admin/product/delete', [ProductController::class, 'deleteProduct'])->name('product.delete');
+    Route::get('/admin/product/delete/{id}', [ProductController::class, 'deleteProduct'])->name('product.delete');
 
     //////////               Product Related Route Ended             //////////
 });
