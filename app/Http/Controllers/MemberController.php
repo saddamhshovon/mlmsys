@@ -132,6 +132,19 @@ class MemberController extends Controller
         return redirect('login');
     }
 
+    public function transferFund()
+    {
+        return view('member.fund.transfer');
+    }
+    public function addFundReq()
+    {
+        return view('member.fund.add');
+    }
+    public function withdrawFund()
+    {
+        return view('member.fund.withdraw');
+    }
+
     /**
      * Display the specified resource.
      *
