@@ -63,7 +63,7 @@ class AdminController extends Controller
 
     public function logout()
     {
-        session()->put('ADMIN_LOGIN');
+        session()->forget('ADMIN_LOGIN');
         session()->forget('ADMIN_ID');
         session()->flash('error', 'Logout successfull.');
 

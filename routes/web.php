@@ -35,5 +35,6 @@ Route::group(['middleware' => 'admin_auth'], function(){
 });
 
 Route::group(['middleware' => 'member_auth'], function(){
-    Route::get('/dashboard', [MemberController::class, 'index'])->name('dashboard');
+    Route::get('/member', [MemberController::class, 'index'])->name('member.dashboard');;
+    Route::get('/logout', [MemberController::class, 'logout'])->name('member.logout');
 });

@@ -84,7 +84,7 @@ class MemberController extends Controller
     public function login()
     {
         if (session()->has('MEMBER_LOGIN')) {
-            return redirect('dashboard');
+            return redirect('member');
         } else {
             return view('member.login');
         }
@@ -120,6 +120,16 @@ class MemberController extends Controller
             'status' => $status,
             'message' => $message
         ]);
+    }
+
+    public function logout()
+    {
+        session()->forget('MEMBER_LOGIN');
+        session()->forget('MEMBER_ID');
+        session()->forget('MEMBER_FIRST_NAME');
+        session()->flash('error', 'Logout successfull.');
+
+        return redirect('login');
     }
 
     /**
