@@ -41,7 +41,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('member.dashboard')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -51,20 +51,90 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Profile
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProfile" aria-expanded="true" aria-controls="collapseProfile">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <span>My Profile</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseProfile" class="collapse" aria-labelledby="headingProfile" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="">Buttons</a>
-                        <a class="collapse-item" href="">Cards</a>
+                        <a class="collapse-item" href="">Edit Profile</a>
+                        <a class="collapse-item" href="">Change Profile Picture</a>
+                        <a class="collapse-item" href="">Change Password</a>
+                        <a class="collapse-item" href="">Change Pin</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Wallet
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseWallet" aria-expanded="true" aria-controls="collapseWallet">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>My Wallet</span>
+                </a>
+                <div id="collapseWallet" class="collapse" aria-labelledby="headingWallet" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="">Add Fund Request</a>
+                        <a class="collapse-item" href="">Transfer Fund</a>
+                        <a class="collapse-item" href="">Withdraw Fund</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Others
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHistory" aria-expanded="true" aria-controls="collapseHistory">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>History</span>
+                </a>
+                <div id="collapseHistory" class="collapse" aria-labelledby="headingHistory" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="">Fund Request History</a>
+                        <a class="collapse-item" href="">Transfer History</a>
+                        <a class="collapse-item" href="">Withdraw History</a>
+                    </div>
+                </div>
+            </li>
+            <!-- Nav Item - Leaderboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Leaderboard</span></a>
+            </li>
+            <!-- Nav Item - Shop -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Shop</span></a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSupport" aria-expanded="true" aria-controls="collapseSupport">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Support</span>
+                </a>
+                <div id="collapseSupport" class="collapse" aria-labelledby="headingSupport" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="">Request Support</a>
+                        <a class="collapse-item" href="">Support History</a>
                     </div>
                 </div>
             </li>
@@ -179,7 +249,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="{{ asset('dashboard/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -254,13 +324,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{ asset('dashboard/vendor/chart.js/Chart.min.js') }}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{ asset('dashboard/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('dashboard/js/demo/chart-pie-demo.js') }}"></script>
 
 </body>
 
