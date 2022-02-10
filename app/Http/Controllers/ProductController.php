@@ -100,6 +100,7 @@ class ProductController extends Controller
                 'product_category' => 'required',
                 'product_code' => 'required',
                 'product_price' => 'required',
+                'product_image' => 'required',
                 'product_pdf' => 'mimes:pdf'
             ],
             [
@@ -217,9 +218,16 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $image = $product->product_image;
-        unlink($image);
-
-        Product::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Product Deleted Successfully..');
+        $pdfFile = $product->product_pdf;
+        if ($pdfFile != "N/A") {
+            unlink($image);
+            unlink($pdfFile);
+            Product::findOrFail($id)->delete();
+            return redirect()->back()->with('success', 'Product Deleted Successfully..');
+        } else {
+            unlink($image);
+            Product::findOrFail($id)->delete();
+            return redirect()->back()->with('success', 'Product Deleted Successfully..');
+        }
     }
 }
