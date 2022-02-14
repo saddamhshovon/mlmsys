@@ -40,7 +40,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item {{  Request::routeIs('member.dashboard') ? 'active' : ''  }}">
                 <a class="nav-link" href="{{ route('member.dashboard')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -80,16 +80,16 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item {{  Request::routeIs('fund.*') ? 'active' : ''  }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseWallet" aria-expanded="true" aria-controls="collapseWallet">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>My Wallet</span>
                 </a>
-                <div id="collapseWallet" class="collapse" aria-labelledby="headingWallet" data-parent="#accordionSidebar">
+                <div id="collapseWallet" class="collapse {{  Request::routeIs('fund.*') ? 'show' : ''  }}" aria-labelledby="headingWallet" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Add Fund Request</a>
-                        <a class="collapse-item" href="">Transfer Fund</a>
-                        <a class="collapse-item" href="">Withdraw Fund</a>
+                        <a class="collapse-item {{  Request::routeIs('fund.add') ? 'active' : ''  }}" href="{{ route('fund.add') }}">Add Fund Request</a>
+                        <a class="collapse-item {{  Request::routeIs('fund.transfer') ? 'active' : ''  }}" href="{{ route('fund.transfer') }}">Transfer Fund</a>
+                        <a class="collapse-item {{  Request::routeIs('fund.withdraw') ? 'active' : ''  }}" href="{{ route('fund.withdraw') }}">Withdraw Fund</a>
                     </div>
                 </div>
             </li>

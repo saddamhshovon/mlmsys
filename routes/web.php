@@ -38,6 +38,7 @@ Route::group(['middleware' => 'member_auth'], function(){
     Route::get('/member', [MemberController::class, 'index'])->name('member.dashboard');;
     Route::get('/logout', [MemberController::class, 'logout'])->name('member.logout');
     Route::get('/fund/transfer', [MemberController::class, 'transferFund'])->name('fund.transfer');
-    Route::get('/fund/add', [MemberController::class, 'addFundReq'])->name('fund.transfer');
-    Route::get('/fund/withdraw', [MemberController::class, 'withdrawFund'])->name('fund.transfer');
+    Route::post('/fund/transfer-request', [MemberController::class, 'transferFundRequest'])->name('fund.transfer.request');
+    Route::get('/fund/add', [MemberController::class, 'addFundReq'])->name('fund.add');
+    Route::get('/fund/withdraw', [MemberController::class, 'withdrawFund'])->name('fund.withdraw');
 });
