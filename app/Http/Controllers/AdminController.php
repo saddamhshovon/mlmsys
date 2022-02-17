@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PharIo\Manifest\Email;
 
 class AdminController extends Controller
@@ -112,5 +114,112 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         //
+    }
+
+    public function allMember()
+    {
+        $members = Member::all();
+        return view('admin.member-manage.all', compact('members'));
+    }
+
+    public function activeMember()
+    {
+        $members = Member::all()->where('is_active', 1);
+        return view('admin.member-manage.active', compact('members'));
+    }
+
+    public function inactiveMember()
+    {
+        $members = Member::all()->where('is_active', 0)->where('is_expired', 0)->where('is_blocked', 0);
+        return view('admin.member-manage.inactive', compact('members'));
+    }
+
+    public function blockedMember()
+    {
+        $members = Member::all()->where('is_blocked', 1);
+        return view('admin.member-manage.blocked', compact('members'));
+    }
+
+    public function expiredMember()
+    {
+        $members = Member::all()->where('is_expired', 1);
+        return view('admin.member-manage.expired', compact('members'));
+    }
+
+    public function isActive($id)
+    {
+        $is_active = member::findOrFail($id);
+        $is_active->is_active = 1;
+        $is_active->save();
+        return redirect()->back();
+    }
+
+    public function isInActive($id)
+    {
+        $is_inactive = member::findOrFail($id);
+        $is_inactive->is_active = 0;
+        $is_inactive->save();
+        return redirect()->back();
+    }
+
+    public function isBlocked($id)
+    {
+        $is_blocked = member::findOrFail($id);
+        if ($is_blocked->is_blocked == 0) {
+            $is_blocked->is_blocked = 1;
+            $is_blocked->save();
+            return redirect()->route('member.all')->with('success', 'Blocked User Succesfully');
+        } else {
+            $is_blocked->is_blocked = 0;
+            $is_blocked->save();
+            return redirect()->route('member.all')->with('success', 'Unblocked User Succesfully');
+        }
+    }
+
+    public function showMember($id)
+    {
+        $member = Member::findOrFail($id);
+        return view('admin.member-manage.show', compact('member'));
+    }
+
+    public function editMember($id)
+    {
+        $member = Member::findOrFail($id);
+        return view('admin.member-manage.edit', compact('member'));
+    }
+
+    public function updateMember(Request $request, $id)
+    {
+        $request->validate(
+            [
+                "first_name" => 'required',
+                "last_name" => 'required',
+                "user_name" => 'required',
+                "email" => 'required|email',
+                "password" => 'required',
+                "mobile_no" => 'required',
+            ],
+            [
+                'email.required' => 'Please Input a Valid Email Address...!',
+            ]
+
+        );
+
+        $member = Member::findOrFail($id);
+
+        $member->first_name = $request->first_name;
+        $member->last_name = $request->last_name;
+        $member->user_name = $request->user_name;
+        $member->email = $request->email;
+        $member->password = $request->password;
+        $member->mobile_no = $request->mobile_no;
+        $member->pin = $request->pin;
+        $member->city = $request->city;
+        $member->country = $request->country;
+        $member->membership_type = $request->membership_type;
+        $member->moblie_banking_service = $request->moblie_banking_service;
+
+        $member->update();
+        return redirect()->route('member.all')->with('success', 'Updated User Details Successfully');
     }
 }
