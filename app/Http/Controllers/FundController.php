@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fund;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -40,30 +41,71 @@ class FundController extends Controller
             "amount" => 'required|numeric',
             "pin" => 'required',
         ]);
-        dd($request->all());
-        // $validator = Validator::make($request->all(), [
-        //     "user_name" => 'required|exists:members,user_name',
-        //     "amount" => 'required|numeric',
-        //     "pin" => 'required',
-        // ]);
+        $sender = DB::table('members')
+            ->select('user_name', 'account_balance', 'pin')
+            ->where([
+                'id' => session()->get('MEMBER_ID')
+            ])
+            ->get();
+        if ($request->user_name != $sender[0]->user_name) {
+            if ($sender[0]->account_balance > $request->amount) {
+                if ($sender[0]->pin == $request->pin) {
+                    $data = [
+                        "sender" => $sender[0]->user_name,
+                        "amount" => $request->amount,
+                        "receiver" => $request->user_name,
+                        "created_at" => Carbon::now(),
+                    ];
 
-        // if ($validator->fails()) {
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'message' => $validator->errors()->toArray()
-        //     ]);
-        // } 
-        // else {
-        //     return response()->json([
-        //         'status' => 'success',
-        //         'message' => 'Successfully Transfered',
-        //     ]);
-        // }
-        //     // $data = [
-        //     //     // "user_name" => $request->user_name,
-        //     //     // "password" => $request->password,
-        //     // ];
-        // return view('member.fund.transfer');
+                    $query = DB::table('transfer_funds')->insert($data);
+
+                    if ($query) {
+                        $newBalanceSender = $sender[0]->account_balance - $request->amount;
+
+                        $senderUp = DB::table('members')
+                            ->where([
+                                'id' => session()->get('MEMBER_ID')
+                            ])
+                            ->update([
+                                'account_balance' => $newBalanceSender
+                            ]);
+                        if ($senderUp) {
+                            $receiver = DB::table('members')
+                                ->select('account_balance')
+                                ->where([
+                                    'user_name' => $request->user_name
+                                ])
+                                ->get();
+                            $newBalanceReceiver = $receiver[0]->account_balance + $request->amount;
+
+                            $receiverUp = DB::table('members')
+                                ->where([
+                                    'user_name' => $request->user_name
+                                ])
+                                ->update([
+                                    'account_balance' => $newBalanceReceiver
+                                ]);
+                            if ($receiverUp) {
+                                return redirect()->back()->with('success', 'Successfully transfered fund.');
+                            } else {
+                                return redirect()->back()->with('failed', 'Could not transfer fund. Please try again.');
+                            }
+                        } else {
+                            return redirect()->back()->with('failed', 'Could not transfer fund. Please try again.');
+                        }
+                    } else {
+                        return redirect()->back()->with('failed', 'Could not transfer fund. Please try again.');
+                    }
+                } else {
+                    return redirect()->back()->with('failed', 'Wrong pin number. Please enter correct pin.')->withInput();
+                }
+            } else {
+                return redirect()->back()->with('failed', 'You do not have sufficient balance.')->withInput();
+            }
+        } else {
+            return redirect()->back()->with('failed', 'Please enter a valid username.')->withInput();
+        }
+        dd($request->all());
     }
 
 

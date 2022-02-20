@@ -15,6 +15,9 @@ class CreateTransferFundsTable extends Migration
     {
         Schema::create('transfer_funds', function (Blueprint $table) {
             $table->id();
+            $table->string('sender');
+            $table->integer('amount');
+            $table->string('receiver');
             $table->timestamps();
         });
     }

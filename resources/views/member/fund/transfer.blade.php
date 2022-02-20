@@ -18,7 +18,7 @@
                     <div>
                         <div class="mb-3">
                             <label for="user_name" class="form-label">User Name<span class="text-danger">*</span></label>
-                            <input type="text" name="user_name" class="form-control" id="user_name" placeholder="username">
+                            <input type="text" name="user_name" class="form-control" id="user_name" placeholder="username" value="{{ old('user_name') }}">
                         </div>
                         @error('user_name')
                         <div class="form-group">
@@ -28,7 +28,7 @@
 
                         <div class="mb-3">
                             <label for="amount" class="form-label">Amount<span class="text-danger">*</span></label>
-                            <input type="Number" name="amount" class="form-control" id="amount" placeholder="0">
+                            <input type="Number" name="amount" class="form-control" id="amount" placeholder="0" value="{{ old('amount') }}">
                         </div>
                         @error('amount')
                         <div class="form-group">
@@ -47,10 +47,17 @@
                         <div>
                             <button type="submit" class="btn btn-rounded btn-primary">Transfer</button>
                         </div>
-                </form>
-                <div class="text-center">
-                    <h1 id="transfer_message" class="h6 pt-3 text-success" role="alert"></h1>
-                </div>
+                    </form>
+                    @if(session('success'))
+                    <div class="text-center">
+                        <h1 id="transfer_message" class="h6 pt-3 text-success" role="alert">{{session('success')}}</h1>
+                    </div>
+                    @endif
+                    @if(session('failed'))
+                    <div class="text-center">
+                        <h1 id="transfer_message" class="h6 pt-3 text-danger" role="alert">{{session('failed')}}</h1>
+                    </div>
+                    @endif
             </div>
         </div>
     </div>

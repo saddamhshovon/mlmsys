@@ -132,48 +132,6 @@ class MemberController extends Controller
         return redirect('login');
     }
 
-    public function transferFund()
-    {
-        return view('member.fund.transfer');
-    }
-    public function transferFundRequest(Request $request)
-    {
-        // dd($request->all());
-        $validator = Validator::make($request->all(), [
-            "user_name" => 'required|exists:members,user_name',
-            "amount" => 'required|numeric',
-            "pin" => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $validator->errors()->toArray()
-            ]);
-        } 
-        else {
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Successfully Transfered',
-            ]);
-        }
-            // $data = [
-            //     // "user_name" => $request->user_name,
-            //     // "password" => $request->password,
-            // ];
-        return view('member.fund.transfer');
-    }
-
-
-    public function addFundReq()
-    {
-        return view('member.fund.add');
-    }
-    public function withdrawFund()
-    {
-        return view('member.fund.withdraw');
-    }
-
     /**
      * Display the specified resource.
      *

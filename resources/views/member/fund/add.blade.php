@@ -59,17 +59,17 @@
                         <div>
                             <button type="submit" class="btn btn-rounded btn-primary">Request</button>
                         </div>
-                        @if(session('success'))
-                        <div class="text-center">
-                            <h1 id="transfer_message" class="h6 pt-3 text-success" role="alert">{{session('success')}}</h1>
-                        </div>
-                        @endif
-                        @if(session('failed'))
-                        <div class="text-center">
-                            <h1 id="transfer_message" class="h6 pt-3 text-danger" role="alert">{{session('failed')}}</h1>
-                        </div>
-                        @endif
-                </form>
+                    </form>
+                    @if(session('success'))
+                    <div class="text-center">
+                        <h1 id="transfer_message" class="h6 pt-3 text-success" role="alert">{{session('success')}}</h1>
+                    </div>
+                    @endif
+                    @if(session('failed'))
+                    <div class="text-center">
+                        <h1 id="transfer_message" class="h6 pt-3 text-danger" role="alert">{{session('failed')}}</h1>
+                    </div>
+                    @endif
             </div>
         </div>
     </div>
