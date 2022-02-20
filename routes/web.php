@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\FundController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,8 +38,13 @@ Route::group(['middleware' => 'admin_auth'], function(){
 Route::group(['middleware' => 'member_auth'], function(){
     Route::get('/member', [MemberController::class, 'index'])->name('member.dashboard');;
     Route::get('/logout', [MemberController::class, 'logout'])->name('member.logout');
-    Route::get('/fund/transfer', [MemberController::class, 'transferFund'])->name('fund.transfer');
-    Route::post('/fund/transfer-request', [MemberController::class, 'transferFundRequest'])->name('fund.transfer.request');
-    Route::get('/fund/add', [MemberController::class, 'addFundReq'])->name('fund.add');
-    Route::get('/fund/withdraw', [MemberController::class, 'withdrawFund'])->name('fund.withdraw');
+
+    Route::get('/fund/transfer', [FundController::class, 'transferFund'])->name('fund.transfer');
+    Route::post('/fund/transfer-request', [FundController::class, 'transferFundRequest'])->name('fund.transfer.request');
+
+    Route::get('/fund/add', [FundController::class, 'addFundReq'])->name('fund.add');
+    Route::post('/fund/add-request', [FundController::class, 'store'])->name('fund.addreq');
+
+    Route::get('/fund/withdraw', [FundController::class, 'withdrawFund'])->name('fund.withdraw');
+    Route::post('/fund/withdraw-request', [FundController::class, 'withdraw'])->name('fund.withdrawreq');
 });
