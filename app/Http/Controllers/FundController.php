@@ -6,7 +6,6 @@ use App\Models\Fund;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 class FundController extends Controller
 {
@@ -47,6 +46,7 @@ class FundController extends Controller
                 'id' => session()->get('MEMBER_ID')
             ])
             ->get();
+            // dd($sender);
         if ($request->user_name != $sender[0]->user_name) {
             if ($sender[0]->account_balance > $request->amount) {
                 if ($sender[0]->pin == $request->pin) {
@@ -87,7 +87,7 @@ class FundController extends Controller
                                 ]);
                             if ($receiverUp) {
                                 return redirect()->back()->with('success', 'Successfully transfered fund.');
-                            } else {
+                            } else { 
                                 return redirect()->back()->with('failed', 'Could not transfer fund. Please try again.');
                             }
                         } else {
@@ -105,7 +105,7 @@ class FundController extends Controller
         } else {
             return redirect()->back()->with('failed', 'Please enter a valid username.')->withInput();
         }
-        dd($request->all());
+        // dd($request->all());
     }
 
 
