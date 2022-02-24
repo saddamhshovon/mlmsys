@@ -70,4 +70,20 @@ Route::group(['middleware' => 'member_auth'], function () {
 
     Route::get('/fund/withdraw', [FundController::class, 'withdrawFund'])->name('fund.withdraw');
     Route::post('/fund/withdraw-request', [FundController::class, 'withdraw'])->name('fund.withdrawreq');
+
+    ///////////////           USER PROFILE CHANGE         ////////////////
+
+    Route::get('/profile/edit', [MemberController::class, 'editProfile'])->name('edit.profile');
+    Route::post('/profile/update', [MemberController::class, 'updateProfile'])->name('update.profile');
+
+    Route::get('/profile/change-password', [MemberController::class, 'changePassword'])->name('change.password');
+    Route::post('/profile/change-password-request', [MemberController::class, 'changePasswordRequest'])->name('change.passwordRequ');
+
+    Route::get('/profile/change-pin', [MemberController::class, 'changePin'])->name('change.pin');
+    Route::post('/profile/change-pin-request', [MemberController::class, 'changePinRequest'])->name('change.passwordRequ');
+
+    Route::get('/profile/change-profile-picture', [MemberController::class, 'changeProfilePhoto'])->name('change.pphoto');
+    Route::post('/profile/change-profile-picture-request', [MemberController::class, 'changeProfilePhotoRequest'])->name('change.pphotoRequ');
+
+    ///////////////           END USER PROFILE CHANGE         ////////////////
 });

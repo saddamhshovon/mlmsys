@@ -41,6 +41,18 @@
                                     </div>
                                     <form class="user" id="memberLogin">
                                         @csrf
+                                        @if(session('success'))
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <strong>{{session('success')}}</strong>
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        </div>
+                                        @endif
+                                        @if(session('error'))
+                                        <div class="alert alert-success alert-danger fade show" role="alert">
+                                            <strong>{{session('error')}}</strong>
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        </div>
+                                        @endif
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" id="exampleInputUSerName" aria-describedby="userNameHelp" placeholder="Enter User Name" name="user_name" require>
                                         </div>

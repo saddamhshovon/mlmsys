@@ -88,7 +88,7 @@
                     <i class="fas fa-users"></i>
                     <span>Members</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar" style="">
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Member Manage:</h6>
                         <a class="collapse-item" href="{{route('member.all')}}">All Member</a>
@@ -208,8 +208,8 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                <img class="img-profile rounded-circle" src="{{ asset('dashboard/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -286,19 +286,14 @@
     <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script>
 
     <!-- Page level plugins -->
-    <script src="{{ asset('dashboard/vendor/chart.js/Chart.min.js') }}"></script>
     <script src="{{asset('dashboard/vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('dashboard/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
     <!-- Page level custom scripts -->
     <script src="{{asset('dashboard/js/demo/datatables-demo.js')}}"></script>
 
-    <script src="{{ asset('dashboard/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('dashboard/js/demo/chart-pie-demo.js') }}"></script>
-
     <!--       SWEET ALERT      -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.all.min.js"></script>
 
     <script type="text/javascript">
         $(function() {

@@ -62,10 +62,10 @@
                 </a>
                 <div id="collapseProfile" class="collapse" aria-labelledby="headingProfile" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Edit Profile</a>
-                        <a class="collapse-item" href="">Change Profile Picture</a>
-                        <a class="collapse-item" href="">Change Password</a>
-                        <a class="collapse-item" href="">Change Pin</a>
+                        <a class="collapse-item" href="{{route('edit.profile')}}">Edit Profile</a>
+                        <a class="collapse-item" href="{{route('change.pphoto')}}">Change Profile Picture</a>
+                        <a class="collapse-item" href="{{route('change.password')}}">Change Password</a>
+                        <a class="collapse-item" href="{{route('change.pin')}}">Change Pin</a>
                     </div>
                 </div>
             </li>
@@ -73,7 +73,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            
+
             <!-- Heading -->
             <div class="sidebar-heading">
                 Wallet
@@ -246,10 +246,14 @@
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
+                        @php
+                        $id = session('MEMBER_ID');
+                        $profilePhoto = DB::table('members')->find($id)->profile_photo;
+                        @endphp
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ session()->get('MEMBER_FIRST_NAME')}}</span>
-                                <img class="img-profile rounded-circle" src="{{ asset('dashboard/img/undraw_profile.svg') }}">
+                                <img class="img-profile rounded-circle" src="{{(!empty($profilePhoto))?url('images/user_profile/'.$profilePhoto):url('dashboard/img/undraw_profile.svg')}}" alt="">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -314,6 +318,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('dashboard/vendor/jquery/jquery.min.js') }}"></script>

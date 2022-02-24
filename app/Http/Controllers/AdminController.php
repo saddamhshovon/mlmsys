@@ -148,7 +148,7 @@ class AdminController extends Controller
 
     public function isActive($id)
     {
-        $is_active = member::findOrFail($id);
+        $is_active = Member::findOrFail($id);
         $is_active->is_active = 1;
         $is_active->save();
         return redirect()->back();
@@ -156,7 +156,7 @@ class AdminController extends Controller
 
     public function isInActive($id)
     {
-        $is_inactive = member::findOrFail($id);
+        $is_inactive = Member::findOrFail($id);
         $is_inactive->is_active = 0;
         $is_inactive->save();
         return redirect()->back();
@@ -164,7 +164,7 @@ class AdminController extends Controller
 
     public function isBlocked($id)
     {
-        $is_blocked = member::findOrFail($id);
+        $is_blocked = Member::findOrFail($id);
         if ($is_blocked->is_blocked == 0) {
             $is_blocked->is_blocked = 1;
             $is_blocked->save();
