@@ -14,7 +14,7 @@
         <div class="card shadow mb-4">
             <div class="card-body">
 
-                <form action="{{route('change.passwordRequ')}}" method="POST">
+                <form action="{{route('profile.change.passwordRequ')}}" method="POST">
                     @csrf
 
                     <div class="mb-3">

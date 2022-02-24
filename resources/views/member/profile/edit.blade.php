@@ -25,7 +25,7 @@
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                 </div>
                 @endif
-                <form action="{{route('update.profile')}}" method="POST">
+                <form action="{{route('profile.update')}}" method="POST">
                     @csrf
 
                     <div class="mb-3">

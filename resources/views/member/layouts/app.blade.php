@@ -55,17 +55,17 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item {{Request::routeIs('profile.*') ? 'active' : ''}}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProfile" aria-expanded="true" aria-controls="collapseProfile">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>My Profile</span>
                 </a>
-                <div id="collapseProfile" class="collapse" aria-labelledby="headingProfile" data-parent="#accordionSidebar">
+                <div id="collapseProfile" class="collapse {{  Request::routeIs('profile.*') ? 'show' : ''  }}" aria-labelledby="headingProfile" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{route('edit.profile')}}">Edit Profile</a>
-                        <a class="collapse-item" href="{{route('change.pphoto')}}">Change Profile Picture</a>
-                        <a class="collapse-item" href="{{route('change.password')}}">Change Password</a>
-                        <a class="collapse-item" href="{{route('change.pin')}}">Change Pin</a>
+                        <a class="collapse-item {{  Request::routeIs('profile.edit') ? 'active' : ''  }}" href="{{route('profile.edit')}}">Edit Profile</a>
+                        <a class="collapse-item {{  Request::routeIs('profile.change.photo') ? 'active' : ''  }}" href="{{route('profile.change.photo')}}">Change Profile Picture</a>
+                        <a class="collapse-item {{  Request::routeIs('profile.change.password') ? 'active' : ''  }}" href="{{route('profile.change.password')}}">Change Password</a>
+                        <a class="collapse-item {{  Request::routeIs('profile.change.pin') ? 'active' : ''  }}" href="{{route('profile.change.pin')}}">Change Pin</a>
                     </div>
                 </div>
             </li>

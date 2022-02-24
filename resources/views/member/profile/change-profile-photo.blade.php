@@ -28,7 +28,7 @@
 
                 <img class="rounded-circle" style="height:160px; width: 130px;" src="{{(!empty($profilePhoto))?url('images/user_profile/'.$profilePhoto):url('images/no_image.jpg')}}" height="100%" width="100%" alt=""><br>
 
-                <form action="{{route('change.pphotoRequ')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('profile.change.photoRequ')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="profile_photo" class="form-label">Upload Photo<span class="text-danger">*</span></label>

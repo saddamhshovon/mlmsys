@@ -73,17 +73,17 @@ Route::group(['middleware' => 'member_auth'], function () {
 
     ///////////////           USER PROFILE CHANGE         ////////////////
 
-    Route::get('/profile/edit', [MemberController::class, 'editProfile'])->name('edit.profile');
-    Route::post('/profile/update', [MemberController::class, 'updateProfile'])->name('update.profile');
+    Route::get('/profile/edit', [MemberController::class, 'editProfile'])->name('profile.edit');
+    Route::post('/profile/update', [MemberController::class, 'updateProfile'])->name('profile.update');
 
-    Route::get('/profile/change-password', [MemberController::class, 'changePassword'])->name('change.password');
-    Route::post('/profile/change-password-request', [MemberController::class, 'changePasswordRequest'])->name('change.passwordRequ');
+    Route::get('/profile/change-password', [MemberController::class, 'changePassword'])->name('profile.change.password');
+    Route::post('/profile/change-password-request', [MemberController::class, 'changePasswordRequest'])->name('profile.change.passwordRequ');
 
-    Route::get('/profile/change-pin', [MemberController::class, 'changePin'])->name('change.pin');
-    Route::post('/profile/change-pin-request', [MemberController::class, 'changePinRequest'])->name('change.passwordRequ');
+    Route::get('/profile/change-pin', [MemberController::class, 'changePin'])->name('profile.change.pin');
+    Route::post('/profile/change-pin-request', [MemberController::class, 'changePinRequest'])->name('profile.change.pinRequ');
 
-    Route::get('/profile/change-profile-picture', [MemberController::class, 'changeProfilePhoto'])->name('change.pphoto');
-    Route::post('/profile/change-profile-picture-request', [MemberController::class, 'changeProfilePhotoRequest'])->name('change.pphotoRequ');
+    Route::get('/profile/change-profile-picture', [MemberController::class, 'changeProfilePhoto'])->name('profile.change.photo');
+    Route::post('/profile/change-profile-picture-request', [MemberController::class, 'changeProfilePhotoRequest'])->name('profile.change.photoRequ');
 
     ///////////////           END USER PROFILE CHANGE         ////////////////
 });
