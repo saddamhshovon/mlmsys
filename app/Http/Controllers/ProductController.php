@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Models\Product;
-
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 
 use Image;
@@ -28,7 +30,7 @@ class ProductController extends Controller
             [
                 'product_name' => 'required',
                 'product_category' => 'required',
-                'product_code' => 'required',
+                'product_code' => 'required|unique',
                 'product_price' => 'required',
                 'product_image' => 'required|mimes:jpg,jpeg,png,webp',
                 'product_pdf' => 'mimes:pdf',
@@ -42,7 +44,7 @@ class ProductController extends Controller
         $size = $request->file('product_image')->getSize();
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
         $save_url = 'images/product/' . $name_gen;
-        Image::make($image)->save($save_url);
+        Image::make($image)->resize(300, 300)->save($save_url);
         $prod_pdf = $request->file('product_pdf');
 
         if (($size <= 500000) && (empty($prod_pdf))) {
@@ -54,7 +56,8 @@ class ProductController extends Controller
                     'product_code' => $request->product_code,
                     'product_price' => $request->product_price,
                     'product_description' => $request->product_description,
-                    'product_image' => $save_url
+                    'product_image' => $save_url,
+                    'created_at' => Carbon::now()
                 ]
             );
             return redirect()->back()->with('success', 'Product Added Successfully..!');
@@ -72,6 +75,7 @@ class ProductController extends Controller
                     'product_description' => $request->product_description,
                     'product_image' => $save_url,
                     'product_pdf' => $save_pdf,
+                    'created_at' => Carbon::now()
                 ]
             );
             return redirect()->back()->with('success', 'Product Added Successfully..!');
@@ -98,7 +102,7 @@ class ProductController extends Controller
             [
                 'product_name' => 'required',
                 'product_category' => 'required',
-                'product_code' => 'required',
+                'product_code' => 'required|unique',
                 'product_price' => 'required',
                 'product_image' => 'required',
                 'product_pdf' => 'mimes:pdf'
@@ -115,7 +119,7 @@ class ProductController extends Controller
                 $size = $request->file('product_image')->getSize();
                 $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
                 $save_url = 'images/product/' . $name_gen;
-                Image::make($image)->save($save_url);
+                Image::make($image)->resize(300, 300)->save($save_url);
 
                 if ($size > 500000) {
                     return redirect()->back()->with('error', 'Image Size Should Not be Greater Than 500 KB');
@@ -175,7 +179,7 @@ class ProductController extends Controller
                 $size = $request->file('product_image')->getSize();
                 $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
                 $save_url = 'images/product/' . $name_gen;
-                Image::make($image)->save($save_url);
+                Image::make($image)->resize(300, 300)->save($save_url);
                 $tmp_pdf = $old_pdf;
                 $prod_pdf = $request->file('product_pdf');
                 $pdf_name_gen = hexdec(uniqid()) . '.' . 'pdf';
@@ -229,5 +233,115 @@ class ProductController extends Controller
             Product::findOrFail($id)->delete();
             return redirect()->back()->with('success', 'Product Deleted Successfully..');
         }
+    }
+
+    public function activeProduct($id)
+    {
+        $status = Product::findOrFail($id);
+        $status->status = 1;
+        $status->save();
+        return redirect()->back();
+    }
+
+    public function inactiveProduct($id)
+    {
+        $status = Product::findOrFail($id);
+        $status->status = 0;
+        $status->save();
+        return redirect()->back();
+    }
+
+    public function userAllProduct()
+    {
+        $products = Product::latest()->where('status', '1')->paginate(8);
+        return view('member.product.all', compact('products'));
+    }
+
+    public function buyProduct($name, $id)
+    {
+        $member_id = session('MEMBER_ID');
+        $product_id = $id;
+        $member = Member::findOrFail($member_id);
+        $product = Product::findOrFail($product_id);
+        // dd($product_id);
+        return view('member.product.order', compact('member', 'product'));
+    }
+
+    public function orderProduct(Request $request)
+    {
+        $request->validate(
+            [
+                'name' => 'required',
+                'phone' => 'required',
+                'address' => 'required',
+                'city' => 'required',
+                'country' => 'required',
+                'pin' => 'required',
+            ]
+        );
+        // dd($request->all());
+        $member_id = session('MEMBER_ID');
+        // dd($member_id);
+        $pin = Member::where('id', $member_id)->get('pin');
+        // dd($pin);
+        $balance = Member::where('id', $member_id)->get('account_balance');
+        // dd($balance->all());
+
+        $product_id = $request->product_id;
+        $price = Product::where('id', $product_id)->get('product_price');
+        // $price = $product->product_price;
+        // dd($price->all());
+        $order = new Order;
+        $order->member_id = $member_id;
+        $order->product_id = $product_id;
+        $order->name = $request->name;
+        $order->phone = $request->phone;
+        $order->address = $request->address;
+        $order->city = $request->city;
+        $order->country = $request->country;
+        // dd($order->all());
+        if ($request->pin == $pin[0]->pin) {
+            if ($balance[0]->account_balance < $price[0]->product_price) {
+                return redirect()->back()->withInput()->with('error', 'Insufficient Balance');
+            } else {
+                $order->save();
+
+                $newBalance = $balance[0]->account_balance - $price[0]->product_price;
+                $member = Member::findOrFail($member_id);
+                $member->account_balance = $newBalance;
+                $member->update();
+
+                return redirect()->back()->withInput()->with('success', 'Order Placed Successfully, please check your order history');
+            }
+        } else {
+            return redirect()->back()->withInput()->with('error', 'Pin Did not match');
+        }
+    }
+
+    public function orderHistory()
+    {
+        $member_id = session('MEMBER_ID');
+        $history = Order::where('member_id', $member_id)->latest()->paginate(8);
+        return view('member.history.product-order', compact('history'));
+    }
+
+    public function allProductOrderHistory()
+    {
+        $history = Order::latest()->get();
+        return view('admin.products.all-order', compact('history'));
+    }
+
+    public function approveProductOrderHistory($id)
+    {
+        $status = Order::findOrFail($id);
+        $status->is_delivered = 1;
+        $status->update();
+        return redirect()->back()->with('success', 'Approved Order Successfully..');
+    }
+
+    public function deleteProductOrderHistory($id)
+    {
+        Order::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Order History Deleted Successfully..');
     }
 }

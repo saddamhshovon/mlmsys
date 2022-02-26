@@ -96,20 +96,39 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
+                Shop
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item {{  Request::routeIs('product.*') ? 'active' : ''  }}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseShop" aria-expanded="true" aria-controls="collapseShop">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>My Shop</span>
+                </a>
+                <div id="collapseShop" class="collapse {{  Request::routeIs('product.*') ? 'show' : ''  }}" aria-labelledby="headingShop" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item {{  Request::routeIs('product.all.user') ? 'active' : ''  }}" href="{{ route('product.all.user') }}">All Product</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
                 Others
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item {{  Request::routeIs('history.*') ? 'active' : ''  }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHistory" aria-expanded="true" aria-controls="collapseHistory">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>History</span>
                 </a>
                 <div id="collapseHistory" class="collapse" aria-labelledby="headingHistory" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Fund Request History</a>
-                        <a class="collapse-item" href="">Transfer History</a>
-                        <a class="collapse-item" href="">Withdraw History</a>
+                        <a class="collapse-item {{  Request::routeIs('history.product.order') ? 'active' : '' }}" href="{{route('history.product.order')}}">Fund Request History</a>
+                        <a class="collapse-item {{  Request::routeIs('history.product.order') ? 'active' : '' }}" href="{{route('history.product.order')}}">Transfer History</a>
+                        <a class="collapse-item {{  Request::routeIs('history.product.order') ? 'active' : '' }}" href="{{route('history.product.order')}}">Withdraw History</a>
+                        <a class="collapse-item {{  Request::routeIs('history.product.order') ? 'active' : '' }}" href="{{route('history.product.order')}}">Product Order History</a>
                     </div>
                 </div>
             </li>
@@ -166,6 +185,12 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        @php
+                        $id = session('MEMBER_ID');
+                        $balance = DB::table('members')->find($id)->account_balance;
+                        @endphp
+
+                        <li class="nav-item mx-1 nav-link" style="margin-top: 15px;">Balance: <strong>{{(!empty($balance))?$balance:0}}</strong></li>
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -329,6 +354,36 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script>
+
+    <!--       SWEET ALERT      -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('click', '#place-order', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Are you sure to buy?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, buy it..!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Bought!',
+                            'Your product has been purchased.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        });
+    </script> -->
 
 </body>
 

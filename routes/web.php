@@ -34,6 +34,11 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/product/edit/{id}', [ProductController::class, 'editProduct'])->name('product.edit');
     Route::post('/admin/product/update', [ProductController::class, 'updateProduct'])->name('product.update');
     Route::get('/admin/product/delete/{id}', [ProductController::class, 'deleteProduct'])->name('product.delete');
+    Route::get('/admin/product/active/{id}', [ProductController::class, 'activeProduct'])->name('product.active');
+    Route::get('/admin/product/inactive/{id}', [ProductController::class, 'inactiveProduct'])->name('product.inactive');
+    Route::get('/admin/product/history', [ProductController::class, 'allProductOrderHistory'])->name('product.order.history');
+    Route::get('/admin/product/approve/{id}', [ProductController::class, 'approveProductOrderHistory'])->name('product.order.approve');
+    Route::get('/admin/product/delete/{id}', [ProductController::class, 'deleteProductOrderHistory'])->name('product.order.delete');
 
     //////////               Product Related Route Ended             //////////
 
@@ -57,6 +62,8 @@ Route::group(['middleware' => 'admin_auth'], function () {
 });
 
 /////////////              ADMIN ROUTE END                ///////////
+
+/////////////              USER RELATED ROUTE START                ///////////
 
 Route::group(['middleware' => 'member_auth'], function () {
     Route::get('/member', [MemberController::class, 'index'])->name('member.dashboard');
@@ -86,4 +93,12 @@ Route::group(['middleware' => 'member_auth'], function () {
     Route::post('/profile/change-profile-picture-request', [MemberController::class, 'changeProfilePhotoRequest'])->name('profile.change.photoRequ');
 
     ///////////////           END USER PROFILE CHANGE         ////////////////
+
+    Route::get('/product/member/all', [ProductController::class, 'userAllProduct'])->name('product.all.user');
+    Route::get('/product/{name}-{id}', [ProductController::class, 'buyProduct'])->name('product.buy');
+    Route::post('/product/order', [ProductController::class, 'orderProduct'])->name('product.order');
+    Route::get('/product/order/history', [ProductController::class, 'orderHistory'])->name('history.product.order');
 });
+
+
+/////////////              USER RELATED ROUTE END                ///////////

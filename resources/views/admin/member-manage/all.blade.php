@@ -19,7 +19,7 @@
          </div>
          @endif
          @if(session('error'))
-         <div class="alert alert-success alert-danger fade show" role="alert">
+         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>{{session('error')}}</strong>
             <button type="button" class="close" data-dismiss="alert">&times;</button>
          </div>
@@ -42,17 +42,6 @@
                               <th class="text-center" scope="col" width="15%">Action</th>
                            </tr>
                         </thead>
-                        <tfoot>
-                           <tr>
-                              <th class="text-center" scope="col" width="5%">SL</th>
-                              <th class="text-center" scope="col" width="15%">Name</th>
-                              <th class="text-center" scope="col" width="10%">City</th>
-                              <th class="text-center" scope="col" width="10%">Country</th>
-                              <th class="text-center" scope="col" width="15%">Balance</th>
-                              <th class="text-center" scope="col" width="15%">Status</th>
-                              <th class="text-center" scope="col" width="15%">Action</th>
-                           </tr>
-                        </tfoot>
                         <tbody>
                            @php($i=1)
                            @foreach($members as $mem)

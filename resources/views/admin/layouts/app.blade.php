@@ -79,6 +79,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Products:</h6>
                         <a class="collapse-item" href="{{route('product.all')}}">All Product</a>
+                        <a class="collapse-item" href="{{route('product.order.history')}}">Product Order History</a>
                     </div>
                 </div>
             </li>
@@ -314,6 +315,35 @@
                         Swal.fire(
                             'Deleted!',
                             'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        });
+    </script>
+
+    <!-- active status -->
+
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('click', '#is-active', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Sure to change active status?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, change it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Changed!',
+                            'Active status has been changed.',
                             'success'
                         )
                     }

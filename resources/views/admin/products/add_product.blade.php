@@ -13,21 +13,22 @@
    <div class="row">
       <div class="col-8">
          <div class="card shadow mb-4">
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+               <strong>{{session('success')}}</strong>
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            @endif
+            @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+               <strong>{{session('error')}}</strong>
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            @endif
             <div class="card-header py-3">
                <a href="{{route('product.all')}}" class="btn btn-primary">Back To All Product</a>
             </div>
-            <div>
-               @if(session('success'))
-               <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  <strong>{{session('success')}}</strong>
-               </div>
-               @endif
-               @if(session('error'))
-               <div class="alert alert-success alert-danger fade show" role="alert">
-                  <strong>{{session('error')}}</strong>
-               </div>
-               @endif
-            </div>
+
             <div class="card-body">
                <form action="{{route('product.store')}}" method="post" enctype="multipart/form-data">
                   @csrf

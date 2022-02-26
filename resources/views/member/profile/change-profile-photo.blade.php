@@ -26,7 +26,7 @@
                 </div>
                 @endif
 
-                <img class="rounded-circle" style="height:160px; width: 130px;" src="{{(!empty($profilePhoto))?url('images/user_profile/'.$profilePhoto):url('images/no_image.jpg')}}" height="100%" width="100%" alt=""><br>
+                <img class="rounded-circle" style="height:130px; width: 130px;" src="{{(!empty($profilePhoto))?url('images/user_profile/'.$profilePhoto):url('images/no_image.jpg')}}" height="100%" width="100%" alt=""><br>
 
                 <form action="{{route('profile.change.photoRequ')}}" method="POST" enctype="multipart/form-data">
                     @csrf
