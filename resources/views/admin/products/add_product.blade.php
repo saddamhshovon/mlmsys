@@ -35,7 +35,7 @@
                   <div>
                      <div class="mb-3">
                         <label for="product_name" class="form-label">Product Names<span class="text-danger">*</span></label>
-                        <input type="text" name="product_name" class="form-control" id="product_name" placeholder="Product Name">
+                        <input type="text" name="product_name" value="{{old('product_name')}}" class="form-control" id="product_name" placeholder="Product Name">
                         @error('product_name')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -55,7 +55,7 @@
 
                      <div class="mb-3">
                         <label for="product_code" class="form-label">Product Code<span class="text-danger">*</span></label>
-                        <input type="text" name="product_code" class="form-control" id="product_code" placeholder="Product Code">
+                        <input type="text" name="product_code" value="{{old('product_code')}}" class="form-control" id="product_code" placeholder="Product Code">
                         @error('product_code')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -63,7 +63,7 @@
 
                      <div class="mb-3">
                         <label for="product_price" class="form-label">Product Price<span class="text-danger">*</span></label>
-                        <input type="text" name="product_price" class="form-control" id="product_price" placeholder="Product Price">
+                        <input type="text" name="product_price" value="{{old('product_price')}}" class="form-control" id="product_price" placeholder="Product Price">
                         @error('product_price')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -71,7 +71,7 @@
 
                      <div class="mb-3">
                         <label for="product_description" class="form-label">Product Description</label>
-                        <textarea class="form-control" name="product_description" id="product_description" rows="2" placeholder="Product Description"></textarea>
+                        <textarea class="form-control" name="product_description" id="product_description" rows="2" placeholder="Product Description">{{old('product_description')}}</textarea>
                      </div>
 
                      <div class="mb-3">

@@ -30,7 +30,7 @@ class ProductController extends Controller
             [
                 'product_name' => 'required',
                 'product_category' => 'required',
-                'product_code' => 'required|unique',
+                'product_code' => 'required',
                 'product_price' => 'required',
                 'product_image' => 'required|mimes:jpg,jpeg,png,webp',
                 'product_pdf' => 'mimes:pdf',
@@ -39,7 +39,6 @@ class ProductController extends Controller
                 'product_pdf.mimes' => 'Please Input a pdf File..',
             ]
         );
-
         $image = $request->file('product_image');
         $size = $request->file('product_image')->getSize();
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
@@ -80,7 +79,7 @@ class ProductController extends Controller
             );
             return redirect()->back()->with('success', 'Product Added Successfully..!');
         } else {
-            return redirect()->back()->with('error', 'Image Size Should Not be Greater Than 500 KB');
+            return redirect()->back()->withInput()->with('error', 'Image Size Should Not be Greater Than 500 KB');
         }
     }
 

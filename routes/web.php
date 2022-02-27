@@ -38,7 +38,7 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/product/inactive/{id}', [ProductController::class, 'inactiveProduct'])->name('product.inactive');
     Route::get('/admin/product/history', [ProductController::class, 'allProductOrderHistory'])->name('product.order.history');
     Route::get('/admin/product/approve/{id}', [ProductController::class, 'approveProductOrderHistory'])->name('product.order.approve');
-    Route::get('/admin/product/delete/{id}', [ProductController::class, 'deleteProductOrderHistory'])->name('product.order.delete');
+    Route::get('/admin/product/delete-history/{id}', [ProductController::class, 'deleteProductOrderHistory'])->name('product.order.delete');
 
     //////////               Product Related Route Ended             //////////
 

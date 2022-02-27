@@ -64,13 +64,6 @@
                                     <div class="text-center">
                                         <h1 id="login_message" class="h6 pt-3 text-danger" role="alert"></h1>
                                     </div>
-                                    @if(session('error'))
-                                    <div class="text-center">
-                                        <h1 class="h6 pt-3 text-danger" role="alert">
-                                            {{ session('error') }}
-                                        </h1>
-                                    </div>
-                                    @endif
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="{{ route('reset')}}">Forgot Password?</a>
