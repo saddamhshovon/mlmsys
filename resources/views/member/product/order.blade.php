@@ -99,6 +99,7 @@
                <div class="text-center">
                   <h5 class="pt-1 card-title"><strong>{{$product->product_name}}</strong></h5>
                   <p class="">Category: {{$product->product_category}}</p>
+                  <p class="text-grey-700"><strong>Description:</strong> {{$product->product_description}}</p>
                   <p class="text-danger">Price: {{$product->product_price}} Taka</p>
                </div>
             </div>

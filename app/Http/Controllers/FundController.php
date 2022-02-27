@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fund;
+use App\Models\Member;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,7 +47,7 @@ class FundController extends Controller
                 'id' => session()->get('MEMBER_ID')
             ])
             ->get();
-            // dd($sender);
+        // dd($sender);
         if ($request->user_name != $sender[0]->user_name) {
             if ($sender[0]->account_balance > $request->amount) {
                 if ($sender[0]->pin == $request->pin) {
@@ -87,7 +88,7 @@ class FundController extends Controller
                                 ]);
                             if ($receiverUp) {
                                 return redirect()->back()->with('success', 'Successfully transfered fund.');
-                            } else { 
+                            } else {
                                 return redirect()->back()->with('failed', 'Could not transfer fund. Please try again.');
                             }
                         } else {
@@ -237,5 +238,37 @@ class FundController extends Controller
     public function destroy(Fund $fund)
     {
         //
+    }
+
+
+
+
+    //////////////             FUND HISTORY              ///////////////
+
+    public function fundAddRequestHistory()
+    {
+        $member_id = session('MEMBER_ID');
+        $member = Member::findOrFail($member_id);
+        $username = $member->user_name;
+        $history = Fund::where('user_name', $username)->where('funding_type', 1)->latest()->paginate(8);
+        return view('member.history.fund-request', compact('history'));
+    }
+
+    public function fundWithdrawRequestHistory()
+    {
+        $member_id = session('MEMBER_ID');
+        $member = Member::findOrFail($member_id);
+        $username = $member->user_name;
+        $history = Fund::where('user_name', $username)->where('funding_type', 0)->latest()->paginate(8);
+        return view('member.history.withdraw', compact('history'));
+    }
+
+    public function fundTransferHistory()
+    {
+        $member_id = session('MEMBER_ID');
+        $member = Member::findOrFail($member_id);
+        $sender = $member->user_name;
+        $history = DB::table('transfer_funds')->where('sender', $sender)->latest()->paginate(8);
+        return view('member.history.transfer', compact('history'));
     }
 }

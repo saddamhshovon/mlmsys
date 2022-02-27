@@ -95,9 +95,12 @@ Route::group(['middleware' => 'member_auth'], function () {
     ///////////////           END USER PROFILE CHANGE         ////////////////
 
     Route::get('/product/member/all', [ProductController::class, 'userAllProduct'])->name('product.all.user');
-    Route::get('/product/{name}-{id}', [ProductController::class, 'buyProduct'])->name('product.buy');
+    Route::get('/product/buy/{name}-{id}', [ProductController::class, 'buyProduct'])->name('product.buy');
     Route::post('/product/order', [ProductController::class, 'orderProduct'])->name('product.order');
-    Route::get('/product/order/history', [ProductController::class, 'orderHistory'])->name('history.product.order');
+    Route::get('/history/product-order', [ProductController::class, 'memberProductOrderHistory'])->name('history.product.order');
+    Route::get('/history/fund-add-request', [FundController::class, 'fundAddRequestHistory'])->name('history.fund.request');
+    Route::get('/history/fund-transfer', [FundController::class, 'fundTransferHistory'])->name('history.fund.transfer');
+    Route::get('/history/fund-withdraw-request', [FundController::class, 'fundWithdrawRequestHistory'])->name('history.withdraw.request');
 });
 
 

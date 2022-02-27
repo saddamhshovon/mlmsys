@@ -35,10 +35,9 @@
                   <img src="{{asset($prod->product_image)}}" class="card-img-top" alt="...">
                   <div class="text-center">
                      <h5 class="pt-1 card-title"><strong>{{$prod->product_name}}</strong></h5>
-                     <p class="">Category: {{$prod->product_category}}</p>
+                     <p>Category: {{$prod->product_category}}</p>
                      <p class="text-danger">Price: {{$prod->product_price}} Taka</p>
-                     <a href="{{route('product.buy',['name'=>$prod->product_name,'id'=>$prod->id])}}" class="btn btn-primary">Order</a>
-                     <a href="{{route('product.buy',['name'=>$prod->product_name,'id'=>$prod->id])}}" class="btn btn-primary">Details</a>
+                     <a href="{{route('product.buy',['name'=>$prod->product_name,'id'=>$prod->id])}}" class="btn btn-primary">Place Order</a>
                   </div>
                </div>
             </div>

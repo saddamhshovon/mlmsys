@@ -123,11 +123,14 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>History</span>
                 </a>
-                <div id="collapseHistory" class="collapse" aria-labelledby="headingHistory" data-parent="#accordionSidebar">
+                <div id="collapseHistory" class="collapse {{  Request::routeIs('history.*') ? 'show' : ''  }}" aria-labelledby=" headingHistory" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{  Request::routeIs('history.product.order') ? 'active' : '' }}" href="{{route('history.product.order')}}">Fund Request History</a>
-                        <a class="collapse-item {{  Request::routeIs('history.product.order') ? 'active' : '' }}" href="{{route('history.product.order')}}">Transfer History</a>
-                        <a class="collapse-item {{  Request::routeIs('history.product.order') ? 'active' : '' }}" href="{{route('history.product.order')}}">Withdraw History</a>
+                        <a class="collapse-item {{  Request::routeIs('history.fund.request') ? 'active' : '' }}" href="{{route('history.fund.request')}}">Fund Request History</a>
+
+                        <a class="collapse-item {{  Request::routeIs('history.fund.transfer') ? 'active' : '' }}" href="{{route('history.fund.transfer')}}">Transfer History</a>
+
+                        <a class="collapse-item {{  Request::routeIs('history.withdraw.request') ? 'active' : '' }}" href="{{route('history.withdraw.request')}}">Withdraw History</a>
+
                         <a class="collapse-item {{  Request::routeIs('history.product.order') ? 'active' : '' }}" href="{{route('history.product.order')}}">Product Order History</a>
                     </div>
                 </div>

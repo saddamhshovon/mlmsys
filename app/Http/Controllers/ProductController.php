@@ -317,7 +317,7 @@ class ProductController extends Controller
         }
     }
 
-    public function orderHistory()
+    public function memberProductOrderHistory()
     {
         $member_id = session('MEMBER_ID');
         $history = Order::where('member_id', $member_id)->latest()->paginate(8);
