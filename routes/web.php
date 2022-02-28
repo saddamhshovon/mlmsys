@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\FundController;
+use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +55,15 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/member/is-blocked/{id}', [AdminController::class, 'isBlocked'])->name('member.is-blocked');
 
     //////////               User Manage Route Ended             //////////
+
+    //////////               Generation Route             //////////
+    Route::get('/admin/generation', [GenerationController::class, 'index'])->name('generation');
+    Route::post('/admin/generation-fix', [GenerationController::class, 'create'])->name('generation.fix');
+    Route::get('/admin/generation-delete', [GenerationController::class, 'deleteLevels'])->name('generation.delete');
+
+    Route::get('/admin/generation/income', [GenerationController::class, 'indexIncome'])->name('generation.income');
+    Route::post('/admin/generation/income-save', [GenerationController::class, 'store'])->name('generation.incsave');
+    Route::post('/admin/generation/income-update', [GenerationController::class, 'update'])->name('generation.incupdate');
 });
 
 /////////////              ADMIN ROUTE END                ///////////
