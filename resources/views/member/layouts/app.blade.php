@@ -49,11 +49,6 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Profile
-            </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item {{Request::routeIs('profile.*') ? 'active' : ''}}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProfile" aria-expanded="true" aria-controls="collapseProfile">
@@ -70,15 +65,6 @@
                 </div>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Wallet
-            </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item {{  Request::routeIs('fund.*') ? 'active' : ''  }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseWallet" aria-expanded="true" aria-controls="collapseWallet">
@@ -93,11 +79,6 @@
                     </div>
                 </div>
             </li>
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Shop
-            </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item {{  Request::routeIs('product.*') ? 'active' : ''  }}">
