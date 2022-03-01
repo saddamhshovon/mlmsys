@@ -14,9 +14,44 @@ class FundController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function fundsTax()
     {
-        //
+        
+        $tax = DB::table("tax_on_transfer")
+            ->first();
+
+        // dd($levels);
+        return view('admin.funds.taxontransfer', compact('tax'));
+    }
+    public function fundsTaxFix(Request $request)
+    {
+        $request->validate([
+            "tax" => 'required|numeric'
+        ]);
+
+        DB::table("tax_on_transfer")
+            ->insert([
+                "tax" => $request->tax,
+                "created_at" => Carbon::now()
+            ]);
+        return redirect()->back();
+    }
+    public function fundsTaxChange(Request $request)
+    {
+        $request->validate([
+            "tax" => 'required|numeric'
+        ]);
+
+        $tax = DB::table("tax_on_transfer")
+            ->first();
+        DB::table("tax_on_transfer")
+        ->where('id', $tax->id)
+        ->update([
+            'tax' => $request->tax,
+            'updated_at' => Carbon::now()
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -31,7 +66,10 @@ class FundController extends Controller
 
     public function transferFund()
     {
-        return view('member.fund.transfer');
+        $tax = DB::table("tax_on_transfer")
+            ->first();
+
+        return view('member.fund.transfer', compact('tax'));
     }
     public function transferFundRequest(Request $request)
     {
@@ -40,6 +78,10 @@ class FundController extends Controller
             "amount" => 'required|numeric',
             "pin" => 'required',
         ]);
+
+        $tax = DB::table("tax_on_transfer")
+            ->first();
+
         $sender = DB::table('members')
             ->select('user_name', 'account_balance', 'pin')
             ->where([
@@ -48,19 +90,20 @@ class FundController extends Controller
             ->get();
             // dd($sender);
         if ($request->user_name != $sender[0]->user_name) {
-            if ($sender[0]->account_balance > $request->amount) {
+            if ($sender[0]->account_balance > ($request->amount + ($request->amount * $tax->tax / 100))) {
                 if ($sender[0]->pin == $request->pin) {
                     $data = [
                         "sender" => $sender[0]->user_name,
                         "amount" => $request->amount,
                         "receiver" => $request->user_name,
+                        "tax" => ($request->amount * $tax->tax / 100),
                         "created_at" => Carbon::now(),
                     ];
 
                     $query = DB::table('transfer_funds')->insert($data);
 
                     if ($query) {
-                        $newBalanceSender = $sender[0]->account_balance - $request->amount;
+                        $newBalanceSender = $sender[0]->account_balance - ($request->amount * $tax->tax / 100);
 
                         $senderUp = DB::table('members')
                             ->where([

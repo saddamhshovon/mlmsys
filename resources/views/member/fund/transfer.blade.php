@@ -12,6 +12,11 @@
 <div class="row">
     <div class="col-xl-6 col-md-6 mb-4">
         <div class="card shadow mb-4">
+            @if($tax)
+            <div class="alert alert-success fade show m-3" role="alert">
+                Current charge on transferring fund is: <span>{{ $tax->tax }}%</span>
+            </div>
+            @endif
             <div class="card-body">
                 <form action="{{ route('fund.transfer.request')}}" method="post">
                     @csrf

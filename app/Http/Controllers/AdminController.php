@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Member;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PharIo\Manifest\Email;
@@ -18,6 +19,44 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.dashboard');
+    }
+    public function hands()
+    {
+        $hands = DB::table("max_children")
+            ->first();
+
+        // dd($levels);
+        return view('admin.hands.fix', compact('hands'));
+    }
+    public function handsFix(Request $request)
+    {
+        $request->validate([
+            "hands" => 'required|numeric|min:1|max:10'
+        ]);
+
+        DB::table("max_children")
+            ->insert([
+                "max" => $request->hands,
+                "created_at" => Carbon::now()
+            ]);
+        return redirect()->back();
+    }
+    public function handsChange(Request $request)
+    {
+        $request->validate([
+            "hands" => 'required|numeric|min:1|max:10'
+        ]);
+
+        $hands = DB::table("max_children")
+            ->first();
+        DB::table("max_children")
+        ->where('id', $hands->id)
+        ->update([
+            'max' => $request->hands,
+            'updated_at' => Carbon::now()
+        ]);
+        
+        return redirect()->back();
     }
 
     /**

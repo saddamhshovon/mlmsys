@@ -57,13 +57,22 @@ Route::group(['middleware' => 'admin_auth'], function () {
     //////////               User Manage Route Ended             //////////
 
     //////////               Generation Route             //////////
+    Route::get('/admin/hands', [AdminController::class, 'hands'])->name('hands');
+    Route::post('/admin/hands-fix', [AdminController::class, 'handsFix'])->name('hands.fix');
+    Route::post('/admin/hands-change', [AdminController::class, 'handsChange'])->name('hands.change');
+    
     Route::get('/admin/generation', [GenerationController::class, 'index'])->name('generation');
     Route::post('/admin/generation-fix', [GenerationController::class, 'create'])->name('generation.fix');
     Route::get('/admin/generation-delete', [GenerationController::class, 'deleteLevels'])->name('generation.delete');
-
+    
     Route::get('/admin/generation/income', [GenerationController::class, 'indexIncome'])->name('generation.income');
     Route::post('/admin/generation/income-save', [GenerationController::class, 'store'])->name('generation.incsave');
     Route::post('/admin/generation/income-update', [GenerationController::class, 'update'])->name('generation.incupdate');
+
+    //////////               Funds Route             //////////
+    Route::get('/admin/funds-tax', [FundController::class, 'fundsTax'])->name('funds.tax');
+    Route::post('/admin/funds-tax-fix', [FundController::class, 'fundsTaxFix'])->name('funds.taxfix');
+    Route::post('/admin/funds-tax-change', [FundController::class, 'fundsTaxChange'])->name('funds.taxchange');
 });
 
 /////////////              ADMIN ROUTE END                ///////////

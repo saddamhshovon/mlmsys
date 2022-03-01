@@ -47,6 +47,25 @@
                     <span>Dashboard</span></a>
             </li>
 
+            <hr class="sidebar-divider d-none d-md-block">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Funds
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFunds" aria-expanded="true" aria-controls="collapseFunds">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Funds</span>
+                </a>
+                <div id="collapseFunds" class="collapse" aria-labelledby="headingFunds" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Funds:</h6>
+                        <a class="collapse-item" href="{{ route('funds.tax')}}">Fix Tax</a>
+                        <a class="collapse-item" href="">Test</a>
+                    </div>
+                </div>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -86,6 +105,12 @@
                 Generation
             </div>
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('hands')}}">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Fix Hands</span>
+                </a>
+            </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
