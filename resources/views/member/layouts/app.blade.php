@@ -81,17 +81,6 @@
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item {{  Request::routeIs('product.*') ? 'active' : ''  }}">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseShop" aria-expanded="true" aria-controls="collapseShop">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>My Shop</span>
-                </a>
-                <div id="collapseShop" class="collapse {{  Request::routeIs('product.*') ? 'show' : ''  }}" aria-labelledby="headingShop" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{  Request::routeIs('product.all.user') ? 'active' : ''  }}" href="{{ route('product.all.user') }}">All Product</a>
-                    </div>
-                </div>
-            </li>
 
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -117,16 +106,27 @@
                 </div>
             </li>
             <!-- Nav Item - Leaderboard -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Leaderboard</span></a>
-            </li>
+            </li> -->
             <!-- Nav Item - Shop -->
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Shop</span></a>
+            </li>
+            <li class="nav-item {{  Request::routeIs('product.*') ? 'active' : ''  }}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseShop" aria-expanded="true" aria-controls="collapseShop">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>My Shop</span>
+                </a>
+                <div id="collapseShop" class="collapse {{  Request::routeIs('product.*') ? 'show' : ''  }}" aria-labelledby="headingShop" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item {{  Request::routeIs('product.all.user') ? 'active' : ''  }}" href="{{ route('product.all.user') }}">All Product</a>
+                    </div>
+                </div>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">

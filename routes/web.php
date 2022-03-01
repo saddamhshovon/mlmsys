@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\FundController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,28 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/member/is-blocked/{id}', [AdminController::class, 'isBlocked'])->name('member.is-blocked');
 
     //////////               User Manage Route Ended             //////////
+
+
+    //////////                        Notice                     //////////    
+
+    Route::get('/admin/notice/dashboard', [AdminController::class, 'dashboardNotice'])->name('notice.dashboard');
+    Route::get('/admin/notice/withdraw', [AdminController::class, 'withdrawNotice'])->name('notice.withdraw');
+    Route::post('/admin/notice/dashboard-publish', [AdminController::class, 'dashboardNoticePublish'])->name('notice.dashboard.publish');
+    Route::post('/admin/notice/withdraw-publish', [AdminController::class, 'withdrawNoticePublish'])->name('notice.withdraw.publish');
+
+    //////////                        Notice End                     //////////
+
+    //////////                           HOME                  /////////////
+
+    Route::get('/admin/home/start', [HomeController::class, 'homeStartSection'])->name('home.start');
+    Route::get('/admin/home/about', [HomeController::class, 'homeAboutSection'])->name('home.about');
+    Route::get('/admin/home/work', [HomeController::class, 'homeWorkSection'])->name('home.work');
+    Route::get('/admin/home/goal', [HomeController::class, 'homeGoalSection'])->name('home.goal');
+    Route::get('/admin/home/footer', [HomeController::class, 'homeFooterSection'])->name('home.footer');
+
+    Route::post('/admin/home/submit', [HomeController::class, 'homeStartSubmit'])->name('home.start.submit');
+
+    //////////                          HOME END                  /////////////
 });
 
 /////////////              ADMIN ROUTE END                ///////////

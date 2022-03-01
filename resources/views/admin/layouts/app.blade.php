@@ -64,10 +64,11 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Home Manage:</h6>
-                        <a class="collapse-item" href="">Starting View</a>
-                        <a class="collapse-item" href="">Section Two</a>
-                        <a class="collapse-item" href="">About Section</a>
-                        <a class="collapse-item" href="">Footer Manage</a>
+                        <a class="collapse-item" href="{{route('home.start')}}">Starting Section</a>
+                        <a class="collapse-item" href="{{route('home.about')}}">About Section</a>
+                        <a class="collapse-item" href="{{route('home.work')}}">Work Section</a>
+                        <a class="collapse-item" href="{{route('home.goal')}}">Goal Section</a>
+                        <a class="collapse-item" href="{{route('home.footer')}}">Footer Section</a>
                     </div>
                 </div>
             </li>
@@ -99,6 +100,20 @@
                         <a class="collapse-item" href="{{route('member.inactive')}}">Inactive</a>
                         <a class="collapse-item" href="{{route('member.blocked')}}">Blocked</a>
                         <a class="collapse-item" href="{{route('member.expired')}}">Expired</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNotice" aria-expanded="false" aria-controls="collapseNotice">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Notice Control</span>
+                </a>
+                <div id="collapseNotice" class="collapse" aria-labelledby="headingNotice" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Member Manage:</h6>
+                        <a class="collapse-item" href="{{route('notice.dashboard')}}">Dashboard Notice</a>
+                        <a class="collapse-item" href="{{route('notice.withdraw')}}">Withdraw Notice</a>
                     </div>
                 </div>
             </li>

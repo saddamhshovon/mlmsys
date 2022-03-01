@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNoticesTable extends Migration
+class CreateHomestartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateNoticesTable extends Migration
      */
     public function up()
     {
-        Schema::create('notices', function (Blueprint $table) {
+        Schema::create('homestarts', function (Blueprint $table) {
             $table->id();
-            $table->text('dashboard_notice')->nullable();
-            $table->text('withdraw_notice')->nullable();
+            $table->string('image')->nullable();
+            $table->string('title')->nullable();
+            $table->text('subtitle')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateNoticesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notices');
+        Schema::dropIfExists('homestarts');
     }
 }

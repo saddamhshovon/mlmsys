@@ -86,11 +86,11 @@
             <div class="row gx-0 justify-content-center">
                 <div class="col-lg-6"><img class="img-fluid" src="https://cdn.pixabay.com/photo/2016/10/09/19/19/coins-1726618_1280.jpg" alt="..." /></div>
                 <div class="col-lg-6 order-lg-first">
-                    <div class="bg-black text-center h-100 project">
+                    <div class=" text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">Our Goal</h4>
-                                <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
+                                <h4>Our Goal</h4>
+                                <p class="mb-0 text-black-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
                                 <hr class="d-none d-lg-block mb-0 me-0" />
                             </div>
                         </div>

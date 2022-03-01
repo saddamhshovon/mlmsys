@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Member;
+use App\Models\notice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PharIo\Manifest\Email;
+use PHPUnit\Framework\Error\Notice as ErrorNotice;
 
 class AdminController extends Controller
 {
@@ -221,5 +223,45 @@ class AdminController extends Controller
 
         $member->update();
         return redirect()->route('member.all')->with('success', 'Updated User Details Successfully');
+    }
+
+    public function dashboardNotice()
+    {
+        $notice = Notice::first();
+        return view('admin.notice.dashboard', compact('notice'));
+    }
+
+    public function withdrawNotice()
+    {
+        $notice = Notice::first();
+        return view('admin.notice.withdraw', compact('notice'));
+    }
+    public function dashboardNoticePublish(Request $request)
+    {
+        $notice = new Notice();
+        if (empty(Notice::first())) {
+            $notice->dashboard_notice = $request->dashboard_notice;
+            $notice->save();
+            return redirect()->back()->with('success', 'Dashboard Notice Published Successfully!');
+        } elseif (!empty(Notice::first())) {
+            $notice = Notice::first();
+            $notice->dashboard_notice = $request->dashboard_notice;
+            $notice->update();
+            return redirect()->back()->with('success', 'Dashboard  Changed Successfully!');
+        }
+    }
+    public function withdrawNoticePublish(Request $request)
+    {
+        $notice = new Notice();
+        if (empty(Notice::first())) {
+            $notice->withdraw_notice = $request->withdraw_notice;
+            $notice->save();
+            return redirect()->back()->with('success', 'Withdraw Notice Added Successfully!');
+        } elseif (!empty(Notice::first())) {
+            $notice = Notice::first();
+            $notice->withdraw_notice = $request->withdraw_notice;
+            $notice->update();
+            return redirect()->back()->with('success', 'Withdraw Notice Published Successfully!');
+        }
     }
 }
