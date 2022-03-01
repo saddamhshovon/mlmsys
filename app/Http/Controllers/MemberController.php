@@ -45,6 +45,8 @@ class MemberController extends Controller
             "email" => 'required|email',
             "password" => 'required',
             "mobile_no" => 'required',
+            "referral_id" => 'exists:members,user_name|nullable',
+            "placement_id" => 'exists:members,user_name|nullable'
         ]);
 
         if ($validator->fails()) {
@@ -108,6 +110,7 @@ class MemberController extends Controller
             if ($member[0]->password == $pass) {
                 $request->session()->put('MEMBER_LOGIN', true);
                 $request->session()->put('MEMBER_ID', $member[0]->id);
+                $request->session()->put('MEMBER_USER_NAME', $member[0]->user_name);
                 $request->session()->put('MEMBER_FIRST_NAME', $member[0]->first_name);
                 $status = "success";
                 $message = "Login Successfull.";
@@ -138,9 +141,24 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function show(Member $member)
+    public function teamTree($id)
     {
-        //
+        // dd(session('MEMBER_USER_NAME'));
+        $parent = DB::table('members')
+            ->select('user_name', 'has_children')
+            ->where([
+                'id' => $id
+            ])
+            ->first();
+        // dd($parent->user_name);
+        $children = DB::table('members')
+        ->select('id','user_name', 'has_children')
+        ->where([
+            'placement_id' => $parent->user_name
+        ])
+        ->get();;
+        // dd($child);
+        return view('member.team.tree', compact('parent', 'children'));
     }
 
     /**

@@ -27,8 +27,8 @@ class CreateMembersTable extends Migration
             $table->string('pin');
             $table->integer('account_balance')->nullable();
             $table->string('membership_type');
-            $table->integer('referral_id')->nullable();
-            $table->integer('placement_id')->nullable();
+            $table->string('referral_id')->nullable();
+            $table->string('placement_id')->nullable();
             $table->tinyInteger('max_children')->nullable();
             $table->tinyInteger('is_active')->default(0);
             $table->tinyInteger('is_expired')->default(0);

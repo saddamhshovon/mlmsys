@@ -94,6 +94,29 @@
                 </div>
             </li>
 
+            <hr class="sidebar-divider">
+
+            
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Team
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item {{  Request::routeIs('team.*') ? 'active' : ''  }}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeam" aria-expanded="true" aria-controls="collapseTeam">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>My Team</span>
+                </a>
+                <div id="collapseTeam" class="collapse {{  Request::routeIs('team.*') ? 'show' : ''  }}" aria-labelledby="headingTeam" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item {{  Request::routeIs('team.tree') ? 'active' : ''  }}" href="{{ route('team.tree', session('MEMBER_ID'))}}">Tree</a>
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider">
+
             <!-- Heading -->
             <div class="sidebar-heading">
                 Others

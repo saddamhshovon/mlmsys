@@ -89,4 +89,6 @@ Route::group(['middleware' => 'member_auth'], function () {
 
     Route::get('/fund/withdraw', [FundController::class, 'withdrawFund'])->name('fund.withdraw');
     Route::post('/fund/withdraw-request', [FundController::class, 'withdraw'])->name('fund.withdrawreq');
+    
+    Route::get('/team/tree/{id}', [MemberController::class, 'teamTree'])->name('team.tree');
 });
