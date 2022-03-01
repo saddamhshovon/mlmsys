@@ -41,6 +41,18 @@
                                     </div>
                                     <form class="user" id="memberLogin">
                                         @csrf
+                                        @if(session('success'))
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <strong>{{session('success')}}</strong>
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        </div>
+                                        @endif
+                                        @if(session('error'))
+                                        <div class="alert alert-success alert-danger fade show" role="alert">
+                                            <strong>{{session('error')}}</strong>
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        </div>
+                                        @endif
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" id="exampleInputUSerName" aria-describedby="userNameHelp" placeholder="Enter User Name" name="user_name" require>
                                         </div>
@@ -52,13 +64,6 @@
                                     <div class="text-center">
                                         <h1 id="login_message" class="h6 pt-3 text-danger" role="alert"></h1>
                                     </div>
-                                    @if(session('error'))
-                                    <div class="text-center">
-                                        <h1 class="h6 pt-3 text-danger" role="alert">
-                                            {{ session('error') }}
-                                        </h1>
-                                    </div>
-                                    @endif
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="{{ route('reset')}}">Forgot Password?</a>

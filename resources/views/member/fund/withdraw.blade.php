@@ -5,7 +5,10 @@
 @section('content')
 
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
+<marquee width="49%" class="text-primary text-center" direction="left" height="20px">
+    We are here to remove poverty from society with some extraordinary income facilities.
+</marquee>
+<div class="d-sm-flex pt-3 align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Withdraw Fund</h1>
 </div>
 

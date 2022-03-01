@@ -1,13 +1,13 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Products')
+@section('title', 'Orders')
 
 @section('content')
 
 <div class="container-fluid">
 
    <!-- Page Heading -->
-   <h1 class="h3 mb-2 text-gray-800">All Products</h1>
+   <h1 class="h3 mb-2 text-gray-800">All Orders</h1>
 
    <!-- DataTales Example -->
    <div class="card shadow mb-4">
@@ -25,9 +25,6 @@
          </div>
          @endif
       </div>
-      <div class="card-header py-3">
-         <a href="{{route('product.add')}}" class="btn btn-primary">Add Product</a>
-      </div>
       <div class="card-body">
          <div class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -37,35 +34,32 @@
                         <thead>
                            <tr role="row">
                               <th class="text-center" scope="col" width="5%">SL</th>
-                              <th class="text-center" scope="col" width="35%">Name</th>
+                              <th class="text-center" scope="col" width="35%">Product Name</th>
                               <th class="text-center" scope="col" width="10%">Code</th>
                               <th class="text-center" scope="col" width="10%">Price</th>
                               <th class="text-center" scope="col" width="10%">Category</th>
-                              <th class="text-center" scope="col" width="10%">Image</th>
                               <th class="text-center" scope="col" width="10%">Status</th>
                               <th class="text-center" scope="col" width="10%">Action</th>
                            </tr>
                         </thead>
                         <tbody>
                            @php($i=1)
-                           @foreach($products as $prod)
+                           @foreach($history as $hist)
                            <tr class="">
                               <td class="text-center sorting_1">{{$i++}}</td>
-                              <td class="text-center">{{$prod->product_name}}</td>
-                              <td class="text-center">{{$prod->product_code}}</td>
-                              <td class="text-center">{{$prod->product_price}}</td>
-                              <td class="text-center">{{$prod->product_category}}</td>
-                              <td class="text-center"><img src="{{asset($prod->product_image)}}" style="width: 80px;height: 50px;" alt="Product Image"></td>
+                              <td class="text-center">{{$hist->product->product_name}}</td>
+                              <td class="text-center">{{$hist->product->product_code}}</td>
+                              <td class="text-center">{{$hist->product->product_price}}</td>
+                              <td class="text-center">{{$hist->product->product_category}}</td>
                               <td class="text-center">
-                                 @if($prod->status==1)
-                                 <a href="{{route('product.inactive',$prod->id)}}" id="is-active" class="badge badge-pill badge-success" title="Inactive Now">Active</a>
+                                 @if($hist->is_delivered==0)
+                                 <a href="{{route('product.order.approve',$hist->id)}}" class="badge badge-pill badge-dark">Pending</a>
                                  @else
-                                 <a href="{{route('product.active',$prod->id)}}" id="is-active" class="badge badge-pill badge-dark" title="Active Now">Inactive</a>
+                                 <a href="#" class="badge badge-pill badge-success">Delivered</a>
                                  @endif
                               </td>
                               <td class="text-center">
-                                 <a href="{{route('product.edit',$prod->id)}}" class="btn btn-info vtn-sm"><i class="fas fa-edit" title="Edit Data"></i></a>
-                                 <a href="{{route('product.delete',$prod->id)}}" id="delete" class="btn btn-danger vtn-sm"><i class="fas fa-trash-alt" title="Delete Data"></i></a>
+                                 <a href="{{route('product.order.delete',$hist->id)}}" id="delete" class="btn btn-danger vtn-sm"><i class="fas fa-trash-alt" title="Delete Data"></i></a>
                               </td>
                            </tr>
                            @endforeach

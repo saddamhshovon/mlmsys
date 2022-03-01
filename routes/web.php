@@ -4,12 +4,14 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\GenerationController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/admin/auth', [AdminController::class, 'auth'])->name('admin.auth');
 
@@ -35,6 +37,11 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/product/edit/{id}', [ProductController::class, 'editProduct'])->name('product.edit');
     Route::post('/admin/product/update', [ProductController::class, 'updateProduct'])->name('product.update');
     Route::get('/admin/product/delete/{id}', [ProductController::class, 'deleteProduct'])->name('product.delete');
+    Route::get('/admin/product/active/{id}', [ProductController::class, 'activeProduct'])->name('product.active');
+    Route::get('/admin/product/inactive/{id}', [ProductController::class, 'inactiveProduct'])->name('product.inactive');
+    Route::get('/admin/product/history', [ProductController::class, 'allProductOrderHistory'])->name('product.order.history');
+    Route::get('/admin/product/approve/{id}', [ProductController::class, 'approveProductOrderHistory'])->name('product.order.approve');
+    Route::get('/admin/product/delete-history/{id}', [ProductController::class, 'deleteProductOrderHistory'])->name('product.order.delete');
 
     //////////               Product Related Route Ended             //////////
 
@@ -73,9 +80,32 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/funds-tax', [FundController::class, 'fundsTax'])->name('funds.tax');
     Route::post('/admin/funds-tax-fix', [FundController::class, 'fundsTaxFix'])->name('funds.taxfix');
     Route::post('/admin/funds-tax-change', [FundController::class, 'fundsTaxChange'])->name('funds.taxchange');
+
+    //////////                        Notice                     //////////    
+
+    Route::get('/admin/notice/dashboard', [AdminController::class, 'dashboardNotice'])->name('notice.dashboard');
+    Route::get('/admin/notice/withdraw', [AdminController::class, 'withdrawNotice'])->name('notice.withdraw');
+    Route::post('/admin/notice/dashboard-publish', [AdminController::class, 'dashboardNoticePublish'])->name('notice.dashboard.publish');
+    Route::post('/admin/notice/withdraw-publish', [AdminController::class, 'withdrawNoticePublish'])->name('notice.withdraw.publish');
+
+    //////////                        Notice End                     //////////
+
+    //////////                           HOME                  /////////////
+
+    Route::get('/admin/home/start', [HomeController::class, 'homeStartSection'])->name('home.start');
+    Route::get('/admin/home/about', [HomeController::class, 'homeAboutSection'])->name('home.about');
+    Route::get('/admin/home/work', [HomeController::class, 'homeWorkSection'])->name('home.work');
+    Route::get('/admin/home/goal', [HomeController::class, 'homeGoalSection'])->name('home.goal');
+    Route::get('/admin/home/footer', [HomeController::class, 'homeFooterSection'])->name('home.footer');
+
+    Route::post('/admin/home/submit', [HomeController::class, 'homeStartSubmit'])->name('home.start.submit');
+
+    //////////                          HOME END                  /////////////
 });
 
 /////////////              ADMIN ROUTE END                ///////////
+
+/////////////              USER RELATED ROUTE START                ///////////
 
 Route::group(['middleware' => 'member_auth'], function () {
     Route::get('/member', [MemberController::class, 'index'])->name('member.dashboard');
@@ -91,4 +121,31 @@ Route::group(['middleware' => 'member_auth'], function () {
     Route::post('/fund/withdraw-request', [FundController::class, 'withdraw'])->name('fund.withdrawreq');
     
     Route::get('/team/tree/{id}', [MemberController::class, 'teamTree'])->name('team.tree');
+
+    ///////////////           USER PROFILE CHANGE         ////////////////
+
+    Route::get('/profile/edit', [MemberController::class, 'editProfile'])->name('profile.edit');
+    Route::post('/profile/update', [MemberController::class, 'updateProfile'])->name('profile.update');
+
+    Route::get('/profile/change-password', [MemberController::class, 'changePassword'])->name('profile.change.password');
+    Route::post('/profile/change-password-request', [MemberController::class, 'changePasswordRequest'])->name('profile.change.passwordRequ');
+
+    Route::get('/profile/change-pin', [MemberController::class, 'changePin'])->name('profile.change.pin');
+    Route::post('/profile/change-pin-request', [MemberController::class, 'changePinRequest'])->name('profile.change.pinRequ');
+
+    Route::get('/profile/change-profile-picture', [MemberController::class, 'changeProfilePhoto'])->name('profile.change.photo');
+    Route::post('/profile/change-profile-picture-request', [MemberController::class, 'changeProfilePhotoRequest'])->name('profile.change.photoRequ');
+
+    ///////////////           END USER PROFILE CHANGE         ////////////////
+
+    Route::get('/product/member/all', [ProductController::class, 'userAllProduct'])->name('product.all.user');
+    Route::get('/product/buy/{name}-{id}', [ProductController::class, 'buyProduct'])->name('product.buy');
+    Route::post('/product/order', [ProductController::class, 'orderProduct'])->name('product.order');
+    Route::get('/history/product-order', [ProductController::class, 'memberProductOrderHistory'])->name('history.product.order');
+    Route::get('/history/fund-add-request', [FundController::class, 'fundAddRequestHistory'])->name('history.fund.request');
+    Route::get('/history/fund-transfer', [FundController::class, 'fundTransferHistory'])->name('history.fund.transfer');
+    Route::get('/history/fund-withdraw-request', [FundController::class, 'fundWithdrawRequestHistory'])->name('history.withdraw.request');
 });
+
+
+/////////////              USER RELATED ROUTE END                ///////////

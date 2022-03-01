@@ -48,7 +48,25 @@
             </li>
 
             <hr class="sidebar-divider d-none d-md-block">
-            <!-- Heading -->
+
+            <hr class="sidebar-divider">
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHome" aria-expanded="true" aria-controls="collapseHome">
+                    <i class="fas fa-home"></i>
+                    <span>Home Manage</span>
+                </a>
+                <div id="collapseHome" class="collapse" aria-labelledby="headingHome" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Home Manage:</h6>
+                        <a class="collapse-item" href="{{route('home.start')}}">Starting Section</a>
+                        <a class="collapse-item" href="{{route('home.about')}}">About Section</a>
+                        <a class="collapse-item" href="{{route('home.work')}}">Work Section</a>
+                        <a class="collapse-item" href="{{route('home.goal')}}">Goal Section</a>
+                        <a class="collapse-item" href="{{route('home.footer')}}">Footer Section</a>
+                    </div>
+                </div>
+            </li>
             <div class="sidebar-heading">
                 Funds
             </div>
@@ -78,6 +96,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Products:</h6>
                         <a class="collapse-item" href="{{route('product.all')}}">All Product</a>
+                        <a class="collapse-item" href="{{route('product.order.history')}}">Product Order History</a>
                     </div>
                 </div>
             </li>
@@ -85,9 +104,9 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                     <i class="fas fa-users"></i>
-                    <span>Members</span>
+                    <span>Member Manage</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar" style="">
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Member Manage:</h6>
                         <a class="collapse-item" href="{{route('member.all')}}">All Member</a>
@@ -95,6 +114,20 @@
                         <a class="collapse-item" href="{{route('member.inactive')}}">Inactive</a>
                         <a class="collapse-item" href="{{route('member.blocked')}}">Blocked</a>
                         <a class="collapse-item" href="{{route('member.expired')}}">Expired</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNotice" aria-expanded="false" aria-controls="collapseNotice">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Notice Control</span>
+                </a>
+                <div id="collapseNotice" class="collapse" aria-labelledby="headingNotice" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Member Manage:</h6>
+                        <a class="collapse-item" href="{{route('notice.dashboard')}}">Dashboard Notice</a>
+                        <a class="collapse-item" href="{{route('notice.withdraw')}}">Withdraw Notice</a>
                     </div>
                 </div>
             </li>
@@ -311,19 +344,14 @@
     <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script>
 
     <!-- Page level plugins -->
-    <script src="{{ asset('dashboard/vendor/chart.js/Chart.min.js') }}"></script>
     <script src="{{asset('dashboard/vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('dashboard/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
     <!-- Page level custom scripts -->
     <script src="{{asset('dashboard/js/demo/datatables-demo.js')}}"></script>
 
-    <script src="{{ asset('dashboard/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('dashboard/js/demo/chart-pie-demo.js') }}"></script>
-
     <!--       SWEET ALERT      -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.all.min.js"></script>
 
     <script type="text/javascript">
         $(function() {
@@ -344,6 +372,35 @@
                         Swal.fire(
                             'Deleted!',
                             'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        });
+    </script>
+
+    <!-- active status -->
+
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('click', '#is-active', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Sure to change active status?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, change it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Changed!',
+                            'Active status has been changed.',
                             'success'
                         )
                     }

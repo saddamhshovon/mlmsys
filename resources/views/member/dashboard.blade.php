@@ -76,7 +76,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                        Referral Earn</div>
+                            Referral Earn</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">$0</div>
                     </div>
                     <div class="col-auto">
@@ -104,5 +104,9 @@
     </div>
 </div>
 <!-- Content Row -->
+
+<marquee width="60%" style="display: block;margin: 0 auto; font-weight:600;" class="text-primary text-center" direction="center" height="20px">
+    We are here to remove poverty from society with some extraordinary income facilities.
+</marquee>
 
 @endsection

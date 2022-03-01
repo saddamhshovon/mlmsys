@@ -10,75 +10,103 @@
    <h1 class="h3 mb-2 text-gray-800">View Member Details</h1>
 
    <!-- DataTales Example -->
-   <div class="card shadow mb-4">
-      <div>
-         @if(session('success'))
-         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{session('success')}}</strong>
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-         </div>
-         @endif
-         @if(session('error'))
-         <div class="alert alert-success alert-danger fade show" role="alert">
-            <strong>{{session('error')}}</strong>
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-         </div>
-         @endif
-      </div>
-      <div class="card-body">
-         <div class="row">
-            <div class="col-8">
-               <form class="user">
-                  @csrf
-                  <div class="form-group">
-                     <input type="text" class="form-control" id="exampleReferralID" placeholder="Referral ID" disabled value="{{$member->referral_id}}" name="referral_id">
-                  </div>
-
-                  <div class="form-group row">
-                     <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input type="text" class="form-control" id="exampleFirstName" placeholder="First Name" disabled value="{{$member->first_name}}" name="first_name" required>
+   <div class="row">
+      <div class="col-8">
+         <div class="card shadow mb-4 row">
+            <div class="card-body">
+               <form action="" method="">
+                  <div class="">
+                     <div class="mb-3">
+                        <label for="referral_id" class="form-label">Refferal ID<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="referral_id" value="{{$member->referral_id}}" class="form-control" id="referral_id" placeholder="Refferal ID">
+                        @error('referral_id')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
                      </div>
-                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="exampleLastName" placeholder="Last Name" disabled value="{{$member->last_name}}" name="last_name" required>
+                     <div class="mb-3">
+                        <label for="first_name" class="form-label">First Name<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="first_name" value="{{$member->first_name}}" class="form-control" id="first_name" placeholder="First Name">
+                        @error('first_name')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
                      </div>
-                  </div>
-
-                  <div class="form-group">
-                     <input type="text" class="form-control" id="exampleUserName" placeholder="User Name" disabled value="{{$member->user_name}}" name="user_name" required>
-                  </div>
-
-                  <div class="form-group">
-                     <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email Address" disabled value="{{$member->email}}" name="email" required>
-                  </div>
-
-                  <div class="form-group row">
-                     <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input type="tel" class="form-control" id="exampleMobileNo" placeholder="Mobile No." disabled value="{{$member->mobile_no}}" name="mobile_no" required>
+                     <div class="mb-3">
+                        <label for="last_name" class="form-label">Last Name<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="last_name" value="{{$member->last_name}}" class="form-control" id="last_name" placeholder="Last Name">
+                        @error('last_name')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
                      </div>
-                     <div class="col-sm-6">
-                        <input type="password" class="form-control" id="examplePin" placeholder="Pin Code" disabled value="{{$member->pin}}" name="pin" required>
+                     <div class="mb-3">
+                        <label for="user_name" class="form-label">Username<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="user_name" value="{{$member->user_name}}" class="form-control" id="user_name" placeholder="Username">
+                        @error('user_name')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
                      </div>
-                  </div>
-
-                  <div class="form-group">
-                     <input type="text" class="form-control" id="exampleMobileBanking" placeholder="Mobile Banking Service" disabled value="{{$member->moblie_banking_service}}" name="moblie_banking_service" required>
-                  </div>
-
-                  <div class="form-group row">
-                     <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input type="text" class="form-control" id="exampleCity" placeholder="City" disabled value="{{$member->city}}" name="city" required>
+                     <div class="mb-3">
+                        <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="email" value="{{$member->email}}" class="form-control" id="email" placeholder="Email">
+                        @error('email')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
                      </div>
-                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="exampleCountry" placeholder="Country" disabled value="{{$member->country}}" name="country" required>
+                     <div class="mb-3">
+                        <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="password" value="{{$member->password}}" class="form-control" id="password" placeholder="Password">
+                        @error('password')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
                      </div>
-                  </div>
-
-                  <div class="form-group">
-                     <input type="text" class="form-control" id="exampleMembershipProcess" placeholder="Membership Process" disabled value="{{$member->membership_type}}" name="membership_type" required>
-                  </div>
-
-                  <div class="form-group">
-                     <input type="text" class="form-control" id="examplePlacementID" placeholder="Placement ID" disabled value="{{$member->placement_id}}" name="placement_id">
+                     <div class="mb-3">
+                        <label for="mobile_no" class="form-label">Mobile Number<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="mobile_no" value="{{$member->mobile_no}}" class="form-control" id="mobile_no" placeholder="Mobile Number">
+                        @error('mobile_no')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
+                     </div>
+                     <div class="mb-3">
+                        <label for="pin" class="form-label">Pin Code<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="pin" value="{{$member->pin}}" class="form-control" id="pin" placeholder="Pin Code">
+                        @error('pin')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
+                     </div>
+                     <div class="mb-3">
+                        <label for="moblie_banking_service" class="form-label">Mobile Banking Service<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="moblie_banking_service" value="{{$member->moblie_banking_service}}" class="form-control" id="moblie_banking_service" placeholder="Mobile Banking Service">
+                        @error('pin')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
+                     </div>
+                     <div class="mb-3">
+                        <label for="city" class="form-label">City<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="city" value="{{$member->city}}" class="form-control" id="city" placeholder="city">
+                        @error('city')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
+                     </div>
+                     <div class="mb-3">
+                        <label for="country" class="form-label">Country<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="country" value="{{$member->country}}" class="form-control" id="country" placeholder="Country">
+                        @error('country')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
+                     </div>
+                     <div class="mb-3">
+                        <label for="membership_type" class="form-label">Membership Process<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="membership_type" value="{{$member->membership_type}}" class="form-control" id="membership_type" placeholder="Membership Process">
+                        @error('membership_type')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
+                     </div>
+                     <div class="mb-3">
+                        <label for="placement_id" class="form-label">Placement ID<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="placement_id" value="{{$member->placement_id}}" class="form-control" id="placement_id" placeholder="Placement ID">
+                        @error('placement_id')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
+                     </div>
                   </div>
                </form>
                <a href="{{route('member.is-blocked',$member->id)}}">

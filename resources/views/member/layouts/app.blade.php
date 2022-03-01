@@ -49,35 +49,21 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Profile
-            </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item {{Request::routeIs('profile.*') ? 'active' : ''}}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProfile" aria-expanded="true" aria-controls="collapseProfile">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>My Profile</span>
                 </a>
-                <div id="collapseProfile" class="collapse" aria-labelledby="headingProfile" data-parent="#accordionSidebar">
+                <div id="collapseProfile" class="collapse {{  Request::routeIs('profile.*') ? 'show' : ''  }}" aria-labelledby="headingProfile" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Edit Profile</a>
-                        <a class="collapse-item" href="">Change Profile Picture</a>
-                        <a class="collapse-item" href="">Change Password</a>
-                        <a class="collapse-item" href="">Change Pin</a>
+                        <a class="collapse-item {{  Request::routeIs('profile.edit') ? 'active' : ''  }}" href="{{route('profile.edit')}}">Edit Profile</a>
+                        <a class="collapse-item {{  Request::routeIs('profile.change.photo') ? 'active' : ''  }}" href="{{route('profile.change.photo')}}">Change Profile Picture</a>
+                        <a class="collapse-item {{  Request::routeIs('profile.change.password') ? 'active' : ''  }}" href="{{route('profile.change.password')}}">Change Password</a>
+                        <a class="collapse-item {{  Request::routeIs('profile.change.pin') ? 'active' : ''  }}" href="{{route('profile.change.pin')}}">Change Pin</a>
                     </div>
                 </div>
             </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Wallet
-            </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item {{  Request::routeIs('fund.*') ? 'active' : ''  }}">
@@ -116,6 +102,7 @@
             </li>
 
             <hr class="sidebar-divider">
+            <!-- Nav Item - Pages Collapse Menu -->
 
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -123,30 +110,45 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item {{  Request::routeIs('history.*') ? 'active' : ''  }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHistory" aria-expanded="true" aria-controls="collapseHistory">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>History</span>
                 </a>
-                <div id="collapseHistory" class="collapse" aria-labelledby="headingHistory" data-parent="#accordionSidebar">
+                <div id="collapseHistory" class="collapse {{  Request::routeIs('history.*') ? 'show' : ''  }}" aria-labelledby=" headingHistory" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Fund Request History</a>
-                        <a class="collapse-item" href="">Transfer History</a>
-                        <a class="collapse-item" href="">Withdraw History</a>
+                        <a class="collapse-item {{  Request::routeIs('history.fund.request') ? 'active' : '' }}" href="{{route('history.fund.request')}}">Fund Request History</a>
+
+                        <a class="collapse-item {{  Request::routeIs('history.fund.transfer') ? 'active' : '' }}" href="{{route('history.fund.transfer')}}">Transfer History</a>
+
+                        <a class="collapse-item {{  Request::routeIs('history.withdraw.request') ? 'active' : '' }}" href="{{route('history.withdraw.request')}}">Withdraw History</a>
+
+                        <a class="collapse-item {{  Request::routeIs('history.product.order') ? 'active' : '' }}" href="{{route('history.product.order')}}">Product Order History</a>
                     </div>
                 </div>
             </li>
             <!-- Nav Item - Leaderboard -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Leaderboard</span></a>
-            </li>
+            </li> -->
             <!-- Nav Item - Shop -->
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Shop</span></a>
+            </li>
+            <li class="nav-item {{  Request::routeIs('product.*') ? 'active' : ''  }}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseShop" aria-expanded="true" aria-controls="collapseShop">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>My Shop</span>
+                </a>
+                <div id="collapseShop" class="collapse {{  Request::routeIs('product.*') ? 'show' : ''  }}" aria-labelledby="headingShop" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item {{  Request::routeIs('product.all.user') ? 'active' : ''  }}" href="{{ route('product.all.user') }}">All Product</a>
+                    </div>
+                </div>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -189,6 +191,12 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        @php
+                        $id = session('MEMBER_ID');
+                        $balance = DB::table('members')->find($id)->account_balance;
+                        @endphp
+
+                        <li class="nav-item mx-1 nav-link" style="margin-top: 15px;">Balance: <strong>{{(!empty($balance))?$balance:0}}</strong></li>
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -269,10 +277,14 @@
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
+                        @php
+                        $id = session('MEMBER_ID');
+                        $profilePhoto = DB::table('members')->find($id)->profile_photo;
+                        @endphp
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ session()->get('MEMBER_FIRST_NAME')}}</span>
-                                <img class="img-profile rounded-circle" src="{{ asset('dashboard/img/undraw_profile.svg') }}">
+                                <img class="img-profile rounded-circle" src="{{(!empty($profilePhoto))?url('images/user_profile/'.$profilePhoto):url('dashboard/img/undraw_profile.svg')}}" alt="">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -338,6 +350,7 @@
         </div>
     </div>
 
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('dashboard/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -347,6 +360,36 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script>
+
+    <!--       SWEET ALERT      -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('click', '#place-order', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Are you sure to buy?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, buy it..!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Bought!',
+                            'Your product has been purchased.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        });
+    </script> -->
 
 </body>
 

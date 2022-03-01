@@ -7,6 +7,7 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
@@ -133,6 +134,144 @@ class MemberController extends Controller
         session()->flash('error', 'Logout successfull.');
 
         return redirect('login');
+    }
+
+    //////   edit profile    ///////
+
+    public function editProfile()
+    {
+        $id = session('MEMBER_ID');
+        $member = Member::findOrFail($id);
+        return view('member.profile.edit', compact('member'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate(
+            [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'email' => 'required',
+                'mobile_no' => 'required',
+                'city' => 'required',
+                'country' => 'required',
+            ]
+        );
+
+        $id = session('MEMBER_ID');
+        $member = Member::findOrFail($id);
+
+        $member->first_name = $request->first_name;
+        $member->last_name = $request->last_name;
+        $member->email = $request->email;
+        $member->mobile_no = $request->mobile_no;
+        $member->city = $request->city;
+        $member->country = $request->country;
+
+        $member->update();
+
+        return redirect()->back()->with('success', 'Profile Updated Successfully..!');
+    }
+
+    ///////    password change    //////
+    public function changePassword()
+    {
+        return view('member.profile.change-password');
+    }
+
+    public function changePasswordRequest(Request $request)
+    {
+        $request->validate(
+            [
+                'current_password' => 'required',
+                'password' => 'required',
+                'confirm_password' => 'required|same:password',
+            ]
+        );
+        $id = session('MEMBER_ID');
+        $oldpass = Member::findOrFail($id)->password;
+        if ($request->current_password == $oldpass) {
+            $member = Member::findOrFail($id);
+            $member->password = $request->password;
+            $member->update();
+            session()->forget('MEMBER_LOGIN');
+            session()->forget('MEMBER_ID');
+            session()->forget('MEMBER_FIRST_NAME');
+            return redirect()->route('login')->with('success', 'Password Changed Successfully');
+        } else {
+            return redirect()->back()->with('error', 'Password Changed Failed..!');
+        }
+    }
+
+    ////      pin change   ////
+
+    public function changePin()
+    {
+        return view('member.profile.change-pin');
+    }
+
+    public function changePinRequest(Request $request)
+    {
+        $request->validate(
+            [
+                'pin' => 'required',
+                'confirm_pin' => 'required|same:pin',
+                'password' => 'required',
+            ]
+        );
+        $id = session('MEMBER_ID');
+        $oldpass = Member::findOrFail($id)->password;
+        if ($request->password == $oldpass) {
+            $member = Member::findOrFail($id);
+            $member->pin = $request->pin;
+            $member->update();
+            return redirect()->back()->with('success', 'Pin Changed Successfully');
+        } else {
+            return redirect()->back()->with('error', 'Password Did not match..!');
+        }
+
+        // dd($request->all());
+    }
+
+    public function changeProfilePhoto()
+    {
+        $id = session('MEMBER_ID');
+        $profilePhoto = Member::findOrFail($id)->profile_photo;
+        return view('member.profile.change-profile-photo', compact('profilePhoto'));
+    }
+
+    public function changeProfilePhotoRequest(Request $request)
+    {
+        $request->validate(
+            [
+                'profile_photo' => 'required',
+            ]
+        );
+        $id = session('MEMBER_ID');
+        $member = Member::findOrFail($id);
+        $profilePhoto = Member::findOrFail($id)->profile_photo;
+
+        if (!empty($profilePhoto)) {
+            $file = $request->file('profile_photo');
+            @unlink(public_path('images/user_profile/' . $member->profile_photo));
+
+            $filename = date('YmdHis') . '.' . $file->getClientOriginalExtension();
+
+            $file->move(public_path('images/user_profile'), $filename);
+            $member->profile_photo = $filename;
+            $member->save();
+            return redirect()->back()->with('success', 'Profile Picture Changed Successfully');
+        } elseif (empty($profilePhoto)) {
+            $file = $request->file('profile_photo');
+            $filename = date('YmdHis') . '.' . $file->getClientOriginalExtension();
+
+            $file->move(public_path('images/user_profile'), $filename);
+            $member->profile_photo = $filename;
+            $member->save();
+            return redirect()->back()->with('success', 'Profile Picture Uploaded Successfully');
+        } else {
+            return redirect()->back()->with('success', 'Uploading Failed');
+        }
     }
 
     /**

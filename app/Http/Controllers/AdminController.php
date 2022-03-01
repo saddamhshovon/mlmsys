@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Member;
 use Carbon\Carbon;
+use App\Models\notice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PharIo\Manifest\Email;
+use PHPUnit\Framework\Error\Notice as ErrorNotice;
 
 class AdminController extends Controller
 {
@@ -187,7 +189,7 @@ class AdminController extends Controller
 
     public function isActive($id)
     {
-        $is_active = member::findOrFail($id);
+        $is_active = Member::findOrFail($id);
         $is_active->is_active = 1;
         $is_active->save();
         return redirect()->back();
@@ -195,7 +197,7 @@ class AdminController extends Controller
 
     public function isInActive($id)
     {
-        $is_inactive = member::findOrFail($id);
+        $is_inactive = Member::findOrFail($id);
         $is_inactive->is_active = 0;
         $is_inactive->save();
         return redirect()->back();
@@ -203,7 +205,7 @@ class AdminController extends Controller
 
     public function isBlocked($id)
     {
-        $is_blocked = member::findOrFail($id);
+        $is_blocked = Member::findOrFail($id);
         if ($is_blocked->is_blocked == 0) {
             $is_blocked->is_blocked = 1;
             $is_blocked->save();
@@ -260,5 +262,45 @@ class AdminController extends Controller
 
         $member->update();
         return redirect()->route('member.all')->with('success', 'Updated User Details Successfully');
+    }
+
+    public function dashboardNotice()
+    {
+        $notice = Notice::first();
+        return view('admin.notice.dashboard', compact('notice'));
+    }
+
+    public function withdrawNotice()
+    {
+        $notice = Notice::first();
+        return view('admin.notice.withdraw', compact('notice'));
+    }
+    public function dashboardNoticePublish(Request $request)
+    {
+        $notice = new Notice();
+        if (empty(Notice::first())) {
+            $notice->dashboard_notice = $request->dashboard_notice;
+            $notice->save();
+            return redirect()->back()->with('success', 'Dashboard Notice Published Successfully!');
+        } elseif (!empty(Notice::first())) {
+            $notice = Notice::first();
+            $notice->dashboard_notice = $request->dashboard_notice;
+            $notice->update();
+            return redirect()->back()->with('success', 'Dashboard  Changed Successfully!');
+        }
+    }
+    public function withdrawNoticePublish(Request $request)
+    {
+        $notice = new Notice();
+        if (empty(Notice::first())) {
+            $notice->withdraw_notice = $request->withdraw_notice;
+            $notice->save();
+            return redirect()->back()->with('success', 'Withdraw Notice Added Successfully!');
+        } elseif (!empty(Notice::first())) {
+            $notice = Notice::first();
+            $notice->withdraw_notice = $request->withdraw_notice;
+            $notice->update();
+            return redirect()->back()->with('success', 'Withdraw Notice Published Successfully!');
+        }
     }
 }
