@@ -21,7 +21,8 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#page-top">MLM</a>
+
+            <a class="navbar-brand" href="#page-top"><img class="rounded-circle" width="50" height="60" src="https://cdn.pixabay.com/photo/2017/11/16/09/25/bitcoin-2953851_1280.png" alt=""> MLM</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
@@ -43,7 +44,8 @@
                 <div class="text-center">
                     <h1 class="mx-auto my-0 text-uppercase">Mlm Business</h1>
                     <h2 class="text-white-50 mx-auto mt-2 mb-5">The main sales pitch of MLM companies to their participants and prospective participants is not the MLM company's products or services.</h2>
-                    <a class="btn btn-primary" href="#start">Get Started</a>
+                    <a class="btn btn-primary" href="{{route('login')}}">Sign In</a>
+                    <a class="btn btn-primary" href="{{route('register')}}">Sign Up</a>
                 </div>
             </div>
         </div>
@@ -53,15 +55,16 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-lg-8">
-                    <h2 class="text-white mb-4">Built with Bootstrap 5</h2>
+                    <h2 class="text-white mb-4">About Us</h2>
+
                     <p class="text-white-50">
-                        Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
-                        <a href="https://startbootstrap.com/theme/grayscale/">the preview page.</a>
-                        The theme is open source, and you can use it for any purpose, personal or commercial.
-                    </p>
+                        The main sales pitch of MLM companies to their participants and prospective participants is not the MLM company's products or services.
+                        </a>
+                        The main sales pitch of MLM companies to their participants and prospective participants is not the MLM company's products or services.
+                    </p>>
                 </div>
             </div>
-            <img class="img-fluid" src="{{asset('home/assets/img/ipad.png')}}" alt="..." />
+            <img class="img-fluid h-50" src="https://cdn.pixabay.com/photo/2018/04/18/18/47/hands-3331216_1280.jpg" alt="..." />
         </div>
     </section>
     <!-- Projects-->
@@ -69,37 +72,24 @@
         <div class="container px-4 px-lg-5">
             <!-- Featured Project Row-->
             <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="{{asset('home/assets/img/bg-masthead.jpg')}}" alt="..." /></div>
+                <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="https://images.pexels.com/photos/2068975/pexels-photo-2068975.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="..." /></div>
                 <div class="col-xl-4 col-lg-5">
                     <div class="featured-text text-center text-lg-left">
-                        <h4>Shoreline</h4>
-                        <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
+                        <h4>What We Do</h4>
+                        <p class="text-black-50 mb-0">The main sales pitch of MLM companies to their participants and prospective participants is not the MLM company's products or services.</p><br>
+                        <marquee width="100%" class="text-primary" direction="left" height="100px">
+                            We are here to remove poverty from society with some extraordinary income facilities.
+                        </marquee>
                     </div>
                 </div>
             </div>
-            <!-- Project One Row-->
-            <!-- <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-01.jpg" alt="..." /></div>
-                <div class="col-lg-6">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-left">
-                                <h4 class="text-white">Misty</h4>
-                                <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
-                                <hr class="d-none d-lg-block mb-0 ms-0" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- Project Two Row-->
             <div class="row gx-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="{{asset('home/assets/img/demo-image-02.jpg')}}" alt="..." /></div>
+                <div class="col-lg-6"><img class="img-fluid" src="https://cdn.pixabay.com/photo/2016/10/09/19/19/coins-1726618_1280.jpg" alt="..." /></div>
                 <div class="col-lg-6 order-lg-first">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">Mountains</h4>
+                                <h4 class="text-white">Our Goal</h4>
                                 <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
                                 <hr class="d-none d-lg-block mb-0 me-0" />
                             </div>
@@ -112,7 +102,7 @@
     <!-- Signup-->
 
     <!-- Contact-->
-    <section class="contact-section bg-black">
+    <section class="contact-section bg-primary" id="contact">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5">
                 <div class="col-md-4 mb-3 mb-md-0">
@@ -131,7 +121,7 @@
                             <i class="fas fa-envelope text-primary mb-2"></i>
                             <h4 class="text-uppercase m-0">Email</h4>
                             <hr class="my-4 mx-auto" />
-                            <div class="small text-black-50"><a href="#!">hello@yourdomain.com</a></div>
+                            <div class="small text-black-50"><a href="#!">www.gmail.com</a></div>
                         </div>
                     </div>
                 </div>
@@ -141,20 +131,20 @@
                             <i class="fas fa-mobile-alt text-primary mb-2"></i>
                             <h4 class="text-uppercase m-0">Phone</h4>
                             <hr class="my-4 mx-auto" />
-                            <div class="small text-black-50">+1 (555) 902-8832</div>
+                            <div class="small text-black-50">+880XXXXXXXXXX</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="social d-flex justify-content-center">
-                <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
+                <a class="mx-2" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
+                <a class="mx-2" target="_blank" href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                <a class="mx-2" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </section>
     <!-- Footer-->
-    <footer class="footer bg-black small text-center text-white-50" id="contact">
+    <footer class="footer bg-primary small text-center text-white-50">
         <div class="container px-4 px-lg-5">Copyright &copy; Your Website 2021</div>
     </footer>
     <!-- Bootstrap core JS-->
