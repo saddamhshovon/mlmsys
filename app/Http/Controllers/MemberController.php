@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Member;
+use App\Notifications\AdminNotification;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -69,8 +71,13 @@ class MemberController extends Controller
                 "membership_type" => $request->membership_type,
                 "moblie_banking_service" => $request->mobile_banking_service,
             ];
-            $query = DB::table('members')->insert($data);
+            $query = Member::create($data);
+            // $query = DB::table('members')->insert($data);
+
             if ($query) {
+                $member = $query;
+                $admin = Admin::find(1);
+                $admin->notify(new AdminNotification($member));
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Registration Successfull'
@@ -291,11 +298,11 @@ class MemberController extends Controller
             ->first();
         // dd($parent->user_name);
         $children = DB::table('members')
-        ->select('id','user_name', 'has_children')
-        ->where([
-            'placement_id' => $parent->user_name
-        ])
-        ->get();;
+            ->select('id', 'user_name', 'has_children')
+            ->where([
+                'placement_id' => $parent->user_name
+            ])
+            ->get();;
         // dd($child);
         return view('member.team.tree', compact('parent', 'children'));
     }

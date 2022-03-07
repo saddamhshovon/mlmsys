@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Home Start View')
+@section('title', 'Home About Section')
 
 @section('content')
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-   <h1 class="h3 mb-0 text-gray-800">Home Start View</h1>
+   <h1 class="h3 mb-0 text-gray-800">Home About Section</h1>
 </div>
 
 <div class="row">
@@ -26,12 +26,12 @@
             </div>
             @endif
 
-            <img class="rounded-circle" style="height:100px; width: 100px;" src="{{(isset($homestart->image)) ? asset($homestart->image) : url('images/no_image.jpg')}}" height="100%" width="100%" alt=""><br>
+            <img class="" style="height:100px; width: 140px;" src="{{(!empty($homeAbout->image))?url('images/home/'.$homeAbout->image):url('images/no_image.jpg')}}" height="100%" width="100%" alt=""><br><br>
 
-            <form action="{{route('home.start.submit')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('home.about.submit')}}" method="POST" enctype="multipart/form-data">
                @csrf
                <div class="mb-3">
-                  <label for="image" class="form-label">Upload Logo<span class="text-danger">*</span></label>
+                  <label for="image" class="form-label">Upload Image<span class="text-danger">*</span></label>
 
                   <input type="file" name="image" class="form-control" id="image">
                </div>
@@ -42,16 +42,8 @@
                @enderror
 
                <div class="mb-3">
-                  <label for="logo_title" class="form-label">Logo Title<span class="text-danger">*</span></label>
-                  <input type="text" name="logo_title" value="{{!empty($homestart->logo_title) ? $homestart->logo_title : ''}}" class="form-control" id="logo_title" placeholder="Logo Title">
-                  @error('logo_title')
-                  <span class="text-danger">{{$message}}</span>
-                  @enderror
-               </div>
-
-               <div class="mb-3">
                   <label for="title" class="form-label">Title<span class="text-danger">*</span></label>
-                  <input type="text" name="title" value="{{!empty($homestart->title) ? $homestart->title : ''}}" class="form-control" id="title" placeholder="Title">
+                  <input type="text" name="title" value="{{!empty($homeAbout->title) ? $homeAbout->title : ''}}" class="form-control" id="title" placeholder="Title">
                   @error('title')
                   <span class="text-danger">{{$message}}</span>
                   @enderror
@@ -59,12 +51,12 @@
 
                <div class="mb-3">
                   <label for="subtitle" class="form-label">Description<span class="text-danger">*</span></label>
-                  <input type="text" name="subtitle" value="{{!empty($homestart->subtitle) ? $homestart->subtitle : ''}}" class="form-control" id="subtitle" placeholder="Description">
+                  <input type="text" name="subtitle" value="{{!empty($homeAbout->subtitle) ? $homeAbout->subtitle : ''}}" class="form-control" id="subtitle" placeholder="Description">
                   @error('subtitle')
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                </div>
-               @if(empty($homestart))
+               @if(empty($homeAbout))
                <div>
                   <button type="submit" class="btn btn-rounded btn-primary">Create</button>
                </div>

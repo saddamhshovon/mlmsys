@@ -6,7 +6,7 @@
 
 <!-- Page Heading -->
 @if (!empty($notice->dashboard_notice))
-<marquee width="49%" class="text-primary text-center" direction="left" height="20px">
+<marquee width="49%" class="text-primary text-center" direction="right" height="20px">
    {{$notice->dashboard_notice}}
 </marquee>
 @endif

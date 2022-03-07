@@ -29,11 +29,14 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            @php
+            $homestart = DB::table('homestarts')->first();
+            @endphp
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <img class="rounded-circle" width="50" height="50" src="{{isset($homestart->image) ? asset($homestart->image) : 'https://cdn.pixabay.com/photo/2017/11/16/09/25/bitcoin-2953851_1280.png'}}" alt="">
                 </div>
-                <div class="sidebar-brand-text mx-3">MLM</div>
+                <div class="sidebar-brand-text mx-3">{{isset($homestart->logo_title) ? $homestart->logo_title : 'MLM' }}</div>
             </a>
 
             <!-- Divider -->
@@ -82,7 +85,7 @@
 
             <hr class="sidebar-divider">
 
-            
+
             <!-- Heading -->
             <div class="sidebar-heading">
                 Team

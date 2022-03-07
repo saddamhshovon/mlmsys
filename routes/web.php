@@ -6,10 +6,20 @@ use App\Http\Controllers\FundController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Models\HomeAbout;
+use App\Models\HomeFooter;
+use App\Models\HomeGoal;
+use App\Models\HomeOurWork;
+use App\Models\homestart;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $homestart = homestart::first();
+    $homeAbout = HomeAbout::first();
+    $homeWork = HomeOurWork::first();
+    $homeGoal = HomeGoal::first();
+    $homeFooter = HomeFooter::first();
+    return view('welcome', compact('homestart', 'homeAbout', 'homeWork', 'homeGoal', 'homeFooter'));
 });
 
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
@@ -45,6 +55,10 @@ Route::group(['middleware' => 'admin_auth'], function () {
 
     //////////               Product Related Route Ended             //////////
 
+    Route::get('/admin/notification/all', [AdminController::class, 'allNotification'])->name('all.notification');
+    Route::get('/admin/profile', [AdminController::class, 'adminProfile'])->name('admihn.profile');
+    Route::post('/admin/profile-update', [AdminController::class, 'adminProfileUpdate'])->name('admin.profile.update');
+
     //////////               User Manage Route Started             //////////
 
     Route::get('/admin/member/all', [AdminController::class, 'allMember'])->name('member.all');
@@ -67,16 +81,16 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/hands', [AdminController::class, 'hands'])->name('hands');
     Route::post('/admin/hands-fix', [AdminController::class, 'handsFix'])->name('hands.fix');
     Route::post('/admin/hands-change', [AdminController::class, 'handsChange'])->name('hands.change');
-    
+
     Route::get('/admin/generation', [GenerationController::class, 'index'])->name('generation');
     Route::post('/admin/generation-fix', [GenerationController::class, 'create'])->name('generation.fix');
     Route::get('/admin/generation-delete', [GenerationController::class, 'deleteLevels'])->name('generation.delete');
-    
+
     Route::get('/admin/generation/income', [GenerationController::class, 'indexIncome'])->name('generation.income');
     Route::post('/admin/generation/income-save', [GenerationController::class, 'store'])->name('generation.incsave');
     Route::post('/admin/generation/income-update', [GenerationController::class, 'update'])->name('generation.incupdate');
 
-    //////////               Funds Route             //////////
+    //////////                        Funds Route                 //////////
     Route::get('/admin/funds-tax', [FundController::class, 'fundsTax'])->name('funds.tax');
     Route::post('/admin/funds-tax-fix', [FundController::class, 'fundsTaxFix'])->name('funds.taxfix');
     Route::post('/admin/funds-tax-change', [FundController::class, 'fundsTaxChange'])->name('funds.taxchange');
@@ -97,8 +111,14 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/home/work', [HomeController::class, 'homeWorkSection'])->name('home.work');
     Route::get('/admin/home/goal', [HomeController::class, 'homeGoalSection'])->name('home.goal');
     Route::get('/admin/home/footer', [HomeController::class, 'homeFooterSection'])->name('home.footer');
+    Route::get('/admin/home/notice', [HomeController::class, 'homeNoticeSection'])->name('home.notice');
 
-    Route::post('/admin/home/submit', [HomeController::class, 'homeStartSubmit'])->name('home.start.submit');
+    Route::post('/admin/home/start-submit', [HomeController::class, 'homeStartSubmit'])->name('home.start.submit');
+    Route::post('/admin/home/about-submit', [HomeController::class, 'homeAboutSubmit'])->name('home.about.submit');
+    Route::post('/admin/home/work-submit', [HomeController::class, 'homeWorkSubmit'])->name('home.work.submit');
+    Route::post('/admin/home/goal-submit', [HomeController::class, 'homeGoalSubmit'])->name('home.goal.submit');
+    Route::post('/admin/home/footer-submit', [HomeController::class, 'homeFooterSubmit'])->name('home.footer.submit');
+    Route::post('/admin/home/notice-submit', [HomeController::class, 'homeNoticeSubmit'])->name('home.notice.submit');
 
     //////////                          HOME END                  /////////////
 });
@@ -119,7 +139,7 @@ Route::group(['middleware' => 'member_auth'], function () {
 
     Route::get('/fund/withdraw', [FundController::class, 'withdrawFund'])->name('fund.withdraw');
     Route::post('/fund/withdraw-request', [FundController::class, 'withdraw'])->name('fund.withdrawreq');
-    
+
     Route::get('/team/tree/{id}', [MemberController::class, 'teamTree'])->name('team.tree');
 
     ///////////////           USER PROFILE CHANGE         ////////////////
