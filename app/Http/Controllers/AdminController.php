@@ -52,12 +52,12 @@ class AdminController extends Controller
         $hands = DB::table("max_children")
             ->first();
         DB::table("max_children")
-        ->where('id', $hands->id)
-        ->update([
-            'max' => $request->hands,
-            'updated_at' => Carbon::now()
-        ]);
-        
+            ->where('id', $hands->id)
+            ->update([
+                'max' => $request->hands,
+                'updated_at' => Carbon::now()
+            ]);
+
         return redirect()->back();
     }
 
@@ -266,24 +266,24 @@ class AdminController extends Controller
 
     public function dashboardNotice()
     {
-        $notice = Notice::first();
+        $notice = notice::first();
         return view('admin.notice.dashboard', compact('notice'));
     }
 
     public function withdrawNotice()
     {
-        $notice = Notice::first();
+        $notice = notice::first();
         return view('admin.notice.withdraw', compact('notice'));
     }
     public function dashboardNoticePublish(Request $request)
     {
-        $notice = new Notice();
-        if (empty(Notice::first())) {
+        $notice = new notice();
+        if (empty(notice::first())) {
             $notice->dashboard_notice = $request->dashboard_notice;
             $notice->save();
             return redirect()->back()->with('success', 'Dashboard Notice Published Successfully!');
-        } elseif (!empty(Notice::first())) {
-            $notice = Notice::first();
+        } elseif (!empty(notice::first())) {
+            $notice = notice::first();
             $notice->dashboard_notice = $request->dashboard_notice;
             $notice->update();
             return redirect()->back()->with('success', 'Dashboard  Changed Successfully!');
@@ -291,16 +291,46 @@ class AdminController extends Controller
     }
     public function withdrawNoticePublish(Request $request)
     {
-        $notice = new Notice();
-        if (empty(Notice::first())) {
+        $notice = new notice();
+        if (empty(notice::first())) {
             $notice->withdraw_notice = $request->withdraw_notice;
             $notice->save();
             return redirect()->back()->with('success', 'Withdraw Notice Added Successfully!');
-        } elseif (!empty(Notice::first())) {
-            $notice = Notice::first();
+        } elseif (!empty(notice::first())) {
+            $notice = notice::first();
             $notice->withdraw_notice = $request->withdraw_notice;
             $notice->update();
             return redirect()->back()->with('success', 'Withdraw Notice Published Successfully!');
         }
+    }
+
+    public function allNotification()
+    {
+        $id = session('ADMIN_ID');
+        $admin = Admin::first();
+        dd($admin);
+        $notifications = $admin->unreadNotifications()->paginate(3);
+        return view('admin.notification.all', compact('notifications'));
+    }
+
+    public function adminProfile()
+    {
+        $id = session('ADMIN_ID');
+        $admin = Admin::first();
+        return view('admin.settings.profile', compact('admin'));
+    }
+
+    public function adminProfileUpdate(Request $request)
+    {
+        $admin = Admin::first();
+
+        $admin->first_name = $request->first_name;
+        $admin->last_name = $request->last_name;
+        $admin->email = $request->email;
+        $admin->mobile = $request->mobile;
+        $admin->password = $request->password;
+
+        $admin->update();
+        return redirect()->back()->withInput()->with('success', 'Updated Admin Details Successfully');
     }
 }

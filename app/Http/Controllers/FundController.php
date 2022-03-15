@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Fund;
 use App\Models\Member;
+use App\Notifications\WithdrawFundNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -51,24 +53,6 @@ class FundController extends Controller
                 'tax' => $request->tax,
                 'updated_at' => Carbon::now()
             ]);
-
-        return redirect()->back();
-    }
-
-    public function newUserFund()
-    {
-
-        $regfund = DB::table("registration_funds")
-            ->first();
-
-        // dd($levels);
-        return view('admin.funds.newuserfund', compact('regfund'));
-    }
-    public function newUserFundFix(Request $request)
-    {
-        $request->validate([
-            "amount" => 'required|numeric'
-        ]);
 
         DB::table("registration_funds")
             ->insert([
@@ -308,6 +292,9 @@ class FundController extends Controller
             $fund->funding_type = 1;
             $fund->save();
 
+            $admin = Admin::find(1);
+            $admin->notify(new WithdrawFundNotification($fund));
+
             return redirect()->back()->with('success', 'Successfully placed request for adding fund.');
         } else {
             return redirect()->back()->with('failed', 'Wrong pin number. Please enter correct pin.')->withInput();
@@ -346,6 +333,9 @@ class FundController extends Controller
                     ->update([
                         'account_balance' => $newBalance
                     ]);
+
+                $admin = Admin::find(1);
+                $admin->notify(new WithdrawFundNotification($fund));
 
                 return redirect()->back()->with('success', 'Successfully placed request for withdrawing fund.');
             } else {

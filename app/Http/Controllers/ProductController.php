@@ -101,9 +101,8 @@ class ProductController extends Controller
             [
                 'product_name' => 'required',
                 'product_category' => 'required',
-                'product_code' => 'required|unique',
+                'product_code' => 'required',
                 'product_price' => 'required',
-                'product_image' => 'required',
                 'product_pdf' => 'mimes:pdf'
             ],
             [
