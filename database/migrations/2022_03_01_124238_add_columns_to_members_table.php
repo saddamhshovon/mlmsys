@@ -14,10 +14,10 @@ class AddColumnsToMembersTable extends Migration
     public function up()
     {
         Schema::table('members', function (Blueprint $table) {
-            $table->tinyInteger('has_children')->nullable();
-            $table->integer('current_level')->nullable();
-            $table->integer('total_levels_underneath')->nullable();
-            $table->integer('total_user_underneath')->nullable();
+            $table->tinyInteger('has_children')->default(0);
+            $table->integer('current_level')->default(0);
+            $table->integer('total_levels_underneath')->default(0);
+            $table->integer('total_user_underneath')->default(0);
         });
     }
 
@@ -29,10 +29,10 @@ class AddColumnsToMembersTable extends Migration
     public function down()
     {
         Schema::table('members', function (Blueprint $table) {
-            $table->dropColumn('has_children')->nullable();
-            $table->dropColumn('current_level')->nullable();
-            $table->dropColumn('total_levels_underneath')->nullable();
-            $table->dropColumn('total_user_underneath')->nullable();
+            $table->dropColumn('has_children');
+            $table->dropColumn('current_level');
+            $table->dropColumn('total_levels_underneath');
+            $table->dropColumn('total_user_underneath');
         });
     }
 }

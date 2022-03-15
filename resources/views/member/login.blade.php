@@ -39,17 +39,11 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user" id="memberLogin">
+                                    <form class="user" action="{{route('auth')}}" method="POST">
                                         @csrf
                                         @if(session('success'))
                                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                                             <strong>{{session('success')}}</strong>
-                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                        </div>
-                                        @endif
-                                        @if(session('error'))
-                                        <div class="alert alert-success alert-danger fade show" role="alert">
-                                            <strong>{{session('error')}}</strong>
                                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                                         </div>
                                         @endif
@@ -61,9 +55,11 @@
                                         </div>
                                         <button class="btn btn-primary btn-user btn-block" type="submit">Sign in</button>
                                     </form>
-                                    <div class="text-center">
-                                        <h1 id="login_message" class="h6 pt-3 text-danger" role="alert"></h1>
-                                    </div>
+                                    @if(session('failed'))
+                                        <div class="alert alert-danger fade show mt-3" role="alert">
+                                            <strong>{{session('failed')}}</strong>
+                                        </div>
+                                        @endif
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="{{ route('reset')}}">Forgot Password?</a>

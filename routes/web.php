@@ -5,20 +5,29 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ProductController;
+use App\Models\Country;
+use App\Models\City;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/admin/auth', [AdminController::class, 'auth'])->name('admin.auth');
 
+Route::get('/cities/where-country-is/{name}', [MemberController::class, 'cities'])->name('cities');
+
 Route::get('/register', [MemberController::class, 'create'])->name('register');
 Route::post('/register-member', [MemberController::class, 'store'])->name('register.member');
+
 Route::get('/login', [MemberController::class, 'login'])->name('login');
 Route::post('/login-member', [MemberController::class, 'auth'])->name('auth');
+
+
 Route::get('/reset', function () {
     return "testing reset";
 })->name('reset');
@@ -80,6 +89,18 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/funds-tax', [FundController::class, 'fundsTax'])->name('funds.tax');
     Route::post('/admin/funds-tax-fix', [FundController::class, 'fundsTaxFix'])->name('funds.taxfix');
     Route::post('/admin/funds-tax-change', [FundController::class, 'fundsTaxChange'])->name('funds.taxchange');
+    
+    Route::get('/admin/withdraw-tax', [FundController::class, 'withdrawTax'])->name('withdraw.tax');
+    Route::post('/admin/withdraw-tax-fix', [FundController::class, 'withdrawTaxFix'])->name('withdraw.taxfix');
+    Route::post('/admin/withdraw-tax-change', [FundController::class, 'withdrawTaxChange'])->name('withdraw.taxchange');
+    
+    Route::get('/admin/user-fund', [FundController::class, 'newUserFund'])->name('funds.reg');
+    Route::post('/admin/user-fund-fix', [FundController::class, 'newUserFundFix'])->name('funds.regfix');
+    Route::post('/admin/user-fund-change', [FundController::class, 'newUserFundChange'])->name('funds.regchange');
+    
+    Route::get('/admin/referral-income', [FundController::class, 'referralIncome'])->name('referreal.income');
+    Route::post('/admin/referral-income-fix', [FundController::class, 'referralIncomeFix'])->name('referreal.incomefix');
+    Route::post('/admin/referral-income-change', [FundController::class, 'referralIncomeChange'])->name('referreal.incomechange');
 
     //////////                        Notice                     //////////    
 
@@ -121,6 +142,7 @@ Route::group(['middleware' => 'member_auth'], function () {
     Route::post('/fund/withdraw-request', [FundController::class, 'withdraw'])->name('fund.withdrawreq');
     
     Route::get('/team/tree/{id}', [MemberController::class, 'teamTree'])->name('team.tree');
+    Route::get('/member/leaderboard', [IncomeController::class, 'leaderBoard'])->name('member.leaderboard');
 
     ///////////////           USER PROFILE CHANGE         ////////////////
 

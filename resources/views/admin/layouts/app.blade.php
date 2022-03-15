@@ -79,8 +79,10 @@
                 <div id="collapseFunds" class="collapse" aria-labelledby="headingFunds" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Funds:</h6>
-                        <a class="collapse-item" href="{{ route('funds.tax')}}">Fix Tax</a>
-                        <a class="collapse-item" href="">Test</a>
+                        <a class="collapse-item" href="{{ route('funds.reg')}}">Fix New User's Fund</a>
+                        <a class="collapse-item" href="{{ route('referreal.income')}}">Fix Referral Income</a>
+                        <a class="collapse-item" href="{{ route('funds.tax')}}">Fix Transfer Charge</a>
+                        <a class="collapse-item" href="{{ route('withdraw.tax')}}">Fix Withdraw Charge</a>
                     </div>
                 </div>
             </li>

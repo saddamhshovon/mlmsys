@@ -17,7 +17,7 @@ class FundController extends Controller
      */
     public function fundsTax()
     {
-        
+
         $tax = DB::table("tax_on_transfer")
             ->first();
 
@@ -46,15 +46,130 @@ class FundController extends Controller
         $tax = DB::table("tax_on_transfer")
             ->first();
         DB::table("tax_on_transfer")
-        ->where('id', $tax->id)
-        ->update([
-            'tax' => $request->tax,
-            'updated_at' => Carbon::now()
-        ]);
+            ->where('id', $tax->id)
+            ->update([
+                'tax' => $request->tax,
+                'updated_at' => Carbon::now()
+            ]);
 
         return redirect()->back();
     }
 
+    public function newUserFund()
+    {
+
+        $regfund = DB::table("registration_funds")
+            ->first();
+
+        // dd($levels);
+        return view('admin.funds.newuserfund', compact('regfund'));
+    }
+    public function newUserFundFix(Request $request)
+    {
+        $request->validate([
+            "amount" => 'required|numeric'
+        ]);
+
+        DB::table("registration_funds")
+            ->insert([
+                "amount" => $request->amount,
+            ]);
+        return redirect()->back();
+    }
+    public function newUserFundChange(Request $request)
+    {
+        $request->validate([
+            "amount" => 'required|numeric'
+        ]);
+
+        $amount = DB::table("registration_funds")
+            ->first();
+        DB::table("registration_funds")
+            ->where('id', $amount->id)
+            ->update([
+                'amount' => $request->amount,
+            ]);
+
+        return redirect()->back();
+    }
+
+    public function referralIncome()
+    {
+
+        $regfund = DB::table("referral_income_amount")
+            ->first();
+
+        // dd($levels);
+        return view('admin.funds.referralincome', compact('regfund'));
+    }
+    public function referralIncomeFix(Request $request)
+    {
+        $request->validate([
+            "amount" => 'required|numeric'
+        ]);
+
+        DB::table("referral_income_amount")
+            ->insert([
+                "amount" => $request->amount,
+            ]);
+        return redirect()->back();
+    }
+    public function referralIncomeChange(Request $request)
+    {
+        $request->validate([
+            "amount" => 'required|numeric'
+        ]);
+
+        $amount = DB::table("referral_income_amount")
+            ->first();
+        DB::table("referral_income_amount")
+            ->where('id', $amount->id)
+            ->update([
+                'amount' => $request->amount,
+            ]);
+
+        return redirect()->back();
+    }
+
+    public function withdrawTax()
+    {
+
+        $tax = DB::table("tax_on_withdraw")
+            ->first();
+
+        // dd($levels);
+        return view('admin.funds.taxonwithdraw', compact('tax'));
+    }
+    public function withdrawTaxFix(Request $request)
+    {
+        $request->validate([
+            "tax" => 'required|numeric'
+        ]);
+
+        DB::table("tax_on_withdraw")
+            ->insert([
+                "tax" => $request->tax,
+                "created_at" => Carbon::now()
+            ]);
+        return redirect()->back();
+    }
+    public function withdrawTaxChange(Request $request)
+    {
+        $request->validate([
+            "tax" => 'required|numeric'
+        ]);
+
+        $tax = DB::table("tax_on_withdraw")
+            ->first();
+        DB::table("tax_on_withdraw")
+            ->where('id', $tax->id)
+            ->update([
+                'tax' => $request->tax,
+                'updated_at' => Carbon::now()
+            ]);
+
+        return redirect()->back();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -211,7 +326,10 @@ class FundController extends Controller
                 'id' => session()->get('MEMBER_ID')
             ])
             ->get();
-        if ($member[0]->account_balance > $request->amount) {
+        $tax = DB::table("tax_on_withdraw")
+            ->select('tax')
+            ->first();
+        if ($member[0]->account_balance > $request->amount + $tax->tax) {
             if ($member[0]->pin == $request->pin) {
                 $fund = new Fund();
                 $fund->user_name = $member[0]->user_name;
@@ -219,7 +337,7 @@ class FundController extends Controller
                 $fund->funding_type = 0;
                 $fund->save();
 
-                $newBalance = $member[0]->account_balance - $request->amount;
+                $newBalance = $member[0]->account_balance - $request->amount - $tax->tax;
 
                 DB::table('members')
                     ->where([

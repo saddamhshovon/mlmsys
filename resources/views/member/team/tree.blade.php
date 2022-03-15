@@ -13,8 +13,8 @@
     <div class="col-xl-12 col-md-6 mb-4">
         <div class="card shadow mb-4">
             <div class="card-body">
-                <div class="col-xl-6 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
+                <div class="col-xl-3 col-md-3 mb-4 mx-auto">
+                    <div class="card border-bottom-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col">
@@ -27,21 +27,21 @@
                     </div>
                 </div>
                 <div class="row">
-                    @for($i=0; $i < $parent->has_children; $i++)
-                        <div class="col-auto">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col">
-                                            <div class="text-xs text-center font-weight-bold text-primary text-uppercase mb-1">
-                                                <a href="{{ route('team.tree', $children[$i]->id) }}">{{ $children[$i]->user_name}}</a>
-                                            </div>
+                    @foreach($children as $child)
+                    <div class="col-auto mx-auto">
+                        <div class="card border-bottom-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col">
+                                        <div class="text-xs text-center font-weight-bold text-primary text-uppercase mb-1">
+                                            <a href="{{ route('team.tree', $child->id) }}">{{ $child->user_name }}</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @endfor
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
