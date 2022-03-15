@@ -145,10 +145,10 @@ class MemberController extends Controller
                 ->first();
             if ($placement->has_children < $placement->max_children) {
                 DB::table('members')
-                ->where('user_name', $request->referral_id)
-                ->update([
-                    'account_balance' => $refarral->account_balance + $referral_income->amount
-                ]);
+                    ->where('user_name', $request->referral_id)
+                    ->update([
+                        'account_balance' => $refarral->account_balance + $referral_income->amount
+                    ]);
                 DB::table('members')
                     ->where('user_name', $request->placement_id)
                     ->update([
@@ -177,6 +177,8 @@ class MemberController extends Controller
         $member = Member::create($data);
 
         if ($member) {
+            $admin = Admin::find(1);
+            $admin->notify(new AdminNotification($member));
             ProcessUserLevelCount::dispatch($member);
             ProcessGenerationIncome::dispatch($member);
             return redirect()->back()->with('success', 'Successfully Registered.');
