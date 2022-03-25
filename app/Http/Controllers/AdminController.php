@@ -308,7 +308,7 @@ class AdminController extends Controller
     {
         $id = session('ADMIN_ID');
         $admin = Admin::first();
-        dd($admin);
+        // dd($admin);
         $notifications = $admin->unreadNotifications()->paginate(3);
         return view('admin.notification.all', compact('notifications'));
     }

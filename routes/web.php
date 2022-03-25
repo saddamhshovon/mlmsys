@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DateRangeSearchController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\GenerationController;
@@ -68,6 +69,10 @@ Route::group(['middleware' => 'admin_auth'], function () {
 
     //////////               User Manage Route Started             //////////
 
+    Route::resource('/admin/member/all/daterange', DateRangeSearchController::class);
+    Route::get('/admin/member/all/datesearch', [DateRangeSearchController::class, 'dateSearch'])->name('member.datesearch');
+    // Route::resource('/admin/member/all/daterange', [DateRangeSearchController::class]);
+
     Route::get('/admin/member/all', [AdminController::class, 'allMember'])->name('member.all');
     Route::get('/admin/member/show/{id}', [AdminController::class, 'showMember'])->name('member.show');
     Route::get('/admin/member/edit/{id}', [AdminController::class, 'editMember'])->name('member.edit');
@@ -101,15 +106,15 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/funds-tax', [FundController::class, 'fundsTax'])->name('funds.tax');
     Route::post('/admin/funds-tax-fix', [FundController::class, 'fundsTaxFix'])->name('funds.taxfix');
     Route::post('/admin/funds-tax-change', [FundController::class, 'fundsTaxChange'])->name('funds.taxchange');
-    
+
     Route::get('/admin/withdraw-tax', [FundController::class, 'withdrawTax'])->name('withdraw.tax');
     Route::post('/admin/withdraw-tax-fix', [FundController::class, 'withdrawTaxFix'])->name('withdraw.taxfix');
     Route::post('/admin/withdraw-tax-change', [FundController::class, 'withdrawTaxChange'])->name('withdraw.taxchange');
-    
+
     Route::get('/admin/user-fund', [FundController::class, 'newUserFund'])->name('funds.reg');
     Route::post('/admin/user-fund-fix', [FundController::class, 'newUserFundFix'])->name('funds.regfix');
     Route::post('/admin/user-fund-change', [FundController::class, 'newUserFundChange'])->name('funds.regchange');
-    
+
     Route::get('/admin/referral-income', [FundController::class, 'referralIncome'])->name('referreal.income');
     Route::post('/admin/referral-income-fix', [FundController::class, 'referralIncomeFix'])->name('referreal.incomefix');
     Route::post('/admin/referral-income-change', [FundController::class, 'referralIncomeChange'])->name('referreal.incomechange');

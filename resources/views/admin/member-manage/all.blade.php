@@ -3,11 +3,12 @@
 @section('title', 'All Members')
 
 @section('content')
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
 <div class="container-fluid">
 
    <!-- Page Heading -->
-   <h1 class="h3 mb-2 text-gray-800">All Members</h1>
+   <a href="{{route('member.datesearch')}}"><button class="btn btn-primary mb-2">Search Between Dates</button></a>
 
    <!-- DataTales Example -->
    <div class="card shadow mb-4">
@@ -34,11 +35,12 @@
                         <thead>
                            <tr role="row">
                               <th class="text-center" scope="col" width="5%">SL</th>
-                              <th class="text-center" scope="col" width="15%">Name</th>
+                              <th class="text-center" scope="col" width="10%">Name</th>
                               <th class="text-center" scope="col" width="10%">City</th>
                               <th class="text-center" scope="col" width="10%">Country</th>
-                              <th class="text-center" scope="col" width="15%">Balance</th>
-                              <th class="text-center" scope="col" width="15%">Status</th>
+                              <th class="text-center" scope="col" width="10%">Balance</th>
+                              <th class="text-center" scope="col" width="10%">Mobile Banking</th>
+                              <th class="text-center" scope="col" width="10%">Status</th>
                               <th class="text-center" scope="col" width="15%">Action</th>
                            </tr>
                         </thead>
@@ -47,10 +49,11 @@
                            @foreach($members as $mem)
                            <tr>
                               <td class="text-center sorting_1">{{$i++}}</td>
-                              <td class="text-center">{{$mem->first_name}} {{$mem->last_name}}</td>
+                              <td class="text-center"><a href="{{route('member.show',$mem->id)}}">{{$mem->user_name}}</a></td>
                               <td class="text-center">{{$mem->city}}</td>
                               <td class="text-center">{{$mem->country}}</td>
                               <td class="text-center">{{$mem->account_balance}}</td>
+                              <td class="text-center">{{$mem->moblie_banking_service}}</td>
                               @if(($mem->is_active)==1)
                               <td class="text-center text-success" style="font-weight: bold;">Active</td>
                               @elseif(($mem->is_blocked)==1)

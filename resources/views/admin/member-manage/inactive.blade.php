@@ -40,23 +40,12 @@
                               <th class="text-center" scope="col" width="15%">Action</th>
                            </tr>
                         </thead>
-                        <tfoot>
-                           <tr>
-                              <th class="text-center" scope="col" width="5%">SL</th>
-                              <th class="text-center" scope="col" width="15%">Name</th>
-                              <th class="text-center" scope="col" width="10%">City</th>
-                              <th class="text-center" scope="col" width="10%">Country</th>
-                              <th class="text-center" scope="col" width="15%">Balance</th>
-                              <th class="text-center" scope="col" width="15%">Status</th>
-                              <th class="text-center" scope="col" width="15%">Action</th>
-                           </tr>
-                        </tfoot>
                         <tbody>
                            @php($i=1)
                            @foreach($members as $mem)
                            <tr class="">
                               <td class="text-center sorting_1">{{$i++}}</td>
-                              <td class="text-center">{{$mem->first_name}} {{$mem->last_name}}</td>
+                              <td class="text-center"><a href="{{route('member.show',$mem->id)}}">{{$mem->user_name}}</a></td>
                               <td class="text-center">{{$mem->city}}</td>
                               <td class="text-center">{{$mem->country}}</td>
                               <td class="text-center">{{$mem->account_balance}}</td>

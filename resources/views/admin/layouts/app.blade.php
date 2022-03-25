@@ -17,6 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
     <link href="{{asset('dashboard/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
 </head>
@@ -192,7 +193,7 @@
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Alerts -->
-                        @php($admin = App\Models\Admin::find(1));
+                        @php($admin = App\Models\Admin::find(1))
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
@@ -330,6 +331,18 @@
 
     <!--       SWEET ALERT      -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- date range search -->
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> -->
+    <!-- <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
     <script type="text/javascript">
         $(function() {
