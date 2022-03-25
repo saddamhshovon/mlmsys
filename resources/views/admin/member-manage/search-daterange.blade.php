@@ -7,13 +7,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 
-<!-- <div style="display: inline-block;">
-               <input type="text" name="from_date" id="from_date" placeholder="From Date" style="display: inline-block;">
-               <input type="text" name="to_date" id="to_date" placeholder="To Date" style="display: inline-block;">
-               <button type="button" name="filter" id="filter" style="display: inline-block;" class="btn btn-primary">Filter</button>
-               <button type="button" name="refresh" id="refresh" class="btn btn-info" style="display: inline-block;">Refresh</button>
-            </div> -->
-
 <div>
    <div class="container-fluid">
       <!-- <h3>Search Between Two Dates</h3> -->

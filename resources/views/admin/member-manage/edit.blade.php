@@ -78,7 +78,7 @@
 
                      <div class="mb-3">
                         <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
-                        <input type="text" name="password" value="{{$member->password}}" class="form-control" id="password" placeholder="Password">
+                        <input type="password" name="password" value="{{$member->password}}" class="form-control" id="password" placeholder="Password">
                         @error('password')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -94,7 +94,7 @@
 
                      <div class="mb-3">
                         <label for="pin" class="form-label">Pin Code<span class="text-danger">*</span></label>
-                        <input type="text" name="pin" value="{{$member->pin}}" class="form-control" id="pin" placeholder="Pin Code">
+                        <input type="password" name="pin" value="{{$member->pin}}" class="form-control" id="pin" placeholder="Pin Code">
                         @error('pin')
                         <span class="text-danger">{{$message}}</span>
                         @enderror

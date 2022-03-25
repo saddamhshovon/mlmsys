@@ -53,7 +53,7 @@
                      </div>
                      <div class="mb-3">
                         <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
-                        <input type="text" disabled name="password" value="{{$member->password}}" class="form-control" id="password" placeholder="Password">
+                        <input type="password" disabled name="password" value="{{$member->password}}" class="form-control" id="password" placeholder="Password">
                         @error('password')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -67,7 +67,7 @@
                      </div>
                      <div class="mb-3">
                         <label for="pin" class="form-label">Pin Code<span class="text-danger">*</span></label>
-                        <input type="text" disabled name="pin" value="{{$member->pin}}" class="form-control" id="pin" placeholder="Pin Code">
+                        <input type="password" disabled name="pin" value="{{$member->pin}}" class="form-control" id="pin" placeholder="Pin Code">
                         @error('pin')
                         <span class="text-danger">{{$message}}</span>
                         @enderror

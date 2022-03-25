@@ -1,16 +1,16 @@
 @extends('admin.layouts.app')
 
-@section('title', 'All Notification')
+@section('title', 'New Member Notification')
 
 @section('content')
 
 <!-- Page Heading -->
+
 <div class="d-sm-flex align-items-center justify-content-between mb-2">
-   <h1 class="h3 mb-0 text-gray-800">All Notification</h1>
+   <h1 class="h3 mb-0 text-gray-800">New Member Notification</h1>
 </div>
 
 <div>
-   <!-- <h1 class="h3 mb-0 text-gray-800" style="display:inline-block;">All Notification</h1> -->
    <a class="mr-2" style="text-decoration: none;" href="{{ route('all.notification') }}">All Notifications</a>
    <a class="mr-2" style="text-decoration: none;" href="{{ route('new.member.notification') }}">New Member</a>
    <a class="mr-2" style="text-decoration: none;" href="{{ route('withdraw.fund.notification') }}">Withdraw Fund</a>
@@ -36,14 +36,6 @@
                      <p class="text-success">Registered Successfully!</p>
                      @elseif($notification->data['is_active'] === 0)
                      <p class="text-success">Registered successfully but not activated</p>
-                     @endif
-                     @endif
-
-                     @if(isset($notification->data['f_type']))
-                     @if($notification->data['f_type'] === 0)
-                     <p class="text-success">has sent a withdraw request!</p>
-                     @elseif($notification->data['f_type'] === 1)
-                     <p class="text-success">has sent a fund add request!</p>
                      @endif
                      @endif
                   </span>

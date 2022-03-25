@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DateRangeSearchController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\FundController;
@@ -47,6 +48,15 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
+    ////////////         NOTIFICATION         ////////////
+
+    Route::get('/admin/notification/all', [NotificationController::class, 'allNotification'])->name('all.notification');
+    Route::get('/admin/notification/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notification.mark.read');
+    Route::get('/admin/notification/new-member', [NotificationController::class, 'newMemberNotification'])->name('new.member.notification');
+    Route::get('/admin/notification/withdraw-fund', [NotificationController::class, 'withdrawFundNotification'])->name('withdraw.fund.notification');
+    Route::get('/admin/notification/add-fund-notification', [NotificationController::class, 'addFundNotification'])->name('add.fund.notification');
+    Route::get('/admin/notification/read', [NotificationController::class, 'readNotification'])->name('read.notification');
+    Route::get('/admin/notification/unread', [NotificationController::class, 'unreadNotification'])->name('unread.notification');
     //////////               Product Related Route Started            //////////
 
     Route::get('/admin/product/all', [ProductController::class, 'allProduct'])->name('product.all');
@@ -63,7 +73,6 @@ Route::group(['middleware' => 'admin_auth'], function () {
 
     //////////               Product Related Route Ended             //////////
 
-    Route::get('/admin/notification/all', [AdminController::class, 'allNotification'])->name('all.notification');
     Route::get('/admin/profile', [AdminController::class, 'adminProfile'])->name('admihn.profile');
     Route::post('/admin/profile-update', [AdminController::class, 'adminProfileUpdate'])->name('admin.profile.update');
 
@@ -71,8 +80,8 @@ Route::group(['middleware' => 'admin_auth'], function () {
 
     Route::resource('/admin/member/all/daterange', DateRangeSearchController::class);
     Route::get('/admin/member/all/datesearch', [DateRangeSearchController::class, 'dateSearch'])->name('member.datesearch');
-    // Route::resource('/admin/member/all/daterange', [DateRangeSearchController::class]);
 
+    Route::get('/admin/member/add', [AdminController::class, 'addMember'])->name('member.add');
     Route::get('/admin/member/all', [AdminController::class, 'allMember'])->name('member.all');
     Route::get('/admin/member/show/{id}', [AdminController::class, 'showMember'])->name('member.show');
     Route::get('/admin/member/edit/{id}', [AdminController::class, 'editMember'])->name('member.edit');

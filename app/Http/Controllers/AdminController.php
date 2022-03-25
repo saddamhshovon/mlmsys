@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Country;
 use App\Models\Member;
 use Carbon\Carbon;
 use App\Models\notice;
@@ -304,15 +305,6 @@ class AdminController extends Controller
         }
     }
 
-    public function allNotification()
-    {
-        $id = session('ADMIN_ID');
-        $admin = Admin::first();
-        // dd($admin);
-        $notifications = $admin->unreadNotifications()->paginate(3);
-        return view('admin.notification.all', compact('notifications'));
-    }
-
     public function adminProfile()
     {
         $id = session('ADMIN_ID');
@@ -332,5 +324,11 @@ class AdminController extends Controller
 
         $admin->update();
         return redirect()->back()->withInput()->with('success', 'Updated Admin Details Successfully');
+    }
+
+    public function addMember()
+    {
+        $countries = Country::all();
+        return view('admin.member-manage.add', compact('countries'));
     }
 }

@@ -52,8 +52,6 @@
             </li>
 
             <hr class="sidebar-divider d-none d-md-block">
-
-            <hr class="sidebar-divider">
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHome" aria-expanded="true" aria-controls="collapseHome">
@@ -116,6 +114,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Member Manage:</h6>
+                        <a class="collapse-item" href="{{route('member.add')}}">Add Member</a>
                         <a class="collapse-item" href="{{route('member.all')}}">All Member</a>
                         <a class="collapse-item" href="{{route('member.active')}}">Active</a>
                         <a class="collapse-item" href="{{route('member.inactive')}}">Inactive</a>
@@ -207,7 +206,32 @@
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
+                                <a href="{{route('notification.mark.read')}}" class="m-2">Mark all as Read</a>
                                 @foreach($admin->unreadNotifications->take(4) as $notification)
+                                <a class="dropdown-item d-flex align-items-center" style="background-color:lightgray;" href="#">
+                                    <div>
+                                        <span class="font-weight-bold">{{$notification->data['user_name']}}
+                                            @if(isset($notification->data['is_active']))
+                                            @if($notification->data['is_active'] === 1)
+                                            <p class="text-success">Registered Successfully!</p>
+                                            @elseif($notification->data['is_active'] === 0)
+                                            <p class="text-success">Registered successfully but not activated</p>
+                                            @endif
+                                            @endif
+
+                                            @if(isset($notification->data['f_type']))
+                                            @if($notification->data['f_type'] === 0)
+                                            <p class="text-success">has sent a withdraw request!</p>
+                                            @elseif($notification->data['f_type'] === 1)
+                                            <p class="text-success">has sent a fund add request!</p>
+                                            @endif
+                                            @endif
+                                        </span>
+                                    </div>
+                                </a>
+                                @endforeach
+
+                                @foreach($admin->readNotifications->take(1) as $notification)
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div>
                                         <span class="font-weight-bold">{{$notification->data['user_name']}}
@@ -332,18 +356,6 @@
     <!--       SWEET ALERT      -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- date range search -->
-
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> -->
-    <!-- <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script> -->
-    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-
     <script type="text/javascript">
         $(function() {
             $(document).on('click', '#delete', function(e) {
@@ -399,6 +411,18 @@
             });
         });
     </script>
+
+    <!-- <script type="text/javascript">
+        $(function() {
+            $(document).on('change', '#notifications', function() {
+                var value = $(this).val();
+                // alert(value);
+                $.ajax({
+                    url: '{{ route("new.member.notification") }}'
+                });
+            });
+        });
+    </script> -->
 
 </body>
 

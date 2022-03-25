@@ -1,12 +1,13 @@
 @extends('admin.layouts.app')
 
-@section('title', 'All Notification')
+@section('title', 'Unead Notification')
 
 @section('content')
 
 <!-- Page Heading -->
+
 <div class="d-sm-flex align-items-center justify-content-between mb-2">
-   <h1 class="h3 mb-0 text-gray-800">All Notification</h1>
+   <h1 class="h3 mb-0 text-gray-800">Unead Notification</h1>
 </div>
 
 <div>
