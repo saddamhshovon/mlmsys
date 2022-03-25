@@ -17,6 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
 
     <link href="{{asset('dashboard/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
@@ -352,6 +353,9 @@
 
     <!-- Page level custom scripts -->
     <script src="{{asset('dashboard/js/demo/datatables-demo.js')}}"></script>
+    <script src="{{asset('dashboard/js/bootstrap-datepicker.min.js')}}"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"></script> -->
 
     <!--       SWEET ALERT      -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -411,18 +415,6 @@
             });
         });
     </script>
-
-    <!-- <script type="text/javascript">
-        $(function() {
-            $(document).on('change', '#notifications', function() {
-                var value = $(this).val();
-                // alert(value);
-                $.ajax({
-                    url: '{{ route("new.member.notification") }}'
-                });
-            });
-        });
-    </script> -->
 
 </body>
 

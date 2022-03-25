@@ -3,9 +3,9 @@
 @section('title', 'Search Between Dates')
 
 @section('content')
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script> -->
 
 <div>
    <div class="container-fluid">
@@ -14,10 +14,10 @@
       <br>
       <div class="row input-daterange">
          <div class="col-md-4" style="display:inline-block;">
-            <input type="text" name="from_date" id="from_date" class="form-control" placeholder="From Date: 2000-01-31" />
+            <input type="text" name="from_date" id="from_date" class="form-control" style="cursor:pointer;" readonly placeholder="From Date: 2000-01-31" />
          </div>
          <div class="col-md-4" style="display:inline-block;">
-            <input type="text" name="to_date" id="to_date" class="form-control" placeholder="To Date: 2090-02-28" />
+            <input type="text" name="to_date" id="to_date" class="form-control" style="cursor:pointer;" readonly placeholder="To Date: 2090-02-28" />
          </div>
          <div class="col-md-4">
             <button type="button" name="filter" id="filter" class="btn btn-primary">Filter</button>
@@ -47,11 +47,11 @@
 
 <script>
    $(document).ready(function() {
-      // $('.input-daterange').datepicker({
-      //    todayBtn: 'linked',
-      //    format: 'yyyy-mm-dd',
-      //    autoclose: true
-      // });
+      $('.input-daterange').datepicker({
+         todayBtn: 'linked',
+         format: 'yyyy-mm-dd',
+         autoclose: true
+      });
 
       load_data();
 
