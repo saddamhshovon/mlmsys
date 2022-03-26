@@ -331,4 +331,30 @@ class AdminController extends Controller
         $countries = Country::all();
         return view('admin.member-manage.add', compact('countries'));
     }
+
+    public function addFundToUserView()
+    {
+        return view('admin.funds.fundadd');
+    }
+
+    public function addFundToUSer(Request $request)
+    {
+        $request->validate(
+            [
+                "user_name" => 'required',
+                "amount" => 'required',
+            ]
+
+        );
+        $userName = Member::where('user_name', $request->user_name)->pluck('user_name');
+        if (!empty($userName[0])) {
+            $balance =  Member::where('user_name', $request->user_name)->get();
+            $balance[0]->account_balance = $balance[0]->account_balance + $request->amount;
+            // dd($balance[0]->account_balance);
+            $balance[0]->save();
+            return redirect()->back()->with('success', 'Fund Added Succesfully..!');
+        } else {
+            return redirect()->back()->with('failed', 'Invalid Username..Please Enter a valid Username');
+        }
+    }
 }

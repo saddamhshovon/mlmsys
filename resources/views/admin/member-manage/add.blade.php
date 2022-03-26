@@ -31,7 +31,7 @@
                @endif
             </div>
             <div class="card-body">
-               <form action="{{route('register.member')}}" method="POST">
+               <form action="{{route('admin.register.member')}}" method="POST">
                   @csrf
                   <div class="form-group">
                      <input type="text" class="form-control form-control-user" id="exampleReferralID" placeholder="Referral ID" name="referral_id" value="{{ old('referral_id') }}">

@@ -82,6 +82,7 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/member/all/datesearch', [DateRangeSearchController::class, 'dateSearch'])->name('member.datesearch');
 
     Route::get('/admin/member/add', [AdminController::class, 'addMember'])->name('member.add');
+    Route::post('/admin/member/add/register-member', [MemberController::class, 'store'])->name('admin.register.member');
     Route::get('/admin/member/all', [AdminController::class, 'allMember'])->name('member.all');
     Route::get('/admin/member/show/{id}', [AdminController::class, 'showMember'])->name('member.show');
     Route::get('/admin/member/edit/{id}', [AdminController::class, 'editMember'])->name('member.edit');
@@ -127,6 +128,8 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/referral-income', [FundController::class, 'referralIncome'])->name('referreal.income');
     Route::post('/admin/referral-income-fix', [FundController::class, 'referralIncomeFix'])->name('referreal.incomefix');
     Route::post('/admin/referral-income-change', [FundController::class, 'referralIncomeChange'])->name('referreal.incomechange');
+    Route::get('/admin/fund-add-to-user-view', [AdminController::class, 'addFundToUserView'])->name('admin.fund-add.view');
+    Route::post('/admin/fund-add-to-user', [AdminController::class, 'addFundToUSer'])->name('admin.fund.add');
 
     //////////                        Notice                     //////////    
 

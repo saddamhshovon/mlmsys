@@ -67,8 +67,8 @@ class MemberController extends Controller
             "mobile_no" => 'required',
             "pin" => 'required|numeric|digits:5',
             "mobile_banking_service" => 'required',
-            // "country" => 'required',
-            // "city" => 'required',
+            "country" => 'required',
+            "city" => 'required',
             "membership_type" => 'required',
             "placement_id" => 'nullable|exists:members,user_name'
         ]);
