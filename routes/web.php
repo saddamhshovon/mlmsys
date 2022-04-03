@@ -57,6 +57,7 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/notification/add-fund-notification', [NotificationController::class, 'addFundNotification'])->name('add.fund.notification');
     Route::get('/admin/notification/read', [NotificationController::class, 'readNotification'])->name('read.notification');
     Route::get('/admin/notification/unread', [NotificationController::class, 'unreadNotification'])->name('unread.notification');
+
     //////////               Product Related Route Started            //////////
 
     Route::get('/admin/product/all', [ProductController::class, 'allProduct'])->name('product.all');
@@ -73,8 +74,12 @@ Route::group(['middleware' => 'admin_auth'], function () {
 
     //////////               Product Related Route Ended             //////////
 
+    //////////               Admin Profile                ///////////////
+
     Route::get('/admin/profile', [AdminController::class, 'adminProfile'])->name('admihn.profile');
     Route::post('/admin/profile-update', [AdminController::class, 'adminProfileUpdate'])->name('admin.profile.update');
+
+    /////////////          Admin Profile Ended            /////////////
 
     //////////               User Manage Route Started             //////////
 
@@ -96,8 +101,20 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/member/is-active/{id}', [AdminController::class, 'isActive'])->name('member.is-active');
     Route::get('/admin/member/is-inactive/{id}', [AdminController::class, 'isInActive'])->name('member.is-inactive');
     Route::get('/admin/member/is-blocked/{id}', [AdminController::class, 'isBlocked'])->name('member.is-blocked');
-
     //////////               User Manage Route Ended             //////////
+
+    /////////////              Fund Request Approval           ///////////
+    Route::get('/admin/all-fund-add-request', [FundController::class, 'allFundAddRequestHistory'])->name('all.fund.request');
+    Route::get('/admin/approve-fund-add-request-{id}', [FundController::class, 'apprveFundAddRequest'])->name('approve.fund.request');
+    Route::get('/admin/reject-fund-add-request-{id}', [FundController::class, 'rejectFundAddRequest'])->name('reject.fund.request');
+    Route::get('/admin/delete-fund-add-request-{id}', [FundController::class, 'deleteFundAddRequest'])->name('delete.fund.request');
+    Route::get('/admin/all-transfer-fund-history', [FundController::class, 'allTransferFundHistory'])->name('all.transfer.fund.history');
+    Route::get('/admin/all-withdraw-fund-history', [FundController::class, 'allWithdrawFundHistory'])->name('all.withdraw.fund.history');
+
+    Route::get('/admin/approve-fund-withdraw-request-{id}', [FundController::class, 'apprveFundWithdrawRequest'])->name('approve.fund.withdraw.request');
+    Route::get('/admin/reject-fund-withdraw-request-{id}', [FundController::class, 'rejectFundWithdrawRequest'])->name('reject.fund.withdraw.request');
+    Route::get('/admin/delete-fund-withdraw-request-{id}', [FundController::class, 'deleteFundWithdrawRequest'])->name('delete.fund.withdraw.request');
+    /////////////              Fund Request Approval Ended           ///////////
 
     //////////               Generation Route             //////////
     Route::get('/admin/hands', [AdminController::class, 'hands'])->name('hands');

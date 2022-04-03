@@ -53,7 +53,7 @@
                               <td class="text-center">{{$mem->city}}</td>
                               <td class="text-center">{{$mem->country}}</td>
                               <td class="text-center">{{$mem->account_balance}}</td>
-                              <td class="text-center">{{$mem->moblie_banking_service}}</td>
+                              <td class="text-center">{{$mem->mobile_banking_service}}</td>
                               @if(($mem->is_active)==1)
                               <td class="text-center text-success" style="font-weight: bold;">Active</td>
                               @elseif(($mem->is_blocked)==1)

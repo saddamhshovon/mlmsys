@@ -34,10 +34,12 @@
                         <td>{{$hist->amount}}</td>
                         <td>{{$hist->mobile_banking_service}}</td>
                         <td>
-                           @if(($hist->is_approved==0))
+                           @if(($hist->is_approved==0)&&($hist->funding_type==0))
                            <p class="badge badge-pill badge-dark">Pending</p>
-                           @elseif(($hist->is_approved==1))
+                           @elseif(($hist->is_approved==1)&&($hist->funding_type==0))
                            <p class="badge badge-pill badge-success">Approved</p>
+                           @elseif(($hist->is_approved==2)&&($hist->funding_type==0))
+                           <p class="badge badge-pill badge-danger">Rejected</p>
                            @endif
                         </td>
                         <td>

@@ -1,13 +1,13 @@
 @extends('member.layouts.app')
 
-@section('title', 'Withdraw History')
+@section('title', 'Fund Add History')
 
 @section('content')
 
 <div class="container-fluid">
 
    <!-- Page Heading -->
-   <h1 class="h3 mb-2 text-gray-800">Withdraw History</h1>
+   <h1 class="h3 mb-2 text-gray-800">Fund Add Request History</h1>
 
    <!-- DataTales Example -->
    <div class="card-body">
@@ -40,6 +40,8 @@
                            <p class="badge badge-pill badge-dark">Pending</p>
                            @elseif(($hist->is_approved==1)&&($hist->funding_type==1))
                            <p class="badge badge-pill badge-success">Approved</p>
+                           @elseif(($hist->is_approved==2)&&($hist->funding_type==1))
+                           <p class="badge badge-pill badge-danger">Rejected</p>
                            @endif
                         </td>
                         <td>

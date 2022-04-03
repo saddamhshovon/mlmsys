@@ -46,8 +46,8 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('admin.dashboard')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -88,6 +88,21 @@
                         <a class="collapse-item" href="{{ route('funds.tax')}}">Fix Transfer Charge</a>
                         <a class="collapse-item" href="{{ route('withdraw.tax')}}">Fix Withdraw Charge</a>
                         <a class="collapse-item" href="{{ route('admin.fund-add.view')}}">Add Fund to User</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFundsRequest" aria-expanded="true" aria-controls="collapseFundsRequest">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Fund History</span>
+                </a>
+                <div id="collapseFundsRequest" class="collapse" aria-labelledby="headingFundsRequest" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Funds:</h6>
+                        <a class="collapse-item" href="{{ route('all.fund.request')}}">Add Fund History</a>
+                        <a class="collapse-item" href="{{route('all.withdraw.fund.history')}}">Withdraw Fund History</a>
+                        <a class="collapse-item" href="{{route('all.transfer.fund.history')}}">Transfer Fund History</a>
                     </div>
                 </div>
             </li>
@@ -409,6 +424,62 @@
                         Swal.fire(
                             'Changed!',
                             'Active status has been changed.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        });
+    </script>
+
+    <!-- approve/reject -->
+
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('click', '#approve', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Do you want to approve it?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, change it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Approved!',
+                            'Fund Request Has Been Approved.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('click', '#reject', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Do you want to reject it?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, change it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Rejectd!',
+                            'Fund Request Has Been Rejected.',
                             'success'
                         )
                     }

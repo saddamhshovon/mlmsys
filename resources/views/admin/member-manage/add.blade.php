@@ -109,6 +109,7 @@
                   <div class="form-group">
                      <input type="text" class="form-control form-control-user" id="exampleMobileBanking" placeholder="Mobile Banking Service" name="mobile_banking_service" required>
                   </div>
+
                   @error('mobile_banking_service')
                   <div class="form-group">
                      <h1 class="h6 pl-3 text-danger" role="alert">{{$message}}</h1>

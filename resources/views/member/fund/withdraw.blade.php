@@ -28,6 +28,19 @@
                     </div>
                     @enderror
                     <div class="mb-3">
+                        <label for="mobile_banking_system" class="form-label">Mobile Banking<span class="text-danger">*</span></label>
+                        <select class="form-control form-control-md" id="mobile_banking_system" name="mobile_banking_system">
+                            <option value="" selected="" disabled="">Select</option>
+                            <option value="Bkash">Bkash</option>
+                            <option value="Nagad">Nagad</option>
+                        </select>
+                    </div>
+                    @error('mobile_banking_system')
+                    <div class="form-group">
+                        <h1 class="h6 pl-3 text-danger" role="alert">{{$message}}</h1>
+                    </div>
+                    @enderror
+                    <div class="mb-3">
                         <label for="pin" class="form-label">Pin Code<span class="text-danger">*</span></label>
                         <input type="password" name="pin" class="form-control" id="pin">
                     </div>

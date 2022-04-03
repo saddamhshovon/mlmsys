@@ -17,7 +17,7 @@ class CreateFundsTable extends Migration
             $table->id();
             $table->string('user_name');
             $table->integer('amount');
-            $table->string('moblie_banking_service')->nullable();
+            $table->string('mobile_banking_service')->nullable();
             $table->string('trx_id')->nullable();
             $table->tinyInteger('funding_type');
             $table->tinyInteger('is_approved')->default(0);

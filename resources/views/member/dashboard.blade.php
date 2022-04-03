@@ -7,6 +7,9 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <marquee width="60%" style="display: block;margin: 0 auto; font-weight:600;" class="text-primary text-center" direction="center" height="20px">
+        We are here to remove poverty from society with some extraordinary income facilities.
+    </marquee>
 </div>
 
 <!-- Content Row -->
@@ -104,9 +107,5 @@
     </div>
 </div>
 <!-- Content Row -->
-
-<marquee width="60%" style="display: block;margin: 0 auto; font-weight:600;" class="text-primary text-center" direction="center" height="20px">
-    We are here to remove poverty from society with some extraordinary income facilities.
-</marquee>
 
 @endsection

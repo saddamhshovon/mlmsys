@@ -259,10 +259,16 @@ class AdminController extends Controller
         $member->city = $request->city;
         $member->country = $request->country;
         $member->membership_type = $request->membership_type;
-        $member->moblie_banking_service = $request->moblie_banking_service;
+        $member->mobile_banking_service = $request->moblie_banking_service;
 
         $member->update();
         return redirect()->route('member.all')->with('success', 'Updated User Details Successfully');
+    }
+
+    public function deleteMember($id)
+    {
+        Member::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Member Deleted Successfully..');
     }
 
     public function dashboardNotice()

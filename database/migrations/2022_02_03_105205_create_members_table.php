@@ -34,6 +34,8 @@ class CreateMembersTable extends Migration
             $table->tinyInteger('is_expired')->default(0);
             $table->tinyInteger('is_blocked')->default(0);
             $table->timestamp('will_expire_on')->nullable();
+            $table->integer('withdraw_count')->default(0);
+            $table->integer('total_withdraw')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

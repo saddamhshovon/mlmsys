@@ -287,7 +287,7 @@ class FundController extends Controller
             $fund = new Fund();
             $fund->user_name = $member[0]->user_name;
             $fund->amount = $request->amount;
-            $fund->moblie_banking_service = $request->mobile_banking_system;
+            $fund->mobile_banking_service = $request->mobile_banking_system;
             $fund->trx_id = $request->trx_id;
             $fund->funding_type = 1;
             $fund->save();
@@ -305,6 +305,7 @@ class FundController extends Controller
     {
         $request->validate([
             "amount" => 'required|numeric',
+            "mobile_banking_system" => 'required',
             "pin" => 'required|numeric',
         ]);
         $member = DB::table('members')
@@ -320,6 +321,7 @@ class FundController extends Controller
             if ($member[0]->pin == $request->pin) {
                 $fund = new Fund();
                 $fund->user_name = $member[0]->user_name;
+                $fund->mobile_banking_service = $request->mobile_banking_system;
                 $fund->amount = $request->amount;
                 $fund->funding_type = 0;
                 $fund->save();
@@ -421,5 +423,78 @@ class FundController extends Controller
         $sender = $member->user_name;
         $history = DB::table('transfer_funds')->where('sender', $sender)->latest()->paginate(8);
         return view('member.history.transfer', compact('history'));
+    }
+
+    public function allFundAddRequestHistory()
+    {
+        $history = Fund::latest()->get()->where('funding_type', 1);
+        return view('admin.funds.fundrequesthistory', compact('history'));
+    }
+
+    public function apprveFundAddRequest($id)
+    {
+        $isApprove = Fund::findOrFail($id);
+        $isApprove->is_approved = 1;
+        $isApprove->member->account_balance = $isApprove->member->account_balance + $isApprove->amount;
+        $isApprove->save();
+        $isApprove->member->save();
+
+        return redirect()->back();
+    }
+
+    public function rejectFundAddRequest($id)
+    {
+        $isApprove = Fund::findOrFail($id);
+        $isApprove->is_approved = 2;
+        $isApprove->save();
+        return redirect()->back();
+    }
+
+    public function deleteFundAddRequest($id)
+    {
+        Fund::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Fund History Deleted Successfully..');
+    }
+
+    public function allWithdrawFundHistory()
+    {
+        $history = Fund::latest()->get()->where('funding_type', 0);
+        // dd($history->all());
+        return view('admin.funds.withdrawhistory', compact('history'));
+    }
+
+    public function apprveFundWithdrawRequest($id)
+    {
+        $isApprove = Fund::findOrFail($id);
+        $isApprove->is_approved = 1;
+        $isApprove->member->withdraw_count = $isApprove->member->withdraw_count + 1;
+        $isApprove->member->total_withdraw = $isApprove->member->total_withdraw + $isApprove->amount;
+        // dd($isApprove->withdraw_count);
+        $isApprove->save();
+        $isApprove->member->save();
+        return redirect()->back();
+    }
+
+    public function rejectFundWithdrawRequest($id)
+    {
+        $isApprove = Fund::findOrFail($id);
+        $isApprove->is_approved = 2;
+        $isApprove->member->account_balance = $isApprove->member->account_balance + $isApprove->amount;
+        $isApprove->save();
+        $isApprove->member->save();
+        return redirect()->back();
+    }
+
+    public function deleteFundWithdrawRequest($id)
+    {
+        Fund::findOrFail($id)->delete();
+        return redirect()->back()->with('success', ' History Deleted Successfully..');
+    }
+
+
+    public function allTransferFundHistory()
+    {
+        $history = DB::table('transfer_funds')->latest()->get();
+        return view('admin.funds.transferhistory', compact('history'));
     }
 }
