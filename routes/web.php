@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DateRangeSearchController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\GenerationController;
@@ -40,9 +41,10 @@ Route::get('/login', [MemberController::class, 'login'])->name('login');
 Route::post('/login-member', [MemberController::class, 'auth'])->name('auth');
 
 
-Route::get('/reset', function () {
-    return "testing reset";
-})->name('reset');
+Route::get('/reset', [ForgotPasswordController::class, 'index'])->name('reset');
+Route::post('/reset', [ForgotPasswordController::class, 'store'])->name('reset');
+Route::get('/reset/{id}', [ForgotPasswordController::class, 'create'])->name('reset.pass');
+Route::post('/reset-pass', [ForgotPasswordController::class, 'update'])->name('reset.pass.change');
 
 /////////////              ADMIN ROUTE START                ///////////
 
