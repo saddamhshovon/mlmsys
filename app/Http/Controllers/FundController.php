@@ -60,6 +60,27 @@ class FundController extends Controller
             ]);
         return redirect()->back();
     }
+    public function newUserFund()
+    {
+
+        $regfund = DB::table("registration_funds")
+            ->first();
+
+        // dd($levels);
+        return view('admin.funds.newuserfund', compact('regfund'));
+    }
+    public function newUserFundFix(Request $request)
+    {
+        $request->validate([
+            "amount" => 'required|numeric'
+        ]);
+
+        DB::table("registration_funds")
+            ->insert([
+                "amount" => $request->amount,
+            ]);
+        return redirect()->back();
+    }
     public function newUserFundChange(Request $request)
     {
         $request->validate([
