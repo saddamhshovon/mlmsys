@@ -169,6 +169,20 @@
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRank" aria-expanded="true" aria-controls="collapseRank">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Rank</span>
+                </a>
+                <div id="collapseRank" class="collapse" aria-labelledby="headingRank" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Rank Fixing:</h6>
+                        <a class="collapse-item" href="{{ route('ranks')}}">Total Ranks</a>
+                        <a class="collapse-item" href="{{ route('ranks.rank')}}">Fix Ranks</a>
+                    </div>
+                </div>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Generation</span>

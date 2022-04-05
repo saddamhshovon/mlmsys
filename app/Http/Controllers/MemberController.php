@@ -392,13 +392,44 @@ class MemberController extends Controller
             ->first();
         // dd($parent->user_name);
         $children = DB::table('members')
-            ->select('id', 'user_name', 'has_children')
+            ->select('id', 'user_name', 'has_children', 'team')
             ->where([
                 'placement_id' => $parent->user_name
             ])
             ->get();
         // dd($child);
         return view('member.team.tree', compact('parent', 'children'));
+    }
+    public function teamTeams()
+    {
+        // dd(session('MEMBER_USER_NAME'));
+
+        $defaultTeams = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+        $parent = DB::table('members')
+            ->select('user_name', 'has_children', 'max_children')
+            ->where([
+                'id' => session('MEMBER_ID')
+            ])
+            ->first();
+        // dd($parent->user_name);
+        $children = DB::table('members')
+            ->select('id','first_name', 'user_name', 'has_children', 'team')
+            ->where([
+                'placement_id' => $parent->user_name
+            ])
+            ->get();
+        $hasTeam = 0;
+        $hasTeamLabel = [];
+        foreach($children as $child){
+            if(isset($child->team)){
+               $hasTeam++;
+               $hasTeamLabel += [$child->team];
+            }
+        }
+
+        $defaultTeams = array_diff($defaultTeams, $hasTeamLabel);
+        // dd($defaultTeams);
+        return view('member.team.teams', compact('children', 'defaultTeams', 'parent', 'hasTeam'));
     }
 
     /**

@@ -99,7 +99,8 @@
                 </a>
                 <div id="collapseTeam" class="collapse {{  Request::routeIs('team.*') ? 'show' : ''  }}" aria-labelledby="headingTeam" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{  Request::routeIs('team.tree') ? 'active' : ''  }}" href="{{ route('team.tree', session('MEMBER_ID'))}}">Tree</a>
+                        <a class="collapse-item {{  Request::routeIs('team.tree') ? 'active' : ''  }}" href="{{ route('team.tree', session('MEMBER_ID'))}}">My Tree</a>
+                        <a class="collapse-item {{  Request::routeIs('team.teams') ? 'active' : ''  }}" href="{{ route('team.teams')}}">My Teams</a>
                     </div>
                 </div>
             </li>

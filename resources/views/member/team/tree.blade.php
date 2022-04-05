@@ -34,7 +34,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col">
                                         <div class="text-xs text-center font-weight-bold text-primary text-uppercase mb-1">
-                                            <a href="{{ route('team.tree', $child->id) }}">{{ $child->user_name }}</a>
+                                            <a href="{{ route('team.tree', $child->id) }}" title="Team: {{$child->team ?? 'None'}}">{{ $child->user_name }}</a>
                                         </div>
                                     </div>
                                 </div>

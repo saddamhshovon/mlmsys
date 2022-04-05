@@ -9,6 +9,8 @@ use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RankController;
+use App\Http\Controllers\TeamController;
 use App\Models\HomeAbout;
 use App\Models\HomeFooter;
 use App\Models\HomeGoal;
@@ -129,6 +131,16 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::post('/admin/generation/income-save', [GenerationController::class, 'store'])->name('generation.incsave');
     Route::post('/admin/generation/income-update', [GenerationController::class, 'update'])->name('generation.incupdate');
 
+    //////////                        Ranks Route                 //////////
+    Route::get('/admin/ranks', [RankController::class, 'index'])->name('ranks');
+    Route::post('/admin/ranks-fix', [RankController::class, 'create'])->name('ranks.fix');
+    Route::get('/admin/ranks-delete', [RankController::class, 'deleteTotal'])->name('ranks.delete');
+
+    Route::get('/admin/ranks/rank', [RankController::class, 'indexRank'])->name('ranks.rank');
+    Route::post('/admin/ranks/rank-save', [RankController::class, 'store'])->name('ranks.save');
+    Route::post('/admin/ranks/rank-update/{id}', [RankController::class, 'update'])->name('ranks.update');
+    Route::get('/admin/ranks/rank-withdraw/{id}', [RankController::class, 'withdraw'])->name('ranks.withdraw');
+
     //////////                        Funds Route                 //////////
     Route::get('/admin/funds-tax', [FundController::class, 'fundsTax'])->name('funds.tax');
     Route::post('/admin/funds-tax-fix', [FundController::class, 'fundsTaxFix'])->name('funds.taxfix');
@@ -194,6 +206,9 @@ Route::group(['middleware' => 'member_auth'], function () {
     Route::post('/fund/withdraw-request', [FundController::class, 'withdraw'])->name('fund.withdrawreq');
 
     Route::get('/team/tree/{id}', [MemberController::class, 'teamTree'])->name('team.tree');
+    Route::get('/team/teams', [MemberController::class, 'teamTeams'])->name('team.teams');
+    Route::post('/team/team-set/{id}', [TeamController::class, 'setTeam'])->name('team.set');
+    Route::post('/team/team-change', [TeamController::class, 'changeTeam'])->name('team.change');
     Route::get('/member/leaderboard', [IncomeController::class, 'leaderBoard'])->name('member.leaderboard');
 
     ///////////////           USER PROFILE CHANGE         ////////////////
