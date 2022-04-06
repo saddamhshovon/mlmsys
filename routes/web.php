@@ -10,12 +10,9 @@ use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ProductController;
-<<<<<<< HEAD
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\TeamController;
-=======
 use App\Http\Controllers\SupportController;
->>>>>>> mlm-v5
 use App\Models\HomeAbout;
 use App\Models\HomeFooter;
 use App\Models\HomeGoal;
