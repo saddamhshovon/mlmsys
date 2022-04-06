@@ -223,6 +223,38 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
+                        <!-- message center -->
+
+                        @php
+                        $count = DB::table('supports')->where('read',0)->count();
+                        $messages = DB::table('supports')->where('read',0)->take(4)->get();
+                        @endphp
+
+                        <li class="nav-item dropdown no-arrow mx-1 show">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                <!-- Counter - Messages -->
+                                <span class="badge badge-danger badge-counter"> {{$count}}</span>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header">
+                                    Message Center
+                                </h6>
+
+                                @foreach($messages as $msg)
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <span class="font-weight-bold">{{$msg->user_name}}
+                                        <p class="text-primary text-truncate">{{$msg->message}}</p>
+                                    </span>
+
+                                </a>
+                                @endforeach
+                                <a class="dropdown-item text-center small text-gray-500" href=" {{route('support.all.message')}}">View More Messages</a>
+                            </div>
+                        </li>
+
+
                         <!-- Nav Item - Alerts -->
                         @php($admin = App\Models\Admin::find(1))
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -234,7 +266,7 @@
                                 <span class="badge badge-danger badge-counter">{{$admin->unreadNotifications->count()}}</span>
                             </a>
                             <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                            <div class=" dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
@@ -295,6 +327,7 @@
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
+
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>

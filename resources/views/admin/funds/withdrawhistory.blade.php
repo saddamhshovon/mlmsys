@@ -72,9 +72,17 @@
                                  @endif
                               </td>
                               <td class="text-center">
+                                 @if(($hist->is_approved==0)&&($hist->funding_type==0))
                                  <a href="{{route('approve.fund.withdraw.request',$hist->id)}}" id="approve" title="Approve Now" class="btn btn-info btn-sm"><i class="fas fa-check"></i></a>
                                  <a href="{{route('reject.fund.withdraw.request',$hist->id)}}" id="reject" class="btn btn-dark btn-sm" title="Reject Now"><i class="fas fa-times"></i></a>
                                  <a href="{{route('delete.fund.withdraw.request',$hist->id)}}" id="delete" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                 @endif
+                                 @if(($hist->is_approved==1)&&($hist->funding_type==0))
+                                 <a href="{{route('delete.fund.withdraw.request',$hist->id)}}" id="delete" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                 @endif
+                                 @if(($hist->is_approved==2)&&($hist->funding_type==0))
+                                 <a href="{{route('delete.fund.withdraw.request',$hist->id)}}" id="delete" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                 @endif
                               </td>
                            </tr>
                            @endforeach
