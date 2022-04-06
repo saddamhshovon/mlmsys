@@ -9,6 +9,7 @@ use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupportController;
 use App\Models\HomeAbout;
 use App\Models\HomeFooter;
 use App\Models\HomeGoal;
@@ -157,6 +158,14 @@ Route::group(['middleware' => 'admin_auth'], function () {
 
     //////////                        Notice End                     //////////
 
+    //////////                        Support Message Start                     //////////
+
+    Route::get('/admin/support-message/all', [SupportController::class, 'allSupportMessage'])->name('support.all.message');
+    Route::get('/admin/support-message/show-{id}', [SupportController::class, 'showMessage'])->name('support.show.message');
+    Route::post('/admin/support-message/reply-{id}', [SupportController::class, 'replyMessage'])->name('support.reply.message');
+
+    //////////                        Support Message End                     //////////
+
     //////////                           HOME                  /////////////
 
     Route::get('/admin/home/start', [HomeController::class, 'homeStartSection'])->name('home.start');
@@ -219,6 +228,11 @@ Route::group(['middleware' => 'member_auth'], function () {
     Route::get('/history/fund-add-request', [FundController::class, 'fundAddRequestHistory'])->name('history.fund.request');
     Route::get('/history/fund-transfer', [FundController::class, 'fundTransferHistory'])->name('history.fund.transfer');
     Route::get('/history/fund-withdraw-request', [FundController::class, 'fundWithdrawRequestHistory'])->name('history.withdraw.request');
+
+    //////////////           Support Message                 //////////////////
+    Route::get('/member/support-message', [SupportController::class, 'index'])->name('support.message.index');
+    Route::post('/member/support-message-send', [SupportController::class, 'store'])->name('support.message.send');
+    Route::get('/member/support-message-history', [SupportController::class, 'history'])->name('support.message.history');
 });
 
 

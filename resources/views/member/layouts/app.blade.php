@@ -137,11 +137,11 @@
                     <span>Leaderboard</span></a>
             </li> -->
             <!-- Nav Item - Shop -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Shop</span></a>
-            </li>
+            </li> -->
             <li class="nav-item {{  Request::routeIs('product.*') ? 'active' : ''  }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseShop" aria-expanded="true" aria-controls="collapseShop">
                     <i class="fas fa-fw fa-cog"></i>
@@ -161,8 +161,8 @@
                 </a>
                 <div id="collapseSupport" class="collapse" aria-labelledby="headingSupport" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Request Support</a>
-                        <a class="collapse-item" href="">Support History</a>
+                        <a class="collapse-item" href="{{route('support.message.index')}}">Request Support</a>
+                        <a class="collapse-item" href="{{route('support.message.history')}}">Support History</a>
                     </div>
                 </div>
             </li>
