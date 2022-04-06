@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\ProcessGenerationIncome;
-use App\Jobs\ProcessUserLevelCount;
+// use App\Jobs\ProcessUserLevelCount;
 use App\Models\Country;
 use Carbon\Carbon;
 use App\Models\Admin;
 use App\Models\Member;
+use App\Models\Rank;
 use App\Notifications\AdminNotification;
-use Illuminate\Auth\Events\Validated;
+// use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 
 class MemberController extends Controller
@@ -58,7 +59,7 @@ class MemberController extends Controller
         // dd($request->all());
 
         $request->validate([
-            "referral_id" => 'nullable|exists:members,user_name',
+            "referral_id" => 'required|exists:members,user_name',
             "first_name" => 'required',
             "last_name" => 'required',
             "user_name" => 'required|alpha_dash|min:5|max:10|unique:members,user_name',
@@ -70,7 +71,7 @@ class MemberController extends Controller
             "country" => 'required',
             "city" => 'required',
             "membership_type" => 'required',
-            "placement_id" => 'nullable|exists:members,user_name'
+            "placement_id" => 'required|exists:members,user_name'
         ]);
 
         $maxChildren = DB::table('max_children')
@@ -78,7 +79,7 @@ class MemberController extends Controller
             ->first();
         $balance = DB::table("registration_funds")
             ->select('amount')
-            ->first();;
+            ->first();
         $referral_income = DB::table("referral_income_amount")
             ->select('amount')
             ->first();
@@ -100,43 +101,7 @@ class MemberController extends Controller
             "max_children" => $maxChildren->max,
 
         ];
-        if (isset($request->referral_id) && !isset($request->placement_id)) {
-            $refarral = DB::table('members')->where('user_name', $request->referral_id)->first();
-            DB::table('members')
-                ->where('user_name', $request->referral_id)
-                ->update([
-                    'account_balance' => $refarral->account_balance + $referral_income->amount
-                ]);
-            DB::table('incomes')
-                ->insert([
-                    'user_name' => $request->referral_id,
-                    'income_type' => 'Referral',
-                    'amount' => $referral_income->amount,
-                    'created_at' => Carbon::now(),
-                ]);
-            $data += [
-                'account_balance' => $balance->amount - $referral_income->amount,
-                'referral_id' => $request->referral_id
-            ];
-        } elseif (isset($request->placement_id) && !isset($request->referral_id)) {
-            $placement = DB::table('members')
-                ->where('user_name', $request->placement_id)
-                ->first();
-            if ($placement->has_children < $placement->max_children) {
-                DB::table('members')
-                    ->where('user_name', $request->placement_id)
-                    ->update([
-                        'has_children' => $placement->has_children + 1,
-                    ]);
-                $data += [
-                    'current_level' => $placement->current_level + 1,
-                    'account_balance' => $balance->amount,
-                    'placement_id' => $request->placement_id
-                ];
-            } else {
-                return redirect()->back()->with('placement_id', "The user's hands are already full.")->withInput();
-            }
-        } elseif (isset($request->referral_id) && isset($request->placement_id)) {
+         if (isset($request->referral_id) && isset($request->placement_id)) {
             $refarral = DB::table('members')
                 ->where('user_name', $request->referral_id)
                 ->first();
@@ -153,6 +118,23 @@ class MemberController extends Controller
                     ->where('user_name', $request->placement_id)
                     ->update([
                         'has_children' => $placement->has_children + 1
+                    ]);
+                
+                $placement = DB::table('members')
+                    ->where('user_name', $placement->placement_id)
+                    ->first();
+                
+                $ranks = Rank::get();
+                $rankOfPlacement = "";
+                foreach($ranks as $rank){
+                    if($placement->has_children >=  $rank->min_user && $placement->has_children <= $rank->max_user){
+                        $rankOfPlacement .= $rank->name;
+                    }
+                }
+                DB::table('members')
+                    ->where('user_name', $placement->placement_id)
+                    ->update([
+                        'rank' => $rankOfPlacement
                     ]);
                 DB::table('incomes')
                     ->insert([
@@ -179,7 +161,7 @@ class MemberController extends Controller
         if ($member) {
             $admin = Admin::find(1);
             $admin->notify(new AdminNotification($member));
-            ProcessUserLevelCount::dispatch($member);
+            // ProcessUserLevelCount::dispatch($member);
             ProcessGenerationIncome::dispatch($member);
             return redirect()->back()->with('success', 'Successfully Registered.');
         } else {
@@ -432,37 +414,58 @@ class MemberController extends Controller
         return view('member.team.teams', compact('children', 'defaultTeams', 'parent', 'hasTeam'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Member  $member
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Member $member)
+    public function storedByAdmin(Request $request)
     {
-        //
-    }
+        // dd($request->all());
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Member  $member
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Member $member)
-    {
-        //
-    }
+        $request->validate([
+            "first_name" => 'required',
+            "last_name" => 'required',
+            "user_name" => 'required|alpha_dash|min:5|max:10|unique:members,user_name',
+            "email" => 'required|email',
+            "password" => ['required', Password::min(8)->letters(), 'confirmed'],
+            "mobile_no" => 'required',
+            "pin" => 'required|numeric|digits:5',
+            "mobile_banking_service" => 'required',
+            "country" => 'required',
+            "city" => 'required',
+            "membership_type" => 'required',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Member  $member
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Member $member)
-    {
-        //
+        $maxChildren = DB::table('max_children')
+            ->select('max')
+            ->first();
+        // $balance = DB::table("registration_funds")
+        //     ->select('amount')
+        //     ->first();
+        // $referral_income = DB::table("referral_income_amount")
+        //     ->select('amount')
+        //     ->first();
+
+        $data = [
+            "first_name" => $request->first_name,
+            "last_name" => $request->last_name,
+            "user_name" => $request->user_name,
+            "email" => $request->email,
+            "password" => $request->password,
+            "mobile_no" => $request->mobile_no,
+            "pin" => $request->pin,
+            "city" => $request->city,
+            "country" => $request->country,
+            "membership_type" => $request->membership_type,
+            "mobile_banking_service" => $request->mobile_banking_service,
+            "created_at" => Carbon::now(),
+            "will_expire_on" => Carbon::now()->addMonth(6),
+            "max_children" => $maxChildren->max,
+
+        ];
+        // dd($data);
+        $member = Member::create($data);
+
+        if ($member) {
+            return redirect()->back()->with('success', 'Successfully Registered.');
+        } else {
+            return redirect()->back()->with('failed', 'Registration Failed. Please Try Again.');
+        }
     }
 }

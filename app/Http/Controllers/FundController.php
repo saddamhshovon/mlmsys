@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Fund;
 use App\Models\Member;
+use App\Models\Rank;
 use App\Notifications\WithdrawFundNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -175,6 +176,46 @@ class FundController extends Controller
 
         return redirect()->back();
     }
+
+    public function withdrawAmount()
+    {
+
+        $min = DB::table("withdraw_amount")
+            ->first();
+
+        // dd($levels);
+        return view('admin.funds.min-withdraw', compact('min'));
+    }
+    public function withdrawAmountFix(Request $request)
+    {
+        $request->validate([
+            "min" => 'required|numeric'
+        ]);
+
+        DB::table("withdraw_amount")
+            ->insert([
+                "min" => $request->min,
+                "created_at" => Carbon::now()
+            ]);
+        return redirect()->back();
+    }
+    public function withdrawAmountChange(Request $request)
+    {
+        $request->validate([
+            "min" => 'required|numeric'
+        ]);
+
+        $min = DB::table("withdraw_amount")
+            ->first();
+        DB::table("withdraw_amount")
+            ->where('id', $min->id)
+            ->update([
+                'min' => $request->min,
+                'updated_at' => Carbon::now()
+            ]);
+
+        return redirect()->back();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -324,13 +365,17 @@ class FundController extends Controller
 
     public function withdraw(Request $request)
     {
+        $min = DB::table("withdraw_amount")
+            ->first();
+
         $request->validate([
-            "amount" => 'required|numeric',
+            "amount" => 'required|numeric|gte:' . $min->min,
             "mobile_banking_system" => 'required',
             "pin" => 'required|numeric',
         ]);
+
         $member = DB::table('members')
-            ->select('user_name', 'account_balance', 'pin')
+            ->select('user_name', 'account_balance', 'pin', 'has_children', 'rank')
             ->where([
                 'id' => session()->get('MEMBER_ID')
             ])
@@ -338,84 +383,43 @@ class FundController extends Controller
         $tax = DB::table("tax_on_withdraw")
             ->select('tax')
             ->first();
-        if ($member[0]->account_balance > $request->amount + $tax->tax) {
-            if ($member[0]->pin == $request->pin) {
-                $fund = new Fund();
-                $fund->user_name = $member[0]->user_name;
-                $fund->mobile_banking_service = $request->mobile_banking_system;
-                $fund->amount = $request->amount;
-                $fund->funding_type = 0;
-                $fund->save();
+        $rank = Rank::where('withdraw_rank', 1)->first();
 
-                $newBalance = $member[0]->account_balance - $request->amount - $tax->tax;
+        if ($member->has_children >= $rank->min_user) {
+            if ($member[0]->account_balance > $request->amount + ($request->amount * $tax->tax)) {
+                if ($member[0]->pin == $request->pin) {
+                    $fund = new Fund();
+                    $fund->user_name = $member[0]->user_name;
+                    $fund->mobile_banking_service = $request->mobile_banking_system;
+                    $fund->amount = $request->amount;
+                    $fund->funding_type = 0;
+                    $fund->save();
 
-                DB::table('members')
-                    ->where([
-                        'id' => session()->get('MEMBER_ID')
-                    ])
-                    ->update([
-                        'account_balance' => $newBalance
-                    ]);
+                    $newBalance = $member[0]->account_balance - $request->amount - ($request->amount * $tax->tax);
 
-                $admin = Admin::find(1);
-                $admin->notify(new WithdrawFundNotification($fund));
+                    DB::table('members')
+                        ->where([
+                            'id' => session()->get('MEMBER_ID')
+                        ])
+                        ->update([
+                            'account_balance' => $newBalance
+                        ]);
 
-                return redirect()->back()->with('success', 'Successfully placed request for withdrawing fund.');
+                    $admin = Admin::find(1);
+                    $admin->notify(new WithdrawFundNotification($fund));
+
+                    return redirect()->back()->with('success', 'Successfully placed request for withdrawing fund.');
+                } else {
+                    return redirect()->back()->with('failed', 'Wrong pin number. Please enter correct pin.')->withInput();
+                }
             } else {
-                return redirect()->back()->with('failed', 'Wrong pin number. Please enter correct pin.')->withInput();
+                return redirect()->back()->with('failed', 'You do not have sufficient balance.')->withInput();
             }
-        } else {
-            return redirect()->back()->with('failed', 'You do not have sufficient balance.')->withInput();
+        }else{
+            return redirect()->back()->with('failed', 'You do not meet minimum requirement to withdraw funds.')->withInput();
         }
         // dd($member);
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Fund  $fund
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Fund $fund)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Fund  $fund
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Fund $fund)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Fund  $fund
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Fund $fund)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Fund  $fund
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Fund $fund)
-    {
-        //
-    }
-
-
-
 
     //////////////             FUND HISTORY              ///////////////
 

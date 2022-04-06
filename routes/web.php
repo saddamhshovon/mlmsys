@@ -91,7 +91,7 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/member/all/datesearch', [DateRangeSearchController::class, 'dateSearch'])->name('member.datesearch');
 
     Route::get('/admin/member/add', [AdminController::class, 'addMember'])->name('member.add');
-    Route::post('/admin/member/add/register-member', [MemberController::class, 'store'])->name('admin.register.member');
+    Route::post('/admin/member/add/register-member', [MemberController::class, 'storedByAdmin'])->name('admin.register.member');
     Route::get('/admin/member/all', [AdminController::class, 'allMember'])->name('member.all');
     Route::get('/admin/member/show/{id}', [AdminController::class, 'showMember'])->name('member.show');
     Route::get('/admin/member/edit/{id}', [AdminController::class, 'editMember'])->name('member.edit');
@@ -151,7 +151,11 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/withdraw-tax', [FundController::class, 'withdrawTax'])->name('withdraw.tax');
     Route::post('/admin/withdraw-tax-fix', [FundController::class, 'withdrawTaxFix'])->name('withdraw.taxfix');
     Route::post('/admin/withdraw-tax-change', [FundController::class, 'withdrawTaxChange'])->name('withdraw.taxchange');
-
+    
+    Route::get('/admin/withdraw-amount', [FundController::class, 'withdrawAmount'])->name('withdraw.amount');
+    Route::post('/admin/withdraw-amount-fix', [FundController::class, 'withdrawAmountFix'])->name('withdraw.amountfix');
+    Route::post('/admin/withdraw-amount-change', [FundController::class, 'withdrawAmountChange'])->name('withdraw.amountchange');
+    
     Route::get('/admin/user-fund', [FundController::class, 'newUserFund'])->name('funds.reg');
     Route::post('/admin/user-fund-fix', [FundController::class, 'newUserFundFix'])->name('funds.regfix');
     Route::post('/admin/user-fund-change', [FundController::class, 'newUserFundChange'])->name('funds.regchange');

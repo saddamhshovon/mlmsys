@@ -87,6 +87,7 @@
                         <a class="collapse-item" href="{{ route('referreal.income')}}">Fix Referral Income</a>
                         <a class="collapse-item" href="{{ route('funds.tax')}}">Fix Transfer Charge</a>
                         <a class="collapse-item" href="{{ route('withdraw.tax')}}">Fix Withdraw Charge</a>
+                        <a class="collapse-item" href="{{ route('withdraw.amount')}}">Min Withdraw Amount</a>
                         <a class="collapse-item" href="{{ route('admin.fund-add.view')}}">Add Fund to User</a>
                     </div>
                 </div>

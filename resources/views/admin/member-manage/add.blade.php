@@ -33,14 +33,14 @@
             <div class="card-body">
                <form action="{{route('admin.register.member')}}" method="POST">
                   @csrf
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                      <input type="text" class="form-control form-control-user" id="exampleReferralID" placeholder="Referral ID" name="referral_id" value="{{ old('referral_id') }}">
                   </div>
                   @error('referral_id')
                   <div class="form-group">
                      <h1 class="h6 pl-3 text-danger" role="alert">{{$message}}</h1>
                   </div>
-                  @enderror
+                  @enderror -->
                   <div class="form-group row">
                      <div class="col-sm-6 mb-3 mb-sm-0">
                         <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name" name="first_name" value="{{ old('first_name') }}" required>
@@ -148,7 +148,7 @@
                      <h1 class="h6 pl-3 text-danger" role="alert">{{$message}}</h1>
                   </div>
                   @enderror
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                      <input type="text" class="form-control form-control-user" id="examplePlacementID" placeholder="Placement ID" name="placement_id" value="{{ old('placement_id') }}">
                   </div>
                   @error('placement_id')
@@ -160,7 +160,7 @@
                   <div class="form-group">
                      <h1 class="h6 pl-3 text-danger" role="alert">{{session('placement_id')}}</h1>
                   </div>
-                  @endif
+                  @endif -->
                   <button id="memberRegisterBtn" type="submit" class="btn btn-primary btn-user btn-block">
                      Register Account
                   </button>
