@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>MLM</title>
+    <title>{{isset($homestart->title) ? $homestart->title : 'MLM BUSINESS' }}</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
@@ -141,7 +141,7 @@
     </section>
     <!-- Footer-->
     <footer class="footer bg-primary small text-center text-white-50">
-        <div class="container px-4 px-lg-5">Copyright &copy; Your Website 2021</div>
+        <div class="container px-4 px-lg-5">Copyright &copy; {{isset($homestart->title) ? $homestart->title : 'MLM BISINESS' }} {{ now()->year }}</div>
     </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

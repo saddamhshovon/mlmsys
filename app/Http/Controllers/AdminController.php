@@ -98,8 +98,8 @@ class AdminController extends Controller
      */
     public function login()
     {
-        if (session()->has('ADMIN_LOGIN')) {
-            return redirect('admin');
+        if(session()->has('ADMIN_LOGIN') || session()->has('MEMBER_LOGIN')){
+            return back();
         } else {
             return view('admin.login');
         }

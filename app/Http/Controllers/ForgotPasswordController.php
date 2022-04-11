@@ -59,7 +59,7 @@ class ForgotPasswordController extends Controller
             ])->update([
             'password' => $request->password,
             'forgot_password' => 0,
-            'forgot_password_token' => '0'
+            'forgot_password_token' => ''
         ]);
 
         return redirect()->route('login')->with('success', 'Successfully Changed Password! Please Login.');

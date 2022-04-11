@@ -121,21 +121,20 @@ class MemberController extends Controller
                     ]);
                 
                 $placement = DB::table('members')
-                    ->where('user_name', $placement->placement_id)
+                    ->where('user_name', $request->placement_id)
                     ->first();
                 
                 $ranks = Rank::get();
-                $rankOfPlacement = "";
+                
                 foreach($ranks as $rank){
                     if($placement->has_children >=  $rank->min_user && $placement->has_children <= $rank->max_user){
-                        $rankOfPlacement .= $rank->name;
+                        DB::table('members')
+                            ->where('user_name', $request->placement_id)
+                            ->update([
+                                'rank' => $rank->name
+                            ]);
                     }
                 }
-                DB::table('members')
-                    ->where('user_name', $placement->placement_id)
-                    ->update([
-                        'rank' => $rankOfPlacement
-                    ]);
                 DB::table('incomes')
                     ->insert([
                         'user_name' => $request->referral_id,
@@ -171,8 +170,8 @@ class MemberController extends Controller
 
     public function login()
     {
-        if (session()->has('MEMBER_LOGIN')) {
-            return redirect('member');
+        if(session()->has('ADMIN_LOGIN') || session()->has('MEMBER_LOGIN')){
+            return back();
         } else {
             return view('member.login');
         }

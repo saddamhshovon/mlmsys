@@ -20,4 +20,8 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
+
+    public function getTotalPrice(){
+        return $this->product()->sum('product_price');
+    }
 }

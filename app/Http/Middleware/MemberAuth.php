@@ -17,7 +17,7 @@ class MemberAuth
     public function handle(Request $request, Closure $next)
     {
         if($request->session()->has('ADMIN_LOGIN')){
-            return redirect()->back();
+            return back();
         }
         if(!$request->session()->has('MEMBER_LOGIN') && !$request->session()->has('ADMIN_LOGIN')){
             $request->session()->flash('error', 'Access denied. Please login to continue.');

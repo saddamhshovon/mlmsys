@@ -386,7 +386,7 @@ class FundController extends Controller
         $rank = Rank::where('withdraw_rank', 1)->first();
 
         if ($member->has_children >= $rank->min_user) {
-            if ($member[0]->account_balance > $request->amount + ($request->amount * $tax->tax)) {
+            if ($member[0]->account_balance > $request->amount + ($request->amount * $tax->tax/100)) {
                 if ($member[0]->pin == $request->pin) {
                     $fund = new Fund();
                     $fund->user_name = $member[0]->user_name;
@@ -395,7 +395,7 @@ class FundController extends Controller
                     $fund->funding_type = 0;
                     $fund->save();
 
-                    $newBalance = $member[0]->account_balance - $request->amount - ($request->amount * $tax->tax);
+                    $newBalance = $member[0]->account_balance - $request->amount - ($request->amount * $tax->tax/100);
 
                     DB::table('members')
                         ->where([

@@ -81,7 +81,7 @@ class RankController extends Controller
         $request->validate([
             'name' => 'required|unique:ranks,name',
             'min_user' => 'required|numeric|lt:' . $maxChildren->max,
-            'max_user' => 'required|numeric|lt:' . $maxChildren->max
+            'max_user' => 'required|numeric|lte:' . $maxChildren->max
         ]);
 
         Rank::create(
@@ -129,7 +129,7 @@ class RankController extends Controller
         $request->validate([
             'name' => 'required',
             'min_user' => 'required|numeric|lt:' . $maxChildren->max,
-            'max_user' => 'required|numeric|lt:' . $maxChildren->max
+            'max_user' => 'required|numeric|lte:' . $maxChildren->max
         ]);
 
         Rank::where('id', $id)

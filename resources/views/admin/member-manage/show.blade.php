@@ -18,7 +18,7 @@
                   <div class="">
                      <div class="mb-3">
                         <label for="referral_id" class="form-label">Refferal ID<span class="text-danger">*</span></label>
-                        <input type="text" disabled name="referral_id" value="{{$member->referral_id}}" class="form-control" id="referral_id" placeholder="Refferal ID">
+                        <input type="text" disabled name="referral_id" value="{{$member->referral_id ?? 'Root'}}" class="form-control" id="referral_id" placeholder="Refferal ID">
                         @error('referral_id')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -73,9 +73,9 @@
                         @enderror
                      </div>
                      <div class="mb-3">
-                        <label for="moblie_banking_service" class="form-label">Mobile Banking Service<span class="text-danger">*</span></label>
-                        <input type="text" disabled name="moblie_banking_service" value="{{$member->moblie_banking_service}}" class="form-control" id="moblie_banking_service" placeholder="Mobile Banking Service">
-                        @error('pin')
+                        <label for="mobile_banking_service" class="form-label">Mobile Banking Service<span class="text-danger">*</span></label>
+                        <input type="text" disabled name="mobile_banking_service" value="{{$member->mobile_banking_service}}" class="form-control" id="mobile_banking_service" placeholder="Mobile Banking Service">
+                        @error('mobile_banking_service')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                      </div>
@@ -102,7 +102,7 @@
                      </div>
                      <div class="mb-3">
                         <label for="placement_id" class="form-label">Placement ID<span class="text-danger">*</span></label>
-                        <input type="text" disabled name="placement_id" value="{{$member->placement_id}}" class="form-control" id="placement_id" placeholder="Placement ID">
+                        <input type="text" disabled name="placement_id" value="{{$member->placement_id ?? 'Root'}}" class="form-control" id="placement_id" placeholder="Placement ID">
                         @error('placement_id')
                         <span class="text-danger">{{$message}}</span>
                         @enderror

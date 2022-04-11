@@ -71,6 +71,7 @@
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
             <div class="sidebar-heading">
                 Funds
             </div>
@@ -327,10 +328,12 @@
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
+                        
 
                         <li class="nav-item dropdown no-arrow">
+
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$admin->first_name}}</span>
                                 <img class="img-profile rounded-circle" src="{{ asset('dashboard/img/undraw_profile.svg')}}">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -365,7 +368,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; {{ env('APP_NAME') }} {{ now()->year }}</span>
                     </div>
                 </div>
             </footer>

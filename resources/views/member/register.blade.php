@@ -110,7 +110,13 @@
                                 </div>
                                 @enderror
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="exampleMobileBanking" placeholder="Mobile Banking Service" name="mobile_banking_service" required>
+                                    <select class="form-control" aria-label="Select Mobile Banking Service" id="exampleMobileBanking" placeholder="Mobile Banking Service" name="mobile_banking_service" required>
+                                        <option selected value="" disabled>Mobile Banking Service</option>
+                                        <option value="Bkash" >Bkash</option>
+                                        <option value="Nagad" >Nagad</option>
+                                        <option value="Ucash" >Ucash</option>
+                                        <option value="DBBL" >DBBL</option>
+                                    </select>
                                 </div>
                                 @error('mobile_banking_service')
                                 <div class="form-group">
@@ -118,7 +124,7 @@
                                 </div>
                                 @enderror
                                 <div class="form-group row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
                                         <select class="form-control" aria-label="Select Country" id="exampleCountry" name="country" required>
                                             <option selected value="" disabled>Open this select country</option>
                                             @foreach($countries as $country)
@@ -126,7 +132,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <div class="col-sm-6">
                                         <select class="form-control" aria-label="Select City" id="exampleCity" placeholder="City" name="city" required>
                                             <option selected value="" disabled>Open this select city</option>
                                         </select>
@@ -143,7 +149,13 @@
                                 </div>
                                 @enderror
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="exampleMembershipProcess" placeholder="Membership Process" name="membership_type" required>
+                                    <select class="form-control" aria-label="Select Membership Process" id="exampleMembershipProcess" placeholder="Membership Process" name="membership_type" required>
+                                        <option selected value="" disabled>Membership Process</option>
+                                        <option value="Basic Membership" >Basic Membership</option>
+                                        <option value="Products" >Products</option>
+                                        <option value="Training" >Training</option>
+                                        <option value="Service" >Service</option>
+                                    </select>
                                 </div>
                                 @error('membership_type')
                                 <div class="form-group">
