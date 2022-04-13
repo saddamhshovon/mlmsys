@@ -87,8 +87,8 @@
                   name: 'account_balance'
                },
                {
-                  data: 'moblie_banking_service',
-                  name: 'moblie_banking_service'
+                  data: 'mobile_banking_service',
+                  name: 'mobile_banking_service'
                },
                {
                   data: 'created_at',

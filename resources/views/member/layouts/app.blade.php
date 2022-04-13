@@ -33,7 +33,7 @@
             $homestart = DB::table('homestarts')->first();
             @endphp
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-                <div class="sidebar-brand-icon rotate-n-15">
+                <div class="sidebar-brand-icon">
                     <img class="rounded-circle" width="50" height="50" src="{{isset($homestart->image) ? asset($homestart->image) : 'https://cdn.pixabay.com/photo/2017/11/16/09/25/bitcoin-2953851_1280.png'}}" alt="">
                 </div>
                 <div class="sidebar-brand-text mx-3">{{isset($homestart->logo_title) ? $homestart->logo_title : 'MLM' }}</div>
@@ -202,10 +202,11 @@
                     <ul class="navbar-nav ml-auto">
                         @php
                         $id = session('MEMBER_ID');
-                        $balance = DB::table('members')->find($id)->account_balance;
+                        $member = DB::table('members')->find($id);
                         @endphp
 
-                        <li class="nav-item mx-1 nav-link" style="margin-top: 15px;">Balance: <strong>{{(!empty($balance))?$balance:0}}</strong></li>
+                        <li class="nav-item mx-1 nav-link" style="margin-top: 15px;">Rank: <strong>{{ $member->rank }}</strong></li>
+                        <li class="nav-item mx-1 nav-link" style="margin-top: 15px;">Balance: <strong>{{ $member->account_balance }}</strong></li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 

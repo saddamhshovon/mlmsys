@@ -67,24 +67,39 @@
                     @enderror
 
                     <div class="mb-3">
-                        <label for="city" class="form-label">City<span class="text-danger">*</span></label>
-                        <input type="text" name="city" required value="{{ $member->city }}" class="form-control" id="city">
-                    </div>
-                    @error('city')
-                    <div class="form-group">
-                        <h1 class="h6 pl-3 text-danger" role="alert">{{$message}}</h1>
-                    </div>
-                    @enderror
-
-                    <div class="mb-3">
                         <label for="country" class="form-label">Country<span class="text-danger">*</span></label>
-                        <input type="text" name="country" required value="{{ $member->country }}" class="form-control" id="country">
+                        <input type="text" disabled required value="{{ $member->country }}" class="form-control" id="country">
+                    </div>
+                    <div class="mb-3">
+                        <select class="form-control" aria-label="Select Country" id="exampleCountry" name="country" required>
+                            <option selected value="" disabled>Open this select country</option>
+                            @foreach($countries as $country)
+                            <option value="{{ $country->name }}">{{ $country->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     @error('country')
                     <div class="form-group">
                         <h1 class="h6 pl-3 text-danger" role="alert">{{$message}}</h1>
                     </div>
                     @enderror
+
+                    <div class="mb-3">
+                        <label for="city" class="form-label">City<span class="text-danger">*</span></label>
+                        <input type="text" disabled required value="{{ $member->city }}" class="form-control" id="city">
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-control" aria-label="Select City" id="exampleCity" placeholder="City" name="city" required>
+                            <option selected value="" disabled>Open this select city</option>
+                        </select>
+                    </div>
+                    @error('city')
+                    <div class="form-group">
+                        <h1 class="h6 pl-3 text-danger" role="alert">{{$message}}</h1>
+                    </div>
+                    @enderror
+                        
                     <div>
                         <button type="submit" class="btn btn-rounded btn-primary">Update</button>
                     </div>

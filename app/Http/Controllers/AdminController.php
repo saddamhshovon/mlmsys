@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
-use App\Models\Country;
-use App\Models\Member;
 use Carbon\Carbon;
+use App\Models\Admin;
+use App\Models\Member;
 use App\Models\notice;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Country;
 use PharIo\Manifest\Email;
+use Illuminate\Http\Request;
+use App\Models\MobileBanking;
+use App\Models\MembershipType;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Password;
 use PHPUnit\Framework\Error\Notice as ErrorNotice;
 
 class AdminController extends Controller
@@ -98,7 +101,7 @@ class AdminController extends Controller
      */
     public function login()
     {
-        if(session()->has('ADMIN_LOGIN') || session()->has('MEMBER_LOGIN')){
+        if (session()->has('ADMIN_LOGIN') || session()->has('MEMBER_LOGIN')) {
             return back();
         } else {
             return view('admin.login');
@@ -226,20 +229,27 @@ class AdminController extends Controller
 
     public function editMember($id)
     {
+        $mobiles = MobileBanking::get();
+        $types = MembershipType::get();
+        $countries = Country::all();
         $member = Member::findOrFail($id);
-        return view('admin.member-manage.edit', compact('member'));
+        return view('admin.member-manage.edit', compact('member', 'countries', 'mobiles', 'types'));
     }
 
     public function updateMember(Request $request, $id)
     {
+        // dd($request->all());
         $request->validate(
             [
                 "first_name" => 'required',
                 "last_name" => 'required',
-                "user_name" => 'required',
                 "email" => 'required|email',
-                "password" => 'required',
+                "password" => ['required', Password::min(8)->letters(), 'confirmed'],
                 "mobile_no" => 'required',
+                "pin" => 'required|numeric|digits:5',
+                "mobile_banking_service" => 'required',
+                "country" => 'required',
+                "city" => 'required',
             ],
             [
                 'email.required' => 'Please Input a Valid Email Address...!',
@@ -251,14 +261,12 @@ class AdminController extends Controller
 
         $member->first_name = $request->first_name;
         $member->last_name = $request->last_name;
-        $member->user_name = $request->user_name;
         $member->email = $request->email;
         $member->password = $request->password;
         $member->mobile_no = $request->mobile_no;
         $member->pin = $request->pin;
         $member->city = $request->city;
         $member->country = $request->country;
-        $member->membership_type = $request->membership_type;
         $member->mobile_banking_service = $request->moblie_banking_service;
 
         $member->update();

@@ -3,14 +3,18 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DateRangeSearchController;
+use App\Http\Controllers\ExpiryMonthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\MembershipTypeController;
+use App\Http\Controllers\MobileBankingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RankController;
+use App\Http\Controllers\RenewalFeeController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\SupportController;
 use App\Models\HomeAbout;
@@ -107,6 +111,19 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/member/is-inactive/{id}', [AdminController::class, 'isInActive'])->name('member.is-inactive');
     Route::get('/admin/member/is-blocked/{id}', [AdminController::class, 'isBlocked'])->name('member.is-blocked');
     //////////               User Manage Route Ended             //////////
+    
+    
+    //////////               Membership Process and Mobile Banking             //////////
+    Route::get('/admin/membership-type',[MembershipTypeController::class, 'index'])->name('membership');
+    Route::post('/admin/membership-type',[MembershipTypeController::class, 'store'])->name('membership');
+    Route::post('/admin/membership-type-delete/{type}',[MembershipTypeController::class, 'delete'])->name('membership.delete');
+
+    Route::get('/admin/mobile-banking',[MobileBankingController::class, 'index'])->name('mobile.banking');
+    Route::post('/admin/mobile-banking',[MobileBankingController::class, 'store'])->name('mobile.banking');
+    Route::post('/admin/mobile-banking-delete/{mobile}',[MobileBankingController::class, 'delete'])->name('mobile.banking.delete');
+    //////////               Membership Process and Mobile Banking Ended             //////////
+
+
 
     /////////////              Fund Request Approval           ///////////
     Route::get('/admin/all-fund-add-request', [FundController::class, 'allFundAddRequestHistory'])->name('all.fund.request');
@@ -143,6 +160,16 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::post('/admin/ranks/rank-save', [RankController::class, 'store'])->name('ranks.save');
     Route::post('/admin/ranks/rank-update/{id}', [RankController::class, 'update'])->name('ranks.update');
     Route::get('/admin/ranks/rank-withdraw/{id}', [RankController::class, 'withdraw'])->name('ranks.withdraw');
+
+    //////////                        Expiry Route                 //////////
+    Route::get('/admin/expiry', [ExpiryMonthController::class, 'indexMonths'])->name('expiry.months');
+    Route::post('/admin/expiry-fix', [ExpiryMonthController::class, 'createMonths'])->name('expiry.months.fix');
+    Route::get('/admin/expiry-delete', [ExpiryMonthController::class, 'deleteMonths'])->name('expiry.months.delete');
+    
+    //////////                        Renewal fee Route                 //////////
+    Route::get('/admin/expiry-renewal-fee', [RenewalFeeController::class, 'index'])->name('expiry.fee');
+    Route::post('/admin/expiry-renewal-fee-fix', [RenewalFeeController::class, 'create'])->name('expiry.fee.fix');
+    Route::get('/admin/expiry-renewal-fee-delete', [RenewalFeeController::class, 'delete'])->name('expiry.fee.delete');
 
     //////////                        Funds Route                 //////////
     Route::get('/admin/funds-tax', [FundController::class, 'fundsTax'])->name('funds.tax');

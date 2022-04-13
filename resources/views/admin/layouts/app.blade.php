@@ -36,7 +36,7 @@
             $homestart = DB::table('homestarts')->first();
             @endphp
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-                <div class="sidebar-brand-icon rotate-n-15">
+                <div class="sidebar-brand-icon">
                     <img class="rounded-circle" width="50" height="50" src="{{isset($homestart->image) ? asset($homestart->image) : 'https://cdn.pixabay.com/photo/2017/11/16/09/25/bitcoin-2953851_1280.png'}}" alt="">
                 </div>
                 <div class="sidebar-brand-text mx-3">{{isset($homestart->logo_title) ? $homestart->logo_title : 'MLM' }}</div>
@@ -109,7 +109,10 @@
                 </div>
             </li>
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="sidebar-heading">
+                Manage
+            </div>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
@@ -150,12 +153,45 @@
                 </a>
                 <div id="collapseNotice" class="collapse" aria-labelledby="headingNotice" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Member Manage:</h6>
+                        <h6 class="collapse-header">Notice Manage:</h6>
                         <a class="collapse-item" href="{{route('notice.dashboard')}}">Dashboard Notice</a>
                         <a class="collapse-item" href="{{route('notice.withdraw')}}">Withdraw Notice</a>
                     </div>
                 </div>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('membership')}}">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Membership Types</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('mobile.banking')}}">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Mobile Banking Gateways</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Expiry
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('expiry.months')}}">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Fix Expiry Time</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('expiry.fee')}}">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Fix Renewal Fee</span>
+                </a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
             <!-- Heading -->
