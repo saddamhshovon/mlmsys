@@ -36,7 +36,7 @@
                         <td class="text-center" style="border:none;background:transparent;outline:none;resize: none;"><textarea disabled cols="30" rows="2">{{$msg->message}}</textarea></td>
                         <td class="text-center" style="border:none;background:transparent;outline:none;resize: none;"><textarea disabled cols="30" rows="2">{{$msg->reply ?? 'Not replied yet'}}</textarea></td>
                         <td>
-                           @if($msg->read===0)
+                           @if($msg->read==0)
                            <a class="font-weight-bold" href="{{route('support.show.message',$msg->id)}}">Reply</a>
                            @else
                            <p class="badge badge-pill badge-success">Replied</p>

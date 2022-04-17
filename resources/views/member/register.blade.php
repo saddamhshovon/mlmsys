@@ -39,7 +39,7 @@
                             <form class="user" action="{{ route('register.member') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="exampleReferralID"
+                                    <input type="text" class="form-control" id="exampleReferralID"
                                         placeholder="Referral ID" name="referral_id" value="{{ old('referral_id') }}">
                                 </div>
                                 @error('referral_id')
@@ -49,12 +49,12 @@
                                 @enderror
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                        <input type="text" class="form-control" id="exampleFirstName"
                                             placeholder="First Name" name="first_name" value="{{ old('first_name') }}"
                                             required>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                        <input type="text" class="form-control" id="exampleLastName"
                                             placeholder="Last Name" name="last_name" value="{{ old('last_name') }}"
                                             required>
                                     </div>
@@ -70,7 +70,7 @@
                                     </div>
                                 @enderror
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="exampleUserName"
+                                    <input type="text" class="form-control" id="exampleUserName"
                                         placeholder="User Name" name="user_name" value="{{ old('user_name') }}"
                                         required>
                                 </div>
@@ -80,7 +80,7 @@
                                     </div>
                                 @enderror
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                    <input type="email" class="form-control" id="exampleInputEmail"
                                         placeholder="Email Address" name="email" value="{{ old('email') }}" required>
                                 </div>
                                 @error('email')
@@ -90,11 +90,11 @@
                                 @enderror
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
+                                        <input type="password" class="form-control"
                                             id="exampleInputPassword" placeholder="Password" name="password" required>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
+                                        <input type="password" class="form-control"
                                             id="exampleRepeatPassword" placeholder="Repeat Password"
                                             name="password_confirmation" required>
                                     </div>
@@ -106,12 +106,12 @@
                                 @enderror
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="tel" class="form-control form-control-user" id="exampleMobileNo"
+                                        <input type="tel" class="form-control" id="exampleMobileNo"
                                             placeholder="Mobile No." name="mobile_no" value="{{ old('mobile_no') }}"
                                             required>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user" id="examplePin"
+                                        <input type="password" class="form-control" id="examplePin"
                                             placeholder="Pin Code" name="pin" required>
                                     </div>
                                 </div>
@@ -183,7 +183,7 @@
                                     </div>
                                 @enderror
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="examplePlacementID"
+                                    <input type="text" class="form-control" id="examplePlacementID"
                                         placeholder="Placement ID" name="placement_id"
                                         value="{{ old('placement_id') }}">
                                 </div>

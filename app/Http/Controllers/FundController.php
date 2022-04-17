@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
-use App\Models\Fund;
-use App\Models\Member;
-use App\Models\Rank;
-use App\Notifications\WithdrawFundNotification;
 use Carbon\Carbon;
+use App\Models\Fund;
+use App\Models\Rank;
+use App\Models\Admin;
+use App\Models\Member;
 use Illuminate\Http\Request;
+use App\Models\MobileBanking;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\WithdrawFundNotification;
 
 class FundController extends Controller
 {
@@ -316,11 +317,13 @@ class FundController extends Controller
 
     public function addFundReq()
     {
-        return view('member.fund.add');
+        $mobiles = MobileBanking::get();
+        return view('member.fund.add', compact('mobiles'));
     }
     public function withdrawFund()
     {
-        return view('member.fund.withdraw');
+        $mobiles = MobileBanking::get();
+        return view('member.fund.withdraw', compact('mobiles'));
     }
 
     /**

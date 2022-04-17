@@ -25,11 +25,15 @@
                     </div>
                     @enderror
                     <div class="mb-3">
-                        <label for="mobile_banking_system" class="form-label">Mobile Banking<span class="text-danger">*</span></label>
-                        <select class="form-control form-control-md" id="mobile_banking_system" name="mobile_banking_system">
-                            <option value="" selected="" disabled="">Select</option>
-                            <option value="Bkash">Bkash</option>
-                            <option value="Nagad">Nagad</option>
+                        <label for="mobile_banking_system" class="form-label">Mobile Banking<span
+                                class="text-danger">*</span></label>
+                        <select class="form-control" aria-label="Select Mobile Banking Service"
+                            id="exampleMobileBanking" placeholder="Mobile Banking Service" name="mobile_banking_service"
+                            required>
+                            <option selected value="" disabled>Select</option>
+                            @foreach ($mobiles as $mobile)
+                                <option value="{{ $mobile->name }}">{{ $mobile->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     @error('mobile_banking_system')

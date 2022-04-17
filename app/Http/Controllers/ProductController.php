@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Member;
 use App\Models\Order;
-use Illuminate\Http\Request;
+use App\Models\Member;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\File;
-
-use Image;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {

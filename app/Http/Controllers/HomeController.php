@@ -55,7 +55,7 @@ class HomeController extends Controller
                 @unlink($image_path);
 
                 $filename = date('YmdHis') . '.' . $file->getClientOriginalExtension();
-                $file_path = public_path('images/home/' . $filename);
+                $file_path = 'images/home/' . $filename;
 
                 $file->move(public_path('images/home'), $filename);
                 $homestart->image = $file_path;
@@ -141,7 +141,7 @@ class HomeController extends Controller
     public function homeWorkSection()
     {
         $homeWork = HomeOurWork::first();
-        return view('admin.home.Work', compact('homeWork'));
+        return view('admin.home.work', compact('homeWork'));
     }
 
     public function homeWorkSubmit(Request $request)
@@ -201,7 +201,7 @@ class HomeController extends Controller
     public function homeGoalSection()
     {
         $homeGoal = HomeGoal::first();
-        return view('admin.home.Goal', compact('homeGoal'));
+        return view('admin.home.goal', compact('homeGoal'));
     }
 
     public function homeGoalSubmit(Request $request)
