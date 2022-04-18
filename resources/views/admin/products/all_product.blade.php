@@ -37,13 +37,13 @@
                         <thead>
                            <tr role="row">
                               <th class="text-center" scope="col" width="5%">SL</th>
-                              <th class="text-center" scope="col" width="35%">Name</th>
+                              <th class="text-center" scope="col" width="30%">Name</th>
                               <th class="text-center" scope="col" width="10%">Code</th>
                               <th class="text-center" scope="col" width="10%">Price</th>
                               <th class="text-center" scope="col" width="10%">Category</th>
                               <th class="text-center" scope="col" width="10%">Image</th>
                               <th class="text-center" scope="col" width="10%">Status</th>
-                              <th class="text-center" scope="col" width="10%">Action</th>
+                              <th class="text-center" scope="col" width="15%">Action</th>
                            </tr>
                         </thead>
                         <tbody>

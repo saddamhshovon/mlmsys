@@ -111,16 +111,16 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/member/is-inactive/{id}', [AdminController::class, 'isInActive'])->name('member.is-inactive');
     Route::get('/admin/member/is-blocked/{id}', [AdminController::class, 'isBlocked'])->name('member.is-blocked');
     //////////               User Manage Route Ended             //////////
-    
-    
-    //////////               Membership Process and Mobile Banking             //////////
-    Route::get('/admin/membership-type',[MembershipTypeController::class, 'index'])->name('membership');
-    Route::post('/admin/membership-type',[MembershipTypeController::class, 'store'])->name('membership');
-    Route::post('/admin/membership-type-delete/{type}',[MembershipTypeController::class, 'delete'])->name('membership.delete');
 
-    Route::get('/admin/mobile-banking',[MobileBankingController::class, 'index'])->name('mobile.banking');
-    Route::post('/admin/mobile-banking',[MobileBankingController::class, 'store'])->name('mobile.banking');
-    Route::post('/admin/mobile-banking-delete/{mobile}',[MobileBankingController::class, 'delete'])->name('mobile.banking.delete');
+
+    //////////               Membership Process and Mobile Banking             //////////
+    Route::get('/admin/membership-type', [MembershipTypeController::class, 'index'])->name('membership');
+    Route::post('/admin/membership-type', [MembershipTypeController::class, 'store'])->name('membership');
+    Route::post('/admin/membership-type-delete/{type}', [MembershipTypeController::class, 'delete'])->name('membership.delete');
+
+    Route::get('/admin/mobile-banking', [MobileBankingController::class, 'index'])->name('mobile.banking');
+    Route::post('/admin/mobile-banking', [MobileBankingController::class, 'store'])->name('mobile.banking');
+    Route::post('/admin/mobile-banking-delete/{mobile}', [MobileBankingController::class, 'delete'])->name('mobile.banking.delete');
     //////////               Membership Process and Mobile Banking Ended             //////////
 
 
@@ -165,7 +165,7 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/expiry', [ExpiryMonthController::class, 'indexMonths'])->name('expiry.months');
     Route::post('/admin/expiry-fix', [ExpiryMonthController::class, 'createMonths'])->name('expiry.months.fix');
     Route::get('/admin/expiry-delete', [ExpiryMonthController::class, 'deleteMonths'])->name('expiry.months.delete');
-    
+
     //////////                        Renewal fee Route                 //////////
     Route::get('/admin/expiry-renewal-fee', [RenewalFeeController::class, 'index'])->name('expiry.fee');
     Route::post('/admin/expiry-renewal-fee-fix', [RenewalFeeController::class, 'create'])->name('expiry.fee.fix');
@@ -179,11 +179,11 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/admin/withdraw-tax', [FundController::class, 'withdrawTax'])->name('withdraw.tax');
     Route::post('/admin/withdraw-tax-fix', [FundController::class, 'withdrawTaxFix'])->name('withdraw.taxfix');
     Route::post('/admin/withdraw-tax-change', [FundController::class, 'withdrawTaxChange'])->name('withdraw.taxchange');
-    
+
     Route::get('/admin/withdraw-amount', [FundController::class, 'withdrawAmount'])->name('withdraw.amount');
     Route::post('/admin/withdraw-amount-fix', [FundController::class, 'withdrawAmountFix'])->name('withdraw.amountfix');
     Route::post('/admin/withdraw-amount-change', [FundController::class, 'withdrawAmountChange'])->name('withdraw.amountchange');
-    
+
     Route::get('/admin/user-fund', [FundController::class, 'newUserFund'])->name('funds.reg');
     Route::post('/admin/user-fund-fix', [FundController::class, 'newUserFundFix'])->name('funds.regfix');
     Route::post('/admin/user-fund-change', [FundController::class, 'newUserFundChange'])->name('funds.regchange');
@@ -210,6 +210,8 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::post('/admin/support-message/reply-{id}', [SupportController::class, 'replyMessage'])->name('support.reply.message');
 
     //////////                        Support Message End                     //////////
+
+    Route::get('/admin/leaderboard', [IncomeController::class, 'leaderBoard'])->name('admin.leaderboard.all');
 
     //////////                           HOME                  /////////////
 
@@ -269,7 +271,7 @@ Route::group(['middleware' => 'member_auth'], function () {
 
     ///////////////           END USER PROFILE CHANGE         ////////////////
 
-    Route::get('/product/member/all', [ProductController::class, 'userAllProduct'])->name('product.all.user');
+    Route::get('/product/all', [ProductController::class, 'userAllProduct'])->name('product.all.user');
     Route::get('/product/buy/{name}-{id}', [ProductController::class, 'buyProduct'])->name('product.buy');
     Route::post('/product/order', [ProductController::class, 'orderProduct'])->name('product.order');
     Route::get('/history/product-order', [ProductController::class, 'memberProductOrderHistory'])->name('history.product.order');

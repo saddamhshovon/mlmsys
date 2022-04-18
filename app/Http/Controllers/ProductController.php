@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
 use App\Models\Member;
-use App\Models\Product;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Models\Product;
 use Illuminate\Support\Carbon;
-use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
+
+use Image;
 
 class ProductController extends Controller
 {
@@ -39,12 +41,13 @@ class ProductController extends Controller
         );
         $image = $request->file('product_image');
         $size = $request->file('product_image')->getSize();
-        $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+        $name_gen = date('YmdHis') . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('images/product'), $name_gen);
         $save_url = 'images/product/' . $name_gen;
-        Image::make($image)->resize(300, 300)->save($save_url);
+        //Image::make($image)->resize(300, 300)->save($save_url);
         $prod_pdf = $request->file('product_pdf');
 
-        if (($size <= 500000) && (empty($prod_pdf))) {
+        if (($size <= 10000000) && (empty($prod_pdf))) {
             Product::insert(
                 [
                     'product_name' => $request->product_name,
@@ -58,10 +61,10 @@ class ProductController extends Controller
                 ]
             );
             return redirect()->back()->with('success', 'Product Added Successfully..!');
-        } else if (($size <= 500000) && (!empty($prod_pdf))) {
+        } else if (($size <= 90000000) && (!empty($prod_pdf))) {
             $pdf_name_gen = hexdec(uniqid()) . '.' . 'pdf';
             $save_pdf = 'pdf_file/' . $pdf_name_gen;
-            $prod_pdf->move(public_path('pdf_file/'), $pdf_name_gen);
+            $prod_pdf->move(public_path('pdf_file'), $pdf_name_gen);
             Product::insert(
                 [
                     'product_name' => $request->product_name,
@@ -77,7 +80,7 @@ class ProductController extends Controller
             );
             return redirect()->back()->with('success', 'Product Added Successfully..!');
         } else {
-            return redirect()->back()->withInput()->with('error', 'Image Size Should Not be Greater Than 500 KB');
+            return redirect()->back()->withInput()->with('error', 'Image Size Should Not be Greater Than 10 MB');
         }
     }
 
@@ -92,8 +95,8 @@ class ProductController extends Controller
     public function updateProduct(Request $request)
     {
         $product_id = $request->id;
-        $old_image = $request->old_image;
-        $old_pdf = $request->old_pdf;
+        $old_image = public_path($request->old_image);
+        $old_pdf = public_path($request->old_pdf);
 
         $request->validate(
             [
@@ -113,12 +116,13 @@ class ProductController extends Controller
                 unlink($old_image);
                 $image = $request->file('product_image');
                 $size = $request->file('product_image')->getSize();
-                $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+                $name_gen = date('YmdHis') . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images/product'), $name_gen);
                 $save_url = 'images/product/' . $name_gen;
-                Image::make($image)->resize(300, 300)->save($save_url);
+                //Image::make($image)->resize(300, 300)->save($save_url);
 
-                if ($size > 500000) {
-                    return redirect()->back()->with('error', 'Image Size Should Not be Greater Than 500 KB');
+                if ($size > 10000000) {
+                    return redirect()->back()->with('error', 'Image Size Should Not be Greater Than 10 MB');
                 } else {
                     Product::findOrFail($product_id)->update(
                         [
@@ -134,11 +138,11 @@ class ProductController extends Controller
                     return redirect()->route('product.all')->with('success', 'Product Updated Successfully..!');
                 }
             } elseif ($request->file('product_pdf')) {
-                $tmp_pdf = $old_pdf;
+                $tmp_pdf = $request->old_pdf;
                 $prod_pdf = $request->file('product_pdf');
                 $pdf_name_gen = hexdec(uniqid()) . '.' . 'pdf';
                 $save_pdf = 'pdf_file/' . $pdf_name_gen;
-                $prod_pdf->move(public_path('pdf_file/'), $pdf_name_gen);
+                $prod_pdf->move(public_path('pdf_file'), $pdf_name_gen);
                 if ($tmp_pdf == "N/A") {
                     Product::findOrFail($product_id)->update(
                         [
@@ -175,7 +179,7 @@ class ProductController extends Controller
                 $size = $request->file('product_image')->getSize();
                 $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
                 $save_url = 'images/product/' . $name_gen;
-                Image::make($image)->resize(300, 300)->save($save_url);
+                //Image::make($image)->resize(300, 300)->save($save_url);
                 $tmp_pdf = $old_pdf;
                 $prod_pdf = $request->file('product_pdf');
                 $pdf_name_gen = hexdec(uniqid()) . '.' . 'pdf';

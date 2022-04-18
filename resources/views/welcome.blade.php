@@ -58,7 +58,7 @@
                     <h2 class="text-white mb-3">{{isset($homeAbout->title) ? $homeAbout->title : 'About Us' }}</h2>
                     <p class="text-white-50">
                         {{isset($homeAbout->subtitle) ? $homeAbout->subtitle : "The main sales pitch of MLM companies to their participants and prospective participants is not the MLM company's products or services." }}
-                    </p>>
+                    </p>
                 </div>
             </div>
             <img class="img-fluid" src="{{(!empty($homeAbout->image))?url('images/home/'.$homeAbout->image):'https://cdn.pixabay.com/photo/2018/04/18/18/47/hands-3331216_1280.jpg'}}" alt="..." />

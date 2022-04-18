@@ -235,6 +235,12 @@
             </li>
             <hr class="sidebar-divider d-none d-md-block">
 
+            <!-- leaderboards -->
+            <li class="nav-item {{  Request::routeIs('admin.leaderboard.all') ? 'active' : ''  }}">
+                <a class="nav-link" href="{{ route('admin.leaderboard.all')}}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Leaderboard</span></a>
+            </li>
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -290,7 +296,6 @@
                                 <a class="dropdown-item text-center small text-gray-500" href=" {{route('support.all.message')}}">View More Messages</a>
                             </div>
                         </li>
-
 
                         <!-- Nav Item - Alerts -->
                         @php($admin = App\Models\Admin::find(1))
@@ -364,7 +369,7 @@
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
-                        
+
 
                         <li class="nav-item dropdown no-arrow">
 
