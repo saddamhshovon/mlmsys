@@ -211,7 +211,7 @@ Route::group(['middleware' => 'admin_auth'], function () {
 
     //////////                        Support Message End                     //////////
 
-    Route::get('/admin/leaderboard', [IncomeController::class, 'leaderBoard'])->name('admin.leaderboard.all');
+    Route::get('/admin/leaderboard', [IncomeController::class, 'leaderBoardAdmin'])->name('admin.leaderboard');
 
     //////////                           HOME                  /////////////
 

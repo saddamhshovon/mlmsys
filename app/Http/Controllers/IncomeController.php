@@ -16,14 +16,27 @@ class IncomeController extends Controller
     public function leaderBoard()
     {
         $leaderBoard = DB::table('incomes')
-        ->select('user_name', DB::raw('SUM(amount) as total_income'))
-        ->groupBy('user_name')
-        ->orderBy('total_income', 'desc')
-        ->take(20)
-        ->get();
-        
+            ->select('user_name', DB::raw('SUM(amount) as total_income'))
+            ->groupBy('user_name')
+            ->orderBy('total_income', 'desc')
+            ->take(20)
+            ->get();
+
         // dd($leaderBoard);
         return view('member.leaderboard.all', compact('leaderBoard'));
+    }
+
+    public function leaderBoardAdmin()
+    {
+        $leaderBoard = DB::table('incomes')
+            ->select('user_name', DB::raw('SUM(amount) as total_income'))
+            ->groupBy('user_name')
+            ->orderBy('total_income', 'desc')
+            ->take(20)
+            ->get();
+
+        // dd($leaderBoard);
+        return view('admin.leaderboard.all', compact('leaderBoard'));
     }
 
     /**

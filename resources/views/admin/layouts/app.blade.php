@@ -236,8 +236,8 @@
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- leaderboards -->
-            <li class="nav-item {{  Request::routeIs('admin.leaderboard.all') ? 'active' : ''  }}">
-                <a class="nav-link" href="{{ route('admin.leaderboard.all')}}">
+            <li class="nav-item {{  Request::routeIs('admin.leaderboard') ? 'active' : ''  }}">
+                <a class="nav-link" href="{{ route('admin.leaderboard')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Leaderboard</span></a>
             </li>
