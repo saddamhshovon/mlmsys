@@ -389,7 +389,7 @@ class FundController extends Controller
         $rank = Rank::where('withdraw_rank', 1)->first();
 
         if ($member->has_children >= $rank->min_user) {
-            if ($member[0]->account_balance > $request->amount + ($request->amount * $tax->tax/100)) {
+            if ($member[0]->account_balance > $request->amount + ($request->amount * $tax->tax / 100)) {
                 if ($member[0]->pin == $request->pin) {
                     $fund = new Fund();
                     $fund->user_name = $member[0]->user_name;
@@ -398,7 +398,7 @@ class FundController extends Controller
                     $fund->funding_type = 0;
                     $fund->save();
 
-                    $newBalance = $member[0]->account_balance - $request->amount - ($request->amount * $tax->tax/100);
+                    $newBalance = $member[0]->account_balance - $request->amount - ($request->amount * $tax->tax / 100);
 
                     DB::table('members')
                         ->where([
@@ -418,7 +418,7 @@ class FundController extends Controller
             } else {
                 return redirect()->back()->with('failed', 'You do not have sufficient balance.')->withInput();
             }
-        }else{
+        } else {
             return redirect()->back()->with('failed', 'You do not meet minimum requirement to withdraw funds.')->withInput();
         }
         // dd($member);
@@ -505,9 +505,13 @@ class FundController extends Controller
 
     public function rejectFundWithdrawRequest($id)
     {
+        $tax = DB::table("tax_on_withdraw")
+            ->select('tax')
+            ->first();
+
         $isApprove = Fund::findOrFail($id);
         $isApprove->is_approved = 2;
-        $isApprove->member->account_balance = $isApprove->member->account_balance + $isApprove->amount;
+        $isApprove->member->account_balance = $isApprove->member->account_balance + ($isApprove->amount + ($isApprove->amount * $tax->tax / 100));
         $isApprove->save();
         $isApprove->member->save();
         return redirect()->back();
