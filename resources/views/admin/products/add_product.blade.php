@@ -71,7 +71,7 @@
 
                      <div class="mb-3">
                         <label for="product_description" class="form-label">Product Description</label>
-                        <textarea class="form-control" name="product_description" id="product_description" rows="2" placeholder="Product Description">{{old('product_description')}}</textarea>
+                        <textarea class="form-control" name="product_description" id="product_description" rows="4" placeholder="Product Description">{{old('product_description')}}</textarea>
                      </div>
 
                      <div class="mb-3">

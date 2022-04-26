@@ -61,7 +61,7 @@ class ProductController extends Controller
                 ]
             );
             return redirect()->back()->with('success', 'Product Added Successfully..!');
-        } else if (($size <= 90000000) && (!empty($prod_pdf))) {
+        } else if (($size <= 100000000) && (!empty($prod_pdf))) {
             $pdf_name_gen = hexdec(uniqid()) . '.' . 'pdf';
             $save_pdf = 'pdf_file/' . $pdf_name_gen;
             $prod_pdf->move(public_path('pdf_file'), $pdf_name_gen);
@@ -80,7 +80,7 @@ class ProductController extends Controller
             );
             return redirect()->back()->with('success', 'Product Added Successfully..!');
         } else {
-            return redirect()->back()->withInput()->with('error', 'Image Size Should Not be Greater Than 10 MB');
+            return redirect()->back()->withInput()->with('error', 'Image Size Should Not be Greater Than 10 MB & PDF 100MB');
         }
     }
 

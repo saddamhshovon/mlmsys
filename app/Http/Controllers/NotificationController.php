@@ -13,7 +13,7 @@ class NotificationController extends Controller
     {
         $id = session('ADMIN_ID');
         $admin = Admin::first();
-        $notifications = $admin->notifications()->paginate(5);
+        $notifications = $admin->notifications()->paginate(10);
         return view('admin.notification.all', compact('notifications'));
     }
 
@@ -28,14 +28,14 @@ class NotificationController extends Controller
     public function newMemberNotification()
     {
         $admin = Admin::first();
-        $notifications = $admin->notifications()->where('data->is_active', '1')->paginate(5);
+        $notifications = $admin->notifications()->where('data->is_active', '1')->paginate(10);
         return view('admin.notification.new-member', compact('notifications'));
     }
 
     public function withdrawFundNotification()
     {
         $admin = Admin::first();
-        $notifications = $admin->notifications()->where('data->f_type', '0')->paginate(5);
+        $notifications = $admin->notifications()->where('data->f_type', '0')->paginate(10);
         // dd($notifications);
         return view('admin.notification.withdraw-fund', compact('notifications'));
     }
@@ -43,7 +43,7 @@ class NotificationController extends Controller
     public function addFundNotification()
     {
         $admin = Admin::first();
-        $notifications = $admin->notifications()->where('data->f_type', '1')->paginate(5);
+        $notifications = $admin->notifications()->where('data->f_type', '1')->paginate(10);
         // dd($notifications);
         return view('admin.notification.add-fund', compact('notifications'));
     }
@@ -51,14 +51,14 @@ class NotificationController extends Controller
     public function readNotification()
     {
         $admin = Admin::first();
-        $notifications = $admin->readNotifications()->paginate(5);
+        $notifications = $admin->readNotifications()->paginate(10);
         return view('admin.notification.read', compact('notifications'));
     }
 
     public function unreadNotification()
     {
         $admin = Admin::first();
-        $notifications = $admin->unreadNotifications()->paginate(5);
+        $notifications = $admin->unreadNotifications()->paginate(10);
         return view('admin.notification.unread', compact('notifications'));
     }
 }

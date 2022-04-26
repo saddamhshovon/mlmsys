@@ -51,7 +51,7 @@
 
                <div class="mb-3">
                   <label for="subtitle" class="form-label">Description<span class="text-danger">*</span></label>
-                  <input type="text" name="subtitle" value="{{!empty($homeGoal->subtitle) ? $homeGoal->subtitle : ''}}" class="form-control" id="subtitle" placeholder="Description">
+                  <textarea class="form-control" name="subtitle" rows="4" id="subtitle" placeholder="Description">{{!empty($homeGoal->subtitle) ? $homeGoal->subtitle : ''}}</textarea>
                   @error('subtitle')
                   <span class="text-danger">{{$message}}</span>
                   @enderror

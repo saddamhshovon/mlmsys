@@ -21,8 +21,8 @@ class HomeController extends Controller
     {
         $request->validate(
             [
-                'image' => 'image|mimes:jpeg,png,jpg,svg,webp|max:2048',
-                // 'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048|dimensions:width=500,height=500',
+                'image' => 'image|mimes:jpeg,png,jpg,svg,webp|max:10240',
+                // 'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:10240|dimensions:width=500,height=500',
                 'logo_title' => 'required',
                 'title' => 'required',
                 'subtitle' => 'required',
@@ -88,8 +88,8 @@ class HomeController extends Controller
     {
         $request->validate(
             [
-                'image' => 'image|mimes:jpeg,png,jpg,svg,webp|max:2048',
-                // 'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048|dimensions:width=500,height=500',
+                'image' => 'image|mimes:jpeg,png,jpg,svg,webp|max:10240',
+                // 'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:10240|dimensions:width=500,height=500',
                 'title' => 'required',
                 'subtitle' => 'required',
             ]
@@ -148,8 +148,8 @@ class HomeController extends Controller
     {
         $request->validate(
             [
-                'image' => 'image|mimes:jpeg,png,jpg,svg,webp|max:2048',
-                // 'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048|dimensions:width=500,height=500',
+                'image' => 'image|mimes:jpeg,png,jpg,svg,webp|max:10240',
+                // 'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:10240|dimensions:width=500,height=500',
                 'title' => 'required',
                 'subtitle' => 'required',
             ]
@@ -208,8 +208,8 @@ class HomeController extends Controller
     {
         $request->validate(
             [
-                'image' => 'image|mimes:jpeg,png,jpg,svg,webp|max:2048',
-                // 'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048|dimensions:width=500,height=500',
+                'image' => 'image|mimes:jpeg,png,jpg,svg,webp|max:10240',
+                // 'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:10240|dimensions:width=500,height=500',
                 'title' => 'required',
                 'subtitle' => 'required',
             ]
