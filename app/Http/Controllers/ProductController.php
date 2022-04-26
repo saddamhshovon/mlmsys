@@ -261,6 +261,7 @@ class ProductController extends Controller
     {
         $member_id = session('MEMBER_ID');
         $product_id = $id;
+
         $member = Member::findOrFail($member_id);
         $product = Product::findOrFail($product_id);
         // dd($product_id);
@@ -299,6 +300,7 @@ class ProductController extends Controller
         $order->address = $request->address;
         $order->city = $request->city;
         $order->country = $request->country;
+        $order->price = $price[0]->product_price;
         // dd($order->all());
         if ($request->pin == $pin[0]->pin) {
             if ($balance[0]->account_balance < $price[0]->product_price) {

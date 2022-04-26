@@ -9,17 +9,27 @@
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
 </div>
 
+<!-- $re['daily'][$value] = Revenue::where('channel',$value)->whereDate('created_at',date('Y-m-d'))->sum('amount');
+$re['weekly'][$value] = Revenue::where('channel',$value)->whereBetween('date', [
+Carbon::parse('last monday')->startOfDay(),
+Carbon::parse('next friday')->endOfDay(),
+])->sum('amount');
+$re['monthly'][$value] = Revenue::where('channel',$value)->whereMonth('created_at',date('m'))->sum('amount');
+$re['yearly'][$value] = Revenue::where('channel',$value)->whereYear('created_at',date('Y'))->sum('amount'); -->
+
 <!-- Content Row -->
 <div class="row">
     @php
     $totalUsers = DB::table('members')->count();
-    $order = new App\Models\Order();
-    $totalSales = $order->getTotalPrice();
     $totalTransferFunds = DB::table('transfer_funds')->sum('tax');
     $tax = DB::table("tax_on_withdraw")->first();
     $tax = isset($tax->tax) ? $tax->tax : 0;
-    $totalWithdrawFunds = DB::table('funds')->where('funding_type',0)->where('is_approved',1)->sum('amount');
-    $totalWithdrawFunds = $totalWithdrawFunds*10/(100+$tax);
+    $totalWithdrawFunds = DB::table('funds')->where('funding_type',0)->where('is_approved',1)->sum('tax');
+    $totalProductSales = DB::table('orders')->sum('price');
+
+    $totalRegIncome = DB::table('incomes')->where('income_type','New User')->sum('amount');
+
+    $dailyIncomeTransfer = DB::table('transfer_funds')->whereDate('created_at',date('Y-m-d'))->sum('tax');
     @endphp
 
     <!-- Earnings (Monthly) Card Example -->
@@ -48,8 +58,8 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Total Earn</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalTransferFunds+$totalWithdrawFunds}}</div>
+                            Total Income</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalTransferFunds+$totalWithdrawFunds+$totalRegIncome}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -64,31 +74,13 @@
 
 <!-- Content Row -->
 <div class="row">
-
-    <!-- <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Total Product Sales</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalSales}}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <div class="col-xl-6 col-md-6 mb-4">
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                        Total Transfer Earn</div>
+                            Total Transfer Income</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalTransferFunds}}</div>
                     </div>
                     <div class="col-auto">
@@ -104,7 +96,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Total Withdraw Earn</div>
+                            Total Withdraw Income</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalWithdrawFunds}}</div>
                     </div>
                     <div class="col-auto">
@@ -116,6 +108,41 @@
     </div>
 </div>
 <!-- Content Row -->
+<div class="row">
+    <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Total Product Sales</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalProductSales}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Total registration Income</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalRegIncome}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
 
@@ -126,7 +153,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Daily Income</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$dailyIncomeTransfer}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -141,7 +168,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                        Weekly Income</div>
+                            Weekly Income</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                     </div>
                     <div class="col-auto">

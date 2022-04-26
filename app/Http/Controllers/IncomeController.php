@@ -16,6 +16,8 @@ class IncomeController extends Controller
     public function leaderBoard()
     {
         $leaderBoard = DB::table('incomes')
+            ->where('income_type', 'Referral')
+            ->orWhere('income_type', 'Generation')
             ->select('user_name', DB::raw('SUM(amount) as total_income'))
             ->groupBy('user_name')
             ->orderBy('total_income', 'desc')
@@ -29,6 +31,8 @@ class IncomeController extends Controller
     public function leaderBoardAdmin()
     {
         $leaderBoard = DB::table('incomes')
+            ->where('income_type', 'Referral')
+            ->orWhere('income_type', 'Generation')
             ->select('user_name', DB::raw('SUM(amount) as total_income'))
             ->groupBy('user_name')
             ->orderBy('total_income', 'desc')

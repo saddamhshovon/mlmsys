@@ -49,7 +49,7 @@
                               <td class="text-center sorting_1">{{$i++}}</td>
                               <td class="text-center">{{$hist->product->product_name}}</td>
                               <td class="text-center">{{$hist->product->product_code}}</td>
-                              <td class="text-center">{{$hist->product->product_price}}</td>
+                              <td class="text-center">{{$hist->price}}</td>
                               <td class="text-center">{{$hist->product->product_category}}</td>
                               <td class="text-center">
                                  @if($hist->is_delivered==0)
