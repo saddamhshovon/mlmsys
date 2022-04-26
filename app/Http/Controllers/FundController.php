@@ -266,7 +266,7 @@ class FundController extends Controller
                     $query = DB::table('transfer_funds')->insert($data);
 
                     if ($query) {
-                        $newBalanceSender = $sender[0]->account_balance - ($request->amount * $tax->tax / 100);
+                        $newBalanceSender = $sender[0]->account_balance - ($request->amount + ($request->amount * $tax->tax / 100));
 
                         $senderUp = DB::table('members')
                             ->where([
@@ -368,12 +368,13 @@ class FundController extends Controller
 
     public function withdraw(Request $request)
     {
+        // dd($request->all());
         $min = DB::table("withdraw_amount")
             ->first();
 
         $request->validate([
             "amount" => 'required|numeric|gte:' . $min->min,
-            "mobile_banking_system" => 'required',
+            "mobile_banking_service" => 'required',
             "pin" => 'required|numeric',
         ]);
 
@@ -383,22 +384,24 @@ class FundController extends Controller
                 'id' => session()->get('MEMBER_ID')
             ])
             ->get();
+        // dd($member);
         $tax = DB::table("tax_on_withdraw")
             ->select('tax')
             ->first();
         $rank = Rank::where('withdraw_rank', 1)->first();
-
-        if ($member->has_children >= $rank->min_user) {
-            if ($member[0]->account_balance > $request->amount + ($request->amount * $tax->tax / 100)) {
+        
+        if ($member[0]->has_children >= $rank->min_user) {
+            if ($member[0]->account_balance > $request->amount + ($request->amount * $tax->tax/100)) {
                 if ($member[0]->pin == $request->pin) {
                     $fund = new Fund();
                     $fund->user_name = $member[0]->user_name;
-                    $fund->mobile_banking_service = $request->mobile_banking_system;
+                    $fund->mobile_banking_service = $request->mobile_banking_service;
                     $fund->amount = $request->amount;
                     $fund->funding_type = 0;
+                    $fund->tax = $request->amount * $tax->tax/100;
                     $fund->save();
 
-                    $newBalance = $member[0]->account_balance - $request->amount - ($request->amount * $tax->tax / 100);
+                    $newBalance = $member[0]->account_balance - $request->amount - ($request->amount * $tax->tax/100);
 
                     DB::table('members')
                         ->where([
@@ -418,7 +421,7 @@ class FundController extends Controller
             } else {
                 return redirect()->back()->with('failed', 'You do not have sufficient balance.')->withInput();
             }
-        } else {
+        }else{
             return redirect()->back()->with('failed', 'You do not meet minimum requirement to withdraw funds.')->withInput();
         }
         // dd($member);

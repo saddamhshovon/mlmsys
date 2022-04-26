@@ -142,6 +142,7 @@ class MemberController extends Controller
             'placement_id' => $request->placement_id,
             'current_level' => $placement->current_level + 1,
             'account_balance' => 0,
+            'is_active' => 1,
             'rank' => 'None'
         ];
 

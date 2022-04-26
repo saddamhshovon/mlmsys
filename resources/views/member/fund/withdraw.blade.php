@@ -5,6 +5,9 @@
 @section('content')
 
 <!-- Page Heading -->
+@php
+$notice = DB::table('notices')->first();
+@endphp
 <marquee width="49%" class="text-primary text-center" direction="left" height="20px">
     {{isset($notice->withdraw_notice) ? $notice->withdraw_notice : "We are here to remove poverty from society with some income facilities."}}
 </marquee>
@@ -24,21 +27,24 @@
                     </div>
                     @error('amount')
                     <div class="form-group">
-                        <h1 class="h6 pl-3 text-danger" role="alert">{{ $message }}</h1>
+                        <h1 class="h6 pl-3 text-danger" role="alert">{{$message}}</h1>
                     </div>
                     @enderror
                     <div class="mb-3">
-                        <label for="mobile_banking_system" class="form-label">Mobile Banking<span class="text-danger">*</span></label>
-                        <select class="form-control" aria-label="Select Mobile Banking Service" id="exampleMobileBanking" placeholder="Mobile Banking Service" name="mobile_banking_service" required>
+                        <label for="mobile_banking_system" class="form-label">Mobile Banking<span
+                                class="text-danger">*</span></label>
+                        <select class="form-control" aria-label="Select Mobile Banking Service"
+                            id="exampleMobileBanking" placeholder="Mobile Banking Service" name="mobile_banking_service"
+                            required>
                             <option selected value="" disabled>Select</option>
                             @foreach ($mobiles as $mobile)
-                            <option value="{{ $mobile->name }}">{{ $mobile->name }}</option>
+                                <option value="{{ $mobile->name }}">{{ $mobile->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     @error('mobile_banking_system')
                     <div class="form-group">
-                        <h1 class="h6 pl-3 text-danger" role="alert">{{ $message }}</h1>
+                        <h1 class="h6 pl-3 text-danger" role="alert">{{$message}}</h1>
                     </div>
                     @enderror
                     <div class="mb-3">
@@ -47,20 +53,20 @@
                     </div>
                     @error('pin')
                     <div class="form-group">
-                        <h1 class="h6 pl-3 text-danger" role="alert">{{ $message }}</h1>
+                        <h1 class="h6 pl-3 text-danger" role="alert">{{$message}}</h1>
                     </div>
                     @enderror
                     <div>
                         <button type="submit" class="btn btn-rounded btn-primary">Request</button>
                     </div>
-                    @if (session('success'))
+                    @if(session('success'))
                     <div class="text-center">
-                        <h1 class="h6 pt-3 text-success" role="alert">{{ session('success') }}</h1>
+                        <h1 class="h6 pt-3 text-success" role="alert">{{session('success')}}</h1>
                     </div>
                     @endif
-                    @if (session('failed'))
+                    @if(session('failed'))
                     <div class="text-center">
-                        <h1 class="h6 pt-3 text-danger" role="alert">{{ session('failed') }}</h1>
+                        <h1 class="h6 pt-3 text-danger" role="alert">{{session('failed')}}</h1>
                     </div>
                     @endif
                 </form>

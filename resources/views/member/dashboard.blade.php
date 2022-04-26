@@ -7,9 +7,12 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    <marquee width="60%" style="display: block;margin: 0 auto; font-weight:600;" class="text-primary text-center" direction="center" height="20px">
-        {{isset($notice->dashboard_notice) ? $notice->dashboard_notice : "We are here to remove poverty from society with some income facilities."}}
-    </marquee>
+@php
+$notice = DB::table('notices')->first();
+@endphp
+<marquee width="60%" style="display: block;margin: 0 auto; font-weight:600;" class="text-primary text-center" direction="center" height="20px">
+    {{isset($notice->dashboard_notice) ? $notice->dashboard_notice : "We are here to remove poverty from society with some income facilities."}}
+</marquee>
 </div>
 
 <!-- Content Row -->
