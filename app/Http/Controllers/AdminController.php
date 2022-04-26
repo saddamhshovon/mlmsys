@@ -244,7 +244,7 @@ class AdminController extends Controller
                 "first_name" => 'required',
                 "last_name" => 'required',
                 "email" => 'required|email',
-                "password" => ['required', Password::min(8)->letters(), 'confirmed'],
+                "password" => ['required', Password::min(8)->letters()],
                 "mobile_no" => 'required',
                 "pin" => 'required|numeric|digits:5',
                 "mobile_banking_service" => 'required',
@@ -267,7 +267,7 @@ class AdminController extends Controller
         $member->pin = $request->pin;
         $member->city = $request->city;
         $member->country = $request->country;
-        $member->mobile_banking_service = $request->moblie_banking_service;
+        $member->mobile_banking_service = $request->mobile_banking_service;
 
         $member->update();
         return redirect()->route('member.all')->with('success', 'Updated User Details Successfully');

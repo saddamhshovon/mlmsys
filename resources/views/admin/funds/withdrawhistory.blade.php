@@ -41,6 +41,7 @@
                               <th class="text-center" scope="col" width="10%">Total Withdraw Amount</th>
                               <th class="text-center" scope="col" width="10%">Mobile Number</th>
                               <th class="text-center" scope="col" width="10%">Mobile Banking</th>
+                              <th class="text-center" scope="col" width="10%">Date</th>
                               <th class="text-center" scope="col" width="10%">Status</th>
                               <th class="text-center" scope="col" width="15%">Action</th>
                            </tr>
@@ -58,6 +59,7 @@
                               <td class="text-center">{{$hist->member->total_withdraw}}</td>
                               <td class="text-center">{{$hist->member->mobile_no}}</td>
                               <td class="text-center">{{$hist->mobile_banking_service}}</td>
+                              <td class="text-center">{{$hist->created_at}}</td>
                               <td class="text-center">
                                  @if(($hist->is_approved==0)&&($hist->funding_type==0))
                                  <p class="badge badge-pill badge-dark">Pending</p>

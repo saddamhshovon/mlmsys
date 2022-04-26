@@ -338,7 +338,7 @@ class FundController extends Controller
     {
         $request->validate([
             "amount" => 'required|numeric',
-            "mobile_banking_system" => 'required',
+            "mobile_banking_service" => 'required',
             "trx_id" => 'required',
             "pin" => 'required|numeric',
         ]);
@@ -354,7 +354,7 @@ class FundController extends Controller
             $fund = new Fund();
             $fund->user_name = $member[0]->user_name;
             $fund->amount = $request->amount;
-            $fund->mobile_banking_service = $request->mobile_banking_system;
+            $fund->mobile_banking_service = $request->mobile_banking_service;
             $fund->trx_id = $request->trx_id;
             $fund->funding_type = 1;
             $fund->save();

@@ -14,7 +14,7 @@ class AddTaxToFundsTable extends Migration
     public function up()
     {
         Schema::table('funds', function (Blueprint $table) {
-            $table->float('tax');
+            $table->float('tax')->nullable();
         });
     }
 
