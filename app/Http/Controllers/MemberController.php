@@ -109,6 +109,9 @@ class MemberController extends Controller
             ->where('user_name', $request->placement_id)
             ->first();
 
+        ////placement/////
+        $totalGenIncome = Generation::sum('income');
+
         ////check referrar's balance/////
         if ($refarral->account_balance < $balance->amount) {
             return back()->with('placement_id', "The referrar doesn't have enough balance.")->withInput();
@@ -156,10 +159,18 @@ class MemberController extends Controller
             ////add referral income history to the icome table/////
             DB::table('incomes')
                 ->insert([
+                    [
                     'user_name' => $request->referral_id,
                     'income_type' => 'Referral',
                     'amount' => $referral_income->amount,
                     'created_at' => Carbon::now(),
+                    ], 
+                    [
+                    'user_name' => $request->user_name,
+                    'income_type' => 'New User',
+                    'amount' => $balance->amount - $referral_income->amount - $totalGenIncome,
+                    'created_at' => Carbon::now(),
+                    ]
                 ]);
 
             ////update placement's hands/////
@@ -438,11 +449,11 @@ class MemberController extends Controller
         foreach ($children as $child) {
             if (isset($child->team)) {
                 $hasTeam++;
-                $hasTeamLabel += [$child->team];
+                $hasTeamLabel[] = $child->team;
             }
         }
 
-        $defaultTeams = array_diff($defaultTeams, $hasTeamLabel);
+        $defaultTeams = array_values(array_diff($defaultTeams, $hasTeamLabel));
         // dd($defaultTeams);
         return view('member.team.teams', compact('children', 'defaultTeams', 'parent', 'hasTeam'));
     }

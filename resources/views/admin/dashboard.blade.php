@@ -18,7 +18,7 @@
     $totalTransferFunds = DB::table('transfer_funds')->sum('tax');
     $tax = DB::table("tax_on_withdraw")->first();
     $tax = isset($tax->tax) ? $tax->tax : 0;
-    $totalWithdrawFunds = DB::table('funds')->where('funding_type',0)->sum('amount');
+    $totalWithdrawFunds = DB::table('funds')->where('funding_type',0)->where('is_approved',1)->sum('amount');
     $totalWithdrawFunds = $totalWithdrawFunds*10/(100+$tax);
     @endphp
 

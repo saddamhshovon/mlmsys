@@ -25,7 +25,7 @@ class CreateMembersTable extends Migration
             $table->string('country');
             $table->string('password');
             $table->string('pin');
-            $table->integer('account_balance')->default(0);
+            $table->float('account_balance')->default(0);
             $table->string('membership_type');
             $table->string('referral_id')->nullable();
             $table->string('placement_id')->nullable();

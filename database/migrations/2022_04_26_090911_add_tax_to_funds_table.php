@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIncomesTable extends Migration
+class AddTaxToFundsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateIncomesTable extends Migration
      */
     public function up()
     {
-        Schema::create('incomes', function (Blueprint $table) {
-            $table->id();
-            $table->string('user_name');
-            $table->string('income_type');
-            $table->float('amount')->default(0);
-            $table->timestamps();
+        Schema::table('funds', function (Blueprint $table) {
+            $table->float('tax');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateIncomesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('incomes');
+        Schema::table('funds', function (Blueprint $table) {
+            $table->dropColumn('tax');
+        });
     }
 }
