@@ -342,8 +342,10 @@ class AdminController extends Controller
 
     public function addMember()
     {
+        $mobiles = MobileBanking::get();
+        $types = MembershipType::get();
         $countries = Country::all();
-        return view('admin.member-manage.add', compact('countries'));
+        return view('admin.member-manage.add', compact('countries', 'mobiles', 'types'));
     }
 
     public function addFundToUserView()
@@ -370,5 +372,25 @@ class AdminController extends Controller
         } else {
             return redirect()->back()->with('failed', 'Invalid Username..Please Enter a valid Username');
         }
+    }
+
+    public function teamTree($id)
+    {
+        // dd(session('MEMBER_USER_NAME'));
+        $parent = DB::table('members')
+            ->select('user_name', 'has_children')
+            ->where([
+                'id' => $id
+            ])
+            ->first();
+        // dd($parent->user_name);
+        $children = DB::table('members')
+            ->select('id', 'user_name', 'has_children', 'team')
+            ->where([
+                'placement_id' => $parent->user_name
+            ])
+            ->get();
+        // dd($child);
+        return view('admin.member-manage.tree', compact('parent', 'children'));
     }
 }

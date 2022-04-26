@@ -9,17 +9,10 @@
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
 </div>
 
-<!-- $re['daily'][$value] = Revenue::where('channel',$value)->whereDate('created_at',date('Y-m-d'))->sum('amount');
-$re['weekly'][$value] = Revenue::where('channel',$value)->whereBetween('date', [
-Carbon::parse('last monday')->startOfDay(),
-Carbon::parse('next friday')->endOfDay(),
-])->sum('amount');
-$re['monthly'][$value] = Revenue::where('channel',$value)->whereMonth('created_at',date('m'))->sum('amount');
-$re['yearly'][$value] = Revenue::where('channel',$value)->whereYear('created_at',date('Y'))->sum('amount'); -->
-
 <!-- Content Row -->
 <div class="row">
     @php
+    use Carbon\Carbon;
     $totalUsers = DB::table('members')->count();
     $totalTransferFunds = DB::table('transfer_funds')->sum('tax');
     $tax = DB::table("tax_on_withdraw")->first();
@@ -30,6 +23,25 @@ $re['yearly'][$value] = Revenue::where('channel',$value)->whereYear('created_at'
     $totalRegIncome = DB::table('incomes')->where('income_type','New User')->sum('amount');
 
     $dailyIncomeTransfer = DB::table('transfer_funds')->whereDate('created_at',date('Y-m-d'))->sum('tax');
+    $dailyIncomeWithdraw = DB::table('funds')->where('funding_type',0)->where('is_approved',1)->whereDate('created_at',date('Y-m-d'))->sum('tax');
+    $dailyIncomeReg = DB::table('incomes')->where('income_type','New User')->whereDate('created_at',date('Y-m-d'))->sum('amount');
+    
+    $weeklyIncomeTransfer = DB::table('transfer_funds')->whereBetween('created_at', [
+        Carbon::parse('last saturday')->startOfDay(),
+        Carbon::parse('next thursday')->endOfDay(),
+    ])->sum('tax');
+    $weeklyIncomeWithdraw = DB::table('funds')->where('funding_type',0)->where('is_approved',1)->whereBetween('created_at', [
+        Carbon::parse('last saturday')->startOfDay(),
+        Carbon::parse('next thursday')->endOfDay(),
+    ])->sum('tax');
+    $weeklyIncomeReg = DB::table('incomes')->where('income_type','New User')->whereBetween('created_at', [
+        Carbon::parse('last saturday')->startOfDay(),
+        Carbon::parse('next thursday')->endOfDay(),
+    ])->sum('amount');
+    
+    $monthlyIncomeTransfer = DB::table('transfer_funds')->whereMonth('created_at',date('m'))->sum('tax');
+    $monthlyIncomeWithdraw = DB::table('funds')->where('funding_type',0)->where('is_approved',1)->whereMonth('created_at',date('m'))->sum('tax');
+    $monthlyIncomeReg = DB::table('incomes')->where('income_type','New User')->whereMonth('created_at',date('m'))->sum('amount');
     @endphp
 
     <!-- Earnings (Monthly) Card Example -->
@@ -153,7 +165,7 @@ $re['yearly'][$value] = Revenue::where('channel',$value)->whereYear('created_at'
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Daily Income</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$dailyIncomeTransfer}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$dailyIncomeTransfer+$dailyIncomeWithdraw+$dailyIncomeReg}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -169,7 +181,7 @@ $re['yearly'][$value] = Revenue::where('channel',$value)->whereYear('created_at'
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Weekly Income</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $weeklyIncomeTransfer+$weeklyIncomeWithdraw+$weeklyIncomeReg }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -185,7 +197,7 @@ $re['yearly'][$value] = Revenue::where('channel',$value)->whereYear('created_at'
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Monthly Income</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $monthlyIncomeTransfer+$monthlyIncomeWithdraw+$monthlyIncomeReg }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>

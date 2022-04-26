@@ -51,7 +51,7 @@
                            @foreach($history as $hist)
                            <tr class="">
                               <td class="text-center sorting_1">{{$i++}}</td>
-                              <td class="text-center"><a href="{{route('member.show',$hist->member->id)}}">{{$hist->user_name}}</a></td>
+                              <td class="text-center"><a href="{{route('admin.team.tree',$hist->member->id)}}">{{$hist->user_name}}</a></td>
                               <td class="text-center">{{ $hist->member->rank }}</td>
                               <td class="text-center">{{$hist->amount}}</td>
                               <td class="text-center">{{$hist->member->withdraw_count}}</td>

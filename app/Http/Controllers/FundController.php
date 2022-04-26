@@ -246,12 +246,14 @@ class FundController extends Controller
             ->first();
 
         $sender = DB::table('members')
-            ->select('user_name', 'account_balance', 'pin')
             ->where([
                 'id' => session()->get('MEMBER_ID')
             ])
             ->get();
         // dd($sender);
+        if($sender[0]->is_expired == 1 || $sender[0]->is_active == 0 || $sender[0]->is_blocked == 1){
+            return back()->with('failed', 'You are not eligible to transfer fund.');
+        }
         if ($request->user_name != $sender[0]->user_name) {
             if ($sender[0]->account_balance > ($request->amount + ($request->amount * $tax->tax / 100))) {
                 if ($sender[0]->pin == $request->pin) {
@@ -379,7 +381,6 @@ class FundController extends Controller
         ]);
 
         $member = DB::table('members')
-            ->select('user_name', 'account_balance', 'pin', 'has_children', 'rank')
             ->where([
                 'id' => session()->get('MEMBER_ID')
             ])
@@ -390,6 +391,10 @@ class FundController extends Controller
             ->first();
         $rank = Rank::where('withdraw_rank', 1)->first();
         
+        if($member[0]->is_expired == 1 || $member[0]->is_active == 0 || $member[0]->is_blocked == 1){
+            return back()->with('failed', 'You are not eligible to transfer fund.');
+        }
+
         if ($member[0]->has_children >= $rank->min_user) {
             if ($member[0]->account_balance > $request->amount + ($request->amount * $tax->tax/100)) {
                 if ($member[0]->pin == $request->pin) {
