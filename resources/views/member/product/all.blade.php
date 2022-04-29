@@ -29,10 +29,10 @@
       @foreach($products->chunk(4) as $prods)
       <div class="row m-2">
          @foreach($prods as $prod)
-         <div class="col col-md-3 col-sm-12 px-2 py-1">
+         <div class="px-2 py-1 col-12 col-lg-3 col-md-3 col-sm-12">
             <div class="card" style="color:rgba(0, 0, 0,0.8);">
                <div class="m-2">
-                  <img src="{{asset($prod->product_image)}}" class="card-img-top" alt="...">
+                  <img src="{{asset($prod->product_image)}}" height=120px class="card-img-top" alt="...">
                   <div class="text-center">
                      <h5 class="pt-1 card-title"><strong>{{$prod->product_name}}</strong></h5>
                      <p>Category: {{$prod->product_category}}</p>

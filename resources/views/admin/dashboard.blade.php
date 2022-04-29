@@ -25,20 +25,20 @@
     $dailyIncomeTransfer = DB::table('transfer_funds')->whereDate('created_at',date('Y-m-d'))->sum('tax');
     $dailyIncomeWithdraw = DB::table('funds')->where('funding_type',0)->where('is_approved',1)->whereDate('created_at',date('Y-m-d'))->sum('tax');
     $dailyIncomeReg = DB::table('incomes')->where('income_type','New User')->whereDate('created_at',date('Y-m-d'))->sum('amount');
-    
+
     $weeklyIncomeTransfer = DB::table('transfer_funds')->whereBetween('created_at', [
-        Carbon::parse('last saturday')->startOfDay(),
-        Carbon::parse('next thursday')->endOfDay(),
+    Carbon::parse('last saturday')->startOfDay(),
+    Carbon::parse('next thursday')->endOfDay(),
     ])->sum('tax');
     $weeklyIncomeWithdraw = DB::table('funds')->where('funding_type',0)->where('is_approved',1)->whereBetween('created_at', [
-        Carbon::parse('last saturday')->startOfDay(),
-        Carbon::parse('next thursday')->endOfDay(),
+    Carbon::parse('last saturday')->startOfDay(),
+    Carbon::parse('next thursday')->endOfDay(),
     ])->sum('tax');
     $weeklyIncomeReg = DB::table('incomes')->where('income_type','New User')->whereBetween('created_at', [
-        Carbon::parse('last saturday')->startOfDay(),
-        Carbon::parse('next thursday')->endOfDay(),
+    Carbon::parse('last saturday')->startOfDay(),
+    Carbon::parse('next thursday')->endOfDay(),
     ])->sum('amount');
-    
+
     $monthlyIncomeTransfer = DB::table('transfer_funds')->whereMonth('created_at',date('m'))->sum('tax');
     $monthlyIncomeWithdraw = DB::table('funds')->where('funding_type',0)->where('is_approved',1)->whereMonth('created_at',date('m'))->sum('tax');
     $monthlyIncomeReg = DB::table('incomes')->where('income_type','New User')->whereMonth('created_at',date('m'))->sum('amount');
