@@ -34,6 +34,7 @@
                         <thead>
                            <tr role="row">
                               <th class="text-center" scope="col" width="5%">SL</th>
+                              <th class="text-center" scope="col" width="10%">Username</th>
                               <th class="text-center" scope="col" width="35%">Product Name</th>
                               <th class="text-center" scope="col" width="10%">Code</th>
                               <th class="text-center" scope="col" width="10%">Price</th>
@@ -47,6 +48,7 @@
                            @foreach($history as $hist)
                            <tr class="">
                               <td class="text-center sorting_1">{{$i++}}</td>
+                              <td class="text-center">{{isset($hist->member->user_name)?$hist->member->user_name:'Null'}}</td>
                               <td class="text-center">{{isset($hist->product->product_name)?$hist->product->product_name:'Null'}}</td>
                               <td class="text-center">{{isset($hist->product->product_code)?$hist->product->product_code:'Null'}}</td>
                               <td class="text-center">{{$hist->price}}</td>
