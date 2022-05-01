@@ -47,10 +47,10 @@
                            @foreach($history as $hist)
                            <tr class="">
                               <td class="text-center sorting_1">{{$i++}}</td>
-                              <td class="text-center">{{$hist->product->product_name}}</td>
-                              <td class="text-center">{{$hist->product->product_code}}</td>
+                              <td class="text-center">{{isset($hist->product->product_name)?$hist->product->product_name:'Null'}}</td>
+                              <td class="text-center">{{isset($hist->product->product_code)?$hist->product->product_code:'Null'}}</td>
                               <td class="text-center">{{$hist->price}}</td>
-                              <td class="text-center">{{$hist->product->product_category}}</td>
+                              <td class="text-center">{{isset($hist->product->product_category)?$hist->product->product_category:'Null'}}</td>
                               <td class="text-center">
                                  @if($hist->is_delivered==0)
                                  <a href="{{route('product.order.approve',$hist->id)}}" class="badge badge-pill badge-dark">Pending</a>
