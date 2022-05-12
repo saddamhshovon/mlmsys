@@ -235,6 +235,13 @@
             </li>
             <hr class="sidebar-divider d-none d-md-block">
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('support.all.message')}}">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Supports</span>
+                </a>
+            </li>
+
             <!-- leaderboards -->
             <li class="nav-item {{  Request::routeIs('admin.leaderboard') ? 'active' : ''  }}">
                 <a class="nav-link" href="{{ route('admin.leaderboard')}}">
