@@ -37,6 +37,17 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
+                                        @php
+                                            $homestart = DB::table('homestarts')->first();
+                                        @endphp
+                                        <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                                            href="#">
+                                            <div class="sidebar-brand-icon">
+                                                <img class="rounded-circle" width="50" height="50"
+                                                    src="{{ isset($homestart->image) ? asset($homestart->image) : 'https://cdn.pixabay.com/photo/2017/11/16/09/25/bitcoin-2953851_1280.png' }}"
+                                                    alt="">
+                                            </div>
+                                        </a>
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <form class="user" action="{{route('auth')}}" method="POST">

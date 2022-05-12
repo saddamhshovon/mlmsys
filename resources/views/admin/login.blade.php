@@ -12,8 +12,10 @@
     <title>Login</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -37,23 +39,39 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
+                                        @php
+                                            $homestart = DB::table('homestarts')->first();
+                                        @endphp
+                                        <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                                            href="#">
+                                            <div class="sidebar-brand-icon">
+                                                <img class="rounded-circle" width="50" height="50"
+                                                    src="{{ isset($homestart->image) ? asset($homestart->image) : 'https://cdn.pixabay.com/photo/2017/11/16/09/25/bitcoin-2953851_1280.png' }}"
+                                                    alt="">
+                                            </div>
+                                        </a>
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <form action="{{ route('admin.auth') }}" method="post" class="user">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email" require>
+                                            <input type="email" class="form-control form-control-user"
+                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                                placeholder="Enter Email Address..." name="email" require>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" name="password" placeholder="Password" require>
+                                            <input type="password" class="form-control form-control-user"
+                                                id="exampleInputPassword" name="password" placeholder="Password"
+                                                require>
                                         </div>
-                                        <button class="btn btn-primary btn-user btn-block" type="submit">Sign in</button>
-                                        @if(session('error'))
-                                        <div class="text-center">
-                                        <h1 class="border-bottom-danger shadow btn-user mt-3" role="alert">
-                                            {{ session('error') }}
-                                        </h1>
-                                        </div>
+                                        <button class="btn btn-primary btn-user btn-block" type="submit">Sign
+                                            in</button>
+                                        @if (session('error'))
+                                            <div class="text-center">
+                                                <h1 class="border-bottom-danger shadow btn-user mt-3" role="alert">
+                                                    {{ session('error') }}
+                                                </h1>
+                                            </div>
                                         @endif
                                     </form>
                                 </div>

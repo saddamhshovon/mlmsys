@@ -34,6 +34,16 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
+                                @php
+                                    $homestart = DB::table('homestarts')->first();
+                                @endphp
+                                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                                    <div class="sidebar-brand-icon">
+                                        <img class="rounded-circle" width="50" height="50"
+                                            src="{{ isset($homestart->image) ? asset($homestart->image) : 'https://cdn.pixabay.com/photo/2017/11/16/09/25/bitcoin-2953851_1280.png' }}"
+                                            alt="">
+                                    </div>
+                                </a>
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
                             <form class="user" action="{{ route('register.member') }}" method="POST">
@@ -90,13 +100,12 @@
                                 @enderror
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control"
-                                            id="exampleInputPassword" placeholder="Password" name="password" required>
+                                        <input type="password" class="form-control" id="exampleInputPassword"
+                                            placeholder="Password" name="password" required>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password"
-                                            name="password_confirmation" required>
+                                        <input type="password" class="form-control" id="exampleRepeatPassword"
+                                            placeholder="Repeat Password" name="password_confirmation" required>
                                     </div>
                                 </div>
                                 @error('password')
@@ -130,9 +139,9 @@
                                         id="exampleMobileBanking" placeholder="Mobile Banking Service"
                                         name="mobile_banking_service" required>
                                         <option selected value="" disabled>Mobile Banking Service</option>
-                                        @foreach($mobiles as $mobile)
+                                        @foreach ($mobiles as $mobile)
                                             <option value="{{ $mobile->name }}">{{ $mobile->name }}</option>
-                                            @endforeach
+                                        @endforeach
                                     </select>
                                 </div>
                                 @error('mobile_banking_service')
@@ -194,7 +203,8 @@
                                 @enderror
                                 @if (session('placement_id'))
                                     <div class="form-group">
-                                        <h1 class="h6 pl-3 text-danger" role="alert">{{ session('placement_id') }}</h1>
+                                        <h1 class="h6 pl-3 text-danger" role="alert">{{ session('placement_id') }}
+                                        </h1>
                                     </div>
                                 @endif
                                 <button id="memberRegisterBtn" type="submit" class="btn btn-primary btn-user btn-block">
