@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification;
 
 class WithdrawFundNotification extends Notification
 {
-    use Queueable;
+    // use Queueable;
     private $fund;
 
     /**
