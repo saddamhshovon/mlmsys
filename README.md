@@ -6,7 +6,7 @@ A multilevel marketing system app built using laravel.
 
 Follow the instruction below sequentially,
 
-- Clone the project 
+- Clone the project
 
 ```sh
 git clone https://github.com/saddamhshovon/mlmsys.git
