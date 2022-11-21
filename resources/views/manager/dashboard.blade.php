@@ -61,8 +61,8 @@
 
     <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
         <a class="navbar-brand me-lg-5" href="../../index.html">
-            <img class="navbar-brand-dark" src="../../assets/img/brand/light.svg" alt="Volt logo" /> <img
-                class="navbar-brand-light" src="../../assets/img/brand/dark.svg" alt="Volt logo" />
+            <img class="navbar-brand-dark" src="{{ asset('v2/assets/img/brand/light.svg') }}" alt="Volt logo" /> <img
+                class="navbar-brand-light" src="{{ asset('v2/assets/img/brand/dark.svg') }}" alt="Volt logo" />
         </a>
         <div class="d-flex align-items-center">
             <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse"
@@ -79,21 +79,27 @@
                 class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
                 <div class="d-flex align-items-center">
                     <div class="avatar-lg me-4">
-                        <img src="../../assets/img/team/profile-picture-3.jpg"
+                        <img src="{{ asset('v2/assets/img/team/profile-picture-3.jpg') }}"
                             class="card-img-top rounded-circle border-white" alt="Bonnie Green">
                     </div>
                     <div class="d-block">
                         <h2 class="h5 mb-3">Hi, Jane</h2>
-                        <a href="../../pages/examples/sign-in.html"
-                            class="btn btn-secondary btn-sm d-inline-flex align-items-center">
-                            <svg class="icon icon-xxs me-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                                </path>
-                            </svg>
-                            Sign Out
-                        </a>
+                        <form action="{{ route('manager.logout') }}" method="POST">
+                            @csrf
+                            
+                            <a href="{{ route('manager.logout') }}"
+                                class="btn btn-secondary btn-sm d-inline-flex align-items-center"
+                                onclick="event.preventDefault();
+                                this.closest('form').submit();">
+                                <svg class="icon icon-xxs me-1" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                    </path>
+                                </svg>
+                                Sign Out
+                            </a>
+                        </form>
                     </div>
                 </div>
                 <div class="collapse-close d-md-none">
@@ -112,7 +118,7 @@
                 <li class="nav-item">
                     <a href="../../index.html" class="nav-link d-flex align-items-center">
                         <span class="sidebar-icon">
-                            <img src="../../assets/img/brand/light.svg" height="20" width="20"
+                            <img src="{{ asset('v2/assets/img/brand/light.svg') }}" height="20" width="20"
                                 alt="Volt Logo">
                         </span>
                         <span class="mt-1 ms-1 sidebar-text">Volt Overview</span>
@@ -390,7 +396,7 @@
                 <li class="nav-item">
                     <a href="https://themesberg.com" target="_blank" class="nav-link d-flex align-items-center">
                         <span class="sidebar-icon">
-                            <img src="../../assets/img/themesberg.svg" height="20" width="28"
+                            <img src="{{ asset('v2/assets/img/themesberg.svg') }}" height="20" width="28"
                                 alt="Themesberg Logo">
                         </span>
                         <span class="sidebar-text">Themesberg</span>
@@ -460,7 +466,7 @@
                                             <div class="col-auto">
                                                 <!-- Avatar -->
                                                 <img alt="Image placeholder"
-                                                    src="../../assets/img/team/profile-picture-1.jpg"
+                                                    src="{{ asset('v2/assets/img/team/profile-picture-1.jpg') }}"
                                                     class="avatar-md rounded">
                                             </div>
                                             <div class="col ps-0 ms-2">
@@ -482,7 +488,7 @@
                                             <div class="col-auto">
                                                 <!-- Avatar -->
                                                 <img alt="Image placeholder"
-                                                    src="../../assets/img/team/profile-picture-2.jpg"
+                                                    src="{{ asset('v2/assets/img/team/profile-picture-2.jpg') }}"
                                                     class="avatar-md rounded">
                                             </div>
                                             <div class="col ps-0 ms-2">
@@ -504,7 +510,7 @@
                                             <div class="col-auto">
                                                 <!-- Avatar -->
                                                 <img alt="Image placeholder"
-                                                    src="../../assets/img/team/profile-picture-3.jpg"
+                                                    src="{{ asset('v2/assets/img/team/profile-picture-3.jpg') }}"
                                                     class="avatar-md rounded">
                                             </div>
                                             <div class="col ps-0 m-2">
@@ -526,7 +532,7 @@
                                             <div class="col-auto">
                                                 <!-- Avatar -->
                                                 <img alt="Image placeholder"
-                                                    src="../../assets/img/team/profile-picture-4.jpg"
+                                                    src="{{ asset('v2/assets/img/team/profile-picture-4.jpg') }}"
                                                     class="avatar-md rounded">
                                             </div>
                                             <div class="col ps-0 ms-2">
@@ -548,7 +554,7 @@
                                             <div class="col-auto">
                                                 <!-- Avatar -->
                                                 <img alt="Image placeholder"
-                                                    src="../../assets/img/team/profile-picture-5.jpg"
+                                                    src="{{ asset('v2/assets/img/team/profile-picture-5.jpg') }}"
                                                     class="avatar-md rounded">
                                             </div>
                                             <div class="col ps-0 ms-2">
@@ -583,7 +589,7 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="media d-flex align-items-center">
                                     <img class="avatar rounded-circle" alt="Image placeholder"
-                                        src="../../assets/img/team/profile-picture-3.jpg">
+                                        src="{{ asset('v2/assets/img/team/profile-picture-3.jpg') }}">
                                     <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                                         <span class="mb-0 font-small fw-bold text-gray-900">Bonnie Green</span>
                                     </div>
@@ -627,15 +633,23 @@
                                     Support
                                 </a>
                                 <div role="separator" class="dropdown-divider my-1"></div>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <svg class="dropdown-icon text-danger me-2" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                                        </path>
-                                    </svg>
-                                    Logout
-                                </a>
+                                <form action="{{ route('manager.logout') }}" method="POST">
+                                    @csrf
+
+                                    <a class="dropdown-item d-flex align-items-center"
+                                        href="{{ route('manager.logout') }}"
+                                        onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                                        <svg class="dropdown-icon text-danger me-2" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                            </path>
+                                        </svg>
+                                        Logout
+                                    </a>
+                                </form>
                             </div>
                         </li>
                     </ul>
@@ -1018,7 +1032,7 @@
                                                 <!-- Avatar -->
                                                 <a href="#" class="avatar">
                                                     <img class="rounded" alt="Image placeholder"
-                                                        src="../../assets/img/team/profile-picture-1.jpg">
+                                                        src="{{ asset('v2/assets/img/team/profile-picture-1.jpg') }}">
                                                 </a>
                                             </div>
                                             <div class="col-auto ms--2">
@@ -1050,7 +1064,7 @@
                                                 <!-- Avatar -->
                                                 <a href="#" class="avatar">
                                                     <img class="rounded" alt="Image placeholder"
-                                                        src="../../assets/img/team/profile-picture-2.jpg">
+                                                        src="{{ asset('v2/assets/img/team/profile-picture-2.jpg') }}">
                                                 </a>
                                             </div>
                                             <div class="col-auto ms--2">
@@ -1082,7 +1096,7 @@
                                                 <!-- Avatar -->
                                                 <a href="#" class="avatar">
                                                     <img class="rounded" alt="Image placeholder"
-                                                        src="../../assets/img/team/profile-picture-3.jpg">
+                                                        src="{{ asset('v2/assets/img/team/profile-picture-3.jpg') }}">
                                                 </a>
                                             </div>
                                             <div class="col-auto ms--2">
@@ -1114,7 +1128,7 @@
                                                 <!-- Avatar -->
                                                 <a href="#" class="avatar">
                                                     <img class="rounded" alt="Image placeholder"
-                                                        src="../../assets/img/team/profile-picture-4.jpg">
+                                                        src="{{ asset('v2/assets/img/team/profile-picture-4.jpg') }}">
                                                 </a>
                                             </div>
                                             <div class="col-auto ms--2">
@@ -1452,10 +1466,11 @@
                     <a class="me-3"
                         href="https://themesberg.com/product/admin-dashboard/volt-bootstrap-5-dashboard"
                         target="_blank">
-                        <img src="../../assets/img/technologies/bootstrap-5-logo.svg" class="image image-xs">
+                        <img src="{{ asset('v2/assets/img/technologies/bootstrap-5-logo.svg') }}"
+                            class="image image-xs">
                     </a>
                     <a href="https://demo.themesberg.com/volt-react-dashboard/#/" target="_blank">
-                        <img src="../../assets/img/technologies/react-logo.svg" class="image image-xs">
+                        <img src="{{ asset('v2/assets/img/technologies/react-logo.svg') }}" class="image image-xs">
                     </a>
                 </div>
             </div>
