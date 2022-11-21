@@ -307,3 +307,5 @@ Route::group(['middleware' => 'member_auth'], function () {
 
 
 /////////////              USER RELATED ROUTE END                ///////////
+
+require __DIR__.'/manager/auth.php';
